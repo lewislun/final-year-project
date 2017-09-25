@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class TileBehaviour : MonoBehaviour {
 
+	#region Children Names ---------------------------------------
+
+	public static string LINKED_GROWING_BORDER = "Linked Growing Border";
+	public static string CHARACTER = "Character";
+	public static string TILE_BACKGROUND = "Tile Background";
+
+	#endregion
+
 	#region Public Variables ------------------------------------
 
 	public float dropAcceleration;
@@ -19,6 +27,8 @@ public class TileBehaviour : MonoBehaviour {
 	private Vector2 currentSpeed = Vector2.zero;
 	private Vector2 expectedPos;
 
+	GameObject tileBackground;
+
 	RectTransform mRectTransform;
 	Animator mAnimator;
 
@@ -33,7 +43,7 @@ public class TileBehaviour : MonoBehaviour {
 			return _isLinked;
 		}
 		set {
-			transform.FindChild("Linked Growing Border").gameObject.SetActive(value);
+			transform.FindChild(LINKED_GROWING_BORDER).gameObject.SetActive(value);
 			_isLinked = value;
 		}
 	}
@@ -70,6 +80,19 @@ public class TileBehaviour : MonoBehaviour {
 		}
 	}
 
+	public Color backgroundColor {
+		get {
+			if (tileBackground == null)
+				tileBackground = transform.FindChild(TILE_BACKGROUND).gameObject;
+			return tileBackground.GetComponent<TileBackgroundBehaviour>().backgroundColor;
+		}
+		set {
+			if (tileBackground == null)
+				tileBackground = transform.FindChild(TILE_BACKGROUND).gameObject;
+			tileBackground.GetComponent<TileBackgroundBehaviour>().backgroundColor = value;
+		}
+	}
+
 	#endregion
 
 
@@ -82,6 +105,8 @@ public class TileBehaviour : MonoBehaviour {
 
 		mRectTransform = GetComponent<RectTransform>();
 		mAnimator = GetComponent<Animator>();
+
+		tileBackground = transform.FindChild(TILE_BACKGROUND).gameObject;
 	}
 
 	void FixedUpdate() {
@@ -152,7 +177,7 @@ public class TileBehaviour : MonoBehaviour {
 	#endregion
 
 
-	#region Animation ------------------------------------------
+	#region Animation -------------------------------------------
 
 	public void PlayMergeAnimation() {
 		mAnimator.Play("merging");
@@ -160,6 +185,11 @@ public class TileBehaviour : MonoBehaviour {
 
 	void PlaySlaveMergeAnimation() {
 		mAnimator.Play("slaveMerging");
+	}
+
+	public void testMerge() {
+		mAnimator.SetBool("shouldMergeRight",true);
+		mAnimator.SetBool("shouldMergeLeft", true);
 	}
 
 	#endregion

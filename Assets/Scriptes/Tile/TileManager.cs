@@ -129,17 +129,15 @@ public class TileManager : MonoBehaviour {
 			GameObject newTile = Instantiate(tilePrefab, transform);
 			newTile.name = row + "" + col + " Tile";
 
-			SpriteRenderer tileBackground = newTile.transform.Find("Tile Background").GetComponent<SpriteRenderer>();
-			tileBackground.color = tileSpriteInfo.tileColor;
-
-			SpriteRenderer characterSpriteRenderer = newTile.transform.FindChild("Character").GetComponent<SpriteRenderer>();
+			SpriteRenderer characterSpriteRenderer = newTile.transform.FindChild(TileBehaviour.CHARACTER).GetComponent<SpriteRenderer>();
 			characterSpriteRenderer.color = tileSpriteInfo.characterColor;
 			characterSpriteRenderer.sprite = tileSpriteInfo.characterSprite;
 
-			TileBehaviour newTileInfo = newTile.GetComponent<TileBehaviour>();
-			newTileInfo.character = tileCharacter;
-			newTileInfo.row = row;
-			newTileInfo.col = col;
+			TileBehaviour newTileBehaviour = newTile.GetComponent<TileBehaviour>();
+			newTileBehaviour.backgroundColor = tileSpriteInfo.tileColor;
+			newTileBehaviour.character = tileCharacter;
+			newTileBehaviour.row = row;
+			newTileBehaviour.col = col;
 
 			RectTransform newRT = newTile.GetComponent<RectTransform>();
 			switch (GetDropSection(row, col)) {

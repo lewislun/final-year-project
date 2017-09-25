@@ -9,7 +9,7 @@ public class TileBackgroundBehaviour : MonoBehaviour {
 	static string TOP_LEFT = "Top Left";
 	static string TOP_RIGHT = "Top Right";
 	static string BOTTOM_LEFT = "Bottom Left";
-	static string BOTTOM_RIGHT = "Bottom RIght";
+	static string BOTTOM_RIGHT = "Bottom Right";
 
 	#endregion
 
@@ -19,6 +19,7 @@ public class TileBackgroundBehaviour : MonoBehaviour {
 	Color _backgroundColor;
 	public Color backgroundColor {
 		set {
+			ChangeBackgroundColor(value);
 			_backgroundColor = value;
 		}
 		get {
@@ -29,22 +30,14 @@ public class TileBackgroundBehaviour : MonoBehaviour {
 	#endregion
 
 
-	#region Private Variables ---------------------------------- 
-
-
-	#endregion
-
-
-	#region MonoBehaviour Functions ----------------------------
-
-	void Start() {
-
-	}
-
-	#endregion
-
 	void ChangeBackgroundColor(Color color) {
 
+		GetComponent<SpriteRenderer>().color = color;
+
+		transform.FindChild(TOP_LEFT).GetComponent<SpriteRenderer>().color = color;
+		transform.FindChild(TOP_RIGHT).GetComponent<SpriteRenderer>().color = color;
+		transform.FindChild(BOTTOM_LEFT).GetComponent<SpriteRenderer>().color = color;
+		transform.FindChild(BOTTOM_RIGHT).GetComponent<SpriteRenderer>().color = color;
 	}
 
 }

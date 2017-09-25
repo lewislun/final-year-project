@@ -6,7 +6,7 @@ public class LinkController : MonoBehaviour {
 
 	#region Children Names ---------------------------------------
 
-	static string LINK_FLARE_NAME = "Link Flare";
+	static string LINK_FLARE = "Link Flare";
 
 	#endregion
 
@@ -34,7 +34,7 @@ public class LinkController : MonoBehaviour {
 
 	void Start() {
 
-		linkFlare = transform.FindChild(LinkController.LINK_FLARE_NAME).gameObject;
+		linkFlare = transform.FindChild(LinkController.LINK_FLARE).gameObject;
 		mLineRenderer = GetComponent<LineRenderer>();
 
 		mLineRenderer.enabled = false;
@@ -209,7 +209,7 @@ public class LinkController : MonoBehaviour {
 		return ((maxRow - minRow + 1) * (maxCol - minCol + 1) == linkedTiles.Count);
 	}
 
-	void MergeLinkedTiles() {
+	void MergeLinkedTiles2() {
 
 		TileBehaviour masterTileBehaviour = linkedTiles[linkedTiles.Count - 1].GetComponent<TileBehaviour>();
 		masterTileBehaviour.PlayMergeAnimation();
@@ -222,6 +222,18 @@ public class LinkController : MonoBehaviour {
 				tileBehaviour.row,
 				tileBehaviour.col
 			);
+		}
+		TileManager.GetInstance().Drop();
+	}
+
+	void MergeLinkedTiles() {
+
+		//TileBehaviour masterTileBehaviour = linkedTiles[linkedTiles.Count - 1].GetComponent<TileBehaviour>();
+		//masterTileBehaviour.PlayMergeAnimation();
+
+		for (int i = 0; i < linkedTiles.Count; i++) {
+			TileBehaviour tileBehaviour = linkedTiles[i].GetComponent<TileBehaviour>();
+			tileBehaviour.testMerge();
 		}
 		TileManager.GetInstance().Drop();
 	}
