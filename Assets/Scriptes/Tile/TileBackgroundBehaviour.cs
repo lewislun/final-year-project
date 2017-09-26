@@ -83,6 +83,9 @@ public class TileBackgroundBehaviour : MonoBehaviour {
 
 	public void Merge(bool shouldMergeLeft, bool shouldMergeRight, bool shouldMergeTop, bool shouldMergeBottom) {
 
+		if (ongoingMerge != null)
+			StopCoroutine(ongoingMerge);
+
 		Vector2[] cornerDisplacement = {new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
 
 		if (shouldMergeLeft) {
@@ -102,10 +105,10 @@ public class TileBackgroundBehaviour : MonoBehaviour {
 			cornerDisplacement[3].y = -cornerMoveDistance;
 		}
 
-		ongoingMerge = StartCoroutine(MergeRoutine(cornerDisplacement));
+		ongoingMerge = StartCoroutine(MergeCoroutine(cornerDisplacement));
 	}
 
-	IEnumerator MergeRoutine(Vector2[] cornerDisplacement) {
+	IEnumerator MergeCoroutine(Vector2[] cornerDisplacement) {
 
 		List<Vector2> expectedPos = new List<Vector2>();
 		List<Vector2> startPos = new List<Vector2>();

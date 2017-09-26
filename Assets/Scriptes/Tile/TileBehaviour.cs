@@ -29,6 +29,7 @@ public class TileBehaviour : MonoBehaviour {
 	GameObject tileBackground;
 
 	TileBackgroundBehaviour mTileBackgroundBehaviour;
+	TileCharacterBehaviour mTileCharacterBehaviour;
 	RectTransform mRectTransform;
 	Animator mAnimator;
 
@@ -128,6 +129,7 @@ public class TileBehaviour : MonoBehaviour {
 		mRectTransform = GetComponent<RectTransform>();
 		mAnimator = GetComponent<Animator>();
 		mTileBackgroundBehaviour = tileBackground.GetComponent<TileBackgroundBehaviour>();
+		mTileCharacterBehaviour = transform.FindChild(CHARACTER).GetComponent<TileCharacterBehaviour>();
 	}
 
 	void FixedUpdate() {
@@ -211,6 +213,7 @@ public class TileBehaviour : MonoBehaviour {
 	public void Merge(Vector2 centerPos, bool mergeLeft, bool mergeRight, bool mergeTop, bool mergeBottom) {
 		isMerged = true;
 		mergedCenterPos = centerPos;
+		mTileCharacterBehaviour.MoveTo(centerPos);
 		mTileBackgroundBehaviour.Merge(mergeLeft, mergeRight, mergeTop, mergeBottom);
 	}
 

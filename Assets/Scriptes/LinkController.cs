@@ -264,8 +264,7 @@ public class LinkController : MonoBehaviour {
 		Vector2 sum = new Vector2(0, 0);
 
 		foreach (GameObject go in linkedTiles) {
-			TileBehaviour tileBehaviour = go.GetComponent<TileBehaviour>();
-			sum += tileBehaviour.GetComponent<RectTransform>().anchoredPosition;
+			sum += new Vector2(go.transform.position.x, go.transform.position.y);
 		}
 
 		return sum / linkedTiles.Count;
