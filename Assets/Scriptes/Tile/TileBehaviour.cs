@@ -29,6 +29,7 @@ public class TileBehaviour : MonoBehaviour {
 
 	GameObject tileBackground;
 
+	TileBackgroundBehaviour mTileBackgroundBehaviour;
 	RectTransform mRectTransform;
 	Animator mAnimator;
 
@@ -103,10 +104,11 @@ public class TileBehaviour : MonoBehaviour {
 		if (!tileManager)
 			Debug.Log("TileManager not found. (TileBehaviour)");
 
+		tileBackground = transform.FindChild(TILE_BACKGROUND).gameObject;
+
 		mRectTransform = GetComponent<RectTransform>();
 		mAnimator = GetComponent<Animator>();
-
-		tileBackground = transform.FindChild(TILE_BACKGROUND).gameObject;
+		mTileBackgroundBehaviour = tileBackground.GetComponent<TileBackgroundBehaviour>();
 	}
 
 	void FixedUpdate() {
@@ -188,8 +190,7 @@ public class TileBehaviour : MonoBehaviour {
 	}
 
 	public void testMerge() {
-		mAnimator.SetBool("shouldMergeRight",true);
-		mAnimator.SetBool("shouldMergeLeft", true);
+		mTileBackgroundBehaviour.Merge(true, true, true, true);
 	}
 
 	#endregion
