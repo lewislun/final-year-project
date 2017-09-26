@@ -16,7 +16,6 @@ public class TileBehaviour : MonoBehaviour {
 
 	public float dropAcceleration;
 	public int dropSection;
-	//public float dropBaseSpeed;
 
 	#endregion
 
@@ -38,6 +37,16 @@ public class TileBehaviour : MonoBehaviour {
 
 	#region Public Properties -----------------------------------
 
+	Vector2 _mergedCenterPos = new Vector2(0, 0);
+	public Vector2 mergedCenterPos {
+		get {
+			return _mergedCenterPos;
+		}
+		private set {
+			_mergedCenterPos = value;
+		}
+	}
+
 	bool _isLinked = false;
 	public bool isLinked {
 		get {
@@ -46,6 +55,16 @@ public class TileBehaviour : MonoBehaviour {
 		set {
 			transform.FindChild(LINKED_GROWING_BORDER).gameObject.SetActive(value);
 			_isLinked = value;
+		}
+	}
+
+	bool _isMerged = false;
+	public bool isMerged {
+		get {
+			return _isMerged;
+		}
+		private set {
+			_isMerged = value;
 		}
 	}
 
@@ -189,8 +208,10 @@ public class TileBehaviour : MonoBehaviour {
 		mAnimator.Play("slaveMerging");
 	}
 
-	public void testMerge() {
-		mTileBackgroundBehaviour.Merge(true, true, true, true);
+	public void Merge(Vector2 cnterPos, bool mergeLeft, bool mergeRight, bool mergeTop, bool mergeBottom) {
+		isMerged = true;
+		mergedCenterPos = centerPos;
+		mTileBackgroundBehaviour.Merge(mergeLeft, mergeRight, mergeTop, mergeBottom);
 	}
 
 	#endregion

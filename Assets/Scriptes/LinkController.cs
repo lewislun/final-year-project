@@ -172,7 +172,7 @@ public class LinkController : MonoBehaviour {
 	#endregion
 
 
-	#region Post Link Actions ----------------------------------------------
+	#region Merging -------------------------------------------------------
 
 	bool AreAllCharactersSame(string str) {
 		if (str.Length < 2)
@@ -196,6 +196,9 @@ public class LinkController : MonoBehaviour {
 		foreach (GameObject go in linkedTiles) {
 			TileBehaviour tileBehaviour = go.GetComponent<TileBehaviour>();
 
+			if (tileBehaviour.isMerged)
+				return false;
+
 			if (tileBehaviour.row < minRow)
 				minRow = tileBehaviour.row;
 			if (tileBehaviour.row > maxRow)
@@ -209,7 +212,7 @@ public class LinkController : MonoBehaviour {
 		return ((maxRow - minRow + 1) * (maxCol - minCol + 1) == linkedTiles.Count);
 	}
 
-	void MergeLinkedTiles2() {
+	void MergeLinkedTilesOld() {
 
 		TileBehaviour masterTileBehaviour = linkedTiles[linkedTiles.Count - 1].GetComponent<TileBehaviour>();
 		masterTileBehaviour.PlayMergeAnimation();
@@ -226,17 +229,51 @@ public class LinkController : MonoBehaviour {
 		TileManager.GetInstance().Drop();
 	}
 
-	void MergeLinkedTiles() {
+	void MergeLinkedTiles() { //should move this func to TileManager?
 
-		//TileBehaviour masterTileBehaviour = linkedTiles[linkedTiles.Count - 1].GetComponent<TileBehaviour>();
-		//masterTileBehaviour.PlayMergeAnimation();
+		int minRow = TileManager.GetInstance().rowCount;
+		int minCol = TileManager.GetInstance().colCount;
+		int maxRow = 0;
+		int maxCol = 0;
+
+		foreach (GameObject go in linkedTiles) {
+			TileBehaviour tileBehaviour = go.GetComponent<TileBehaviour>();
+
+			if (tileBehaviour.row < minRow)
+				minRow = tileBehaviour.row;
+			if (tileBehaviour.row > maxRow)
+				maxRow = tileBehaviour.row;
+			if (tileBehaviour.col < minCol)
+				minCol = tileBehaviour.col;
+			if (tileBehaviour.col > maxCol)
+				maxCol = tileBehaviour.col;
+		}
 
 		for (int i = 0; i < linkedTiles.Count; i++) {
 			TileBehaviour tileBehaviour = linkedTiles[i].GetComponent<TileBehaviour>();
-			tileBehaviour.testMerge();
+			bool mergeRight = tileBehaviour.col + 1 <= maxCol;
+			bool mergeLeft = tileBehaviour.col - 1 >= minCol;
+			bool mergeBottom = tileBehaviour.row + 1 <= maxRow;
+			bool mergeTop = tileBehaviour.row - 1 >= minRow;
+			tileBehaviour.Merge(calculateMergedCenterPos(), mergeLeft, mergeRight, mergeTop, mergeBottom);
 		}
-		TileManager.GetInstance().Drop();
 	}
+
+	Vector2 calculateMergedCenterPos() {
+
+		Vector2 sum = new Vector2(0, 0);
+
+		foreach (GameObject go in linkedTiles) {
+			TileBehaviour tileBehaviour = go.GetComponent<TileBehaviour>();
+			sum += tileBehaviour.GetComponent<RectTransform>().anchoredPosition;
+		}
+
+		return sum / linkedTiles.Count;
+	}
+
+	#endregion
+
+	#region Post-Link Actions ----------------------------------------------
 
 	public string getLinkedWord() {
 		string str = "";
