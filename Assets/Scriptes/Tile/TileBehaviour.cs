@@ -208,7 +208,7 @@ public class TileBehaviour : MonoBehaviour {
 		mAnimator.Play("slaveMerging");
 	}
 
-	public void Merge(Vector2 cnterPos, bool mergeLeft, bool mergeRight, bool mergeTop, bool mergeBottom) {
+	public void Merge(Vector2 centerPos, bool mergeLeft, bool mergeRight, bool mergeTop, bool mergeBottom) {
 		isMerged = true;
 		mergedCenterPos = centerPos;
 		mTileBackgroundBehaviour.Merge(mergeLeft, mergeRight, mergeTop, mergeBottom);
