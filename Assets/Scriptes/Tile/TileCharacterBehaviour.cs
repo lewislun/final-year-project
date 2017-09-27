@@ -33,6 +33,10 @@ public class TileCharacterBehaviour : MonoBehaviour {
 		ongingMovement = StartCoroutine(MoveCoroutine(targetPos));
 	}
 
+	public void MoveToOriginalPos() {
+		ongingMovement = StartCoroutine(MoveCoroutine(originalPos));
+	}
+
 	IEnumerator MoveCoroutine(Vector2 targetPos) {
 		Vector2 startPos = transform.position;
 		float timePassed = 0;

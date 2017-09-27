@@ -331,14 +331,6 @@ public class TileManager : MonoBehaviour {
 
 	}
 
-	public void MergeTiles(int masterRow, int masterCol, int slaveRow, int slaveCol) {
-		if (tiles[masterRow][masterCol] == null || tiles[slaveRow][slaveCol] == null)
-			return;
-
-		tiles[slaveRow][slaveCol].GetComponent<TileBehaviour>().MergeAndDestroy(tiles[masterRow][masterCol]);
-		tiles[slaveRow][slaveCol] = null;
-	}
-
 	#endregion
 
 

@@ -26,6 +26,8 @@ public class TileBehaviour : MonoBehaviour {
 	private Vector2 currentSpeed = Vector2.zero;
 	private Vector2 expectedPos;
 
+
+
 	GameObject tileBackground;
 
 	TileBackgroundBehaviour mTileBackgroundBehaviour;
@@ -177,38 +179,10 @@ public class TileBehaviour : MonoBehaviour {
 
 	}
 
-	public void MergeAndDestroy(GameObject masterTile) {
-
-		PlaySlaveMergeAnimation();
-
-		StartCoroutine(Merge(masterTile));
-	}
-
-	IEnumerator Merge(GameObject masterTile) {
-		while (true) {
-			//print(mRectTransform.localPosition);
-			expectedPos = masterTile.GetComponent<RectTransform>().anchoredPosition;
-			if (mRectTransform.anchoredPosition == masterTile.GetComponent<RectTransform>().anchoredPosition) {
-				Destroy(gameObject);
-				yield break;
-			}
-			yield return null;
-		}
-
-	}
-
 	#endregion
 
 
-	#region Animation -------------------------------------------
-
-	public void PlayMergeAnimation() {
-		mAnimator.Play("merging");
-	}
-
-	void PlaySlaveMergeAnimation() {
-		mAnimator.Play("slaveMerging");
-	}
+	#region Merge -----------------------------------------------
 
 	public void Merge(Vector2 centerPos, bool mergeLeft, bool mergeRight, bool mergeTop, bool mergeBottom) {
 		isMerged = true;

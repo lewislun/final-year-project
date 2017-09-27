@@ -212,23 +212,6 @@ public class LinkController : MonoBehaviour {
 		return ((maxRow - minRow + 1) * (maxCol - minCol + 1) == linkedTiles.Count);
 	}
 
-	void MergeLinkedTilesOld() {
-
-		TileBehaviour masterTileBehaviour = linkedTiles[linkedTiles.Count - 1].GetComponent<TileBehaviour>();
-		masterTileBehaviour.PlayMergeAnimation();
-
-		for (int i = 0; i < linkedTiles.Count - 1; i++) {
-			TileBehaviour tileBehaviour = linkedTiles[i].GetComponent<TileBehaviour>();
-			TileManager.GetInstance().MergeTiles(
-				masterTileBehaviour.row,
-				masterTileBehaviour.col,
-				tileBehaviour.row,
-				tileBehaviour.col
-			);
-		}
-		TileManager.GetInstance().Drop();
-	}
-
 	void MergeLinkedTiles() { //should move this func to TileManager?
 
 		int minRow = TileManager.GetInstance().rowCount;
