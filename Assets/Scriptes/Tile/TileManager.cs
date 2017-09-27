@@ -34,6 +34,7 @@ public class TileManager : MonoBehaviour {
 	private Dictionary<string, TileSpriteInfo> tileSpritesDictionary = new Dictionary<string, TileSpriteInfo>();
 	private List<List<Vector2>> tilePos = new List<List<Vector2>>();
 	private List<List<GameObject>> tiles = new List<List<GameObject>>();
+	private List<GameObject> mergedTiles = new List<GameObject>();
 
 	#endregion
 
@@ -231,6 +232,8 @@ public class TileManager : MonoBehaviour {
 
 	public void Drop() {
 
+		UnmergeAllTile();
+
 		int[] tilePosOffset = new int[colCount];
 
 		//section 1
@@ -367,7 +370,19 @@ public class TileManager : MonoBehaviour {
 			bool mergeBottom = tileBehaviour.row + 1 <= maxRow;
 			bool mergeTop = tileBehaviour.row - 1 >= minRow;
 			tileBehaviour.Merge(centerPos, mergedMinPos, mergedMaxPos, linkedTiles, mergeLeft, mergeRight, mergeTop, mergeBottom);
+
+			mergedTiles.Add(linkedTiles[i]);
 		}
+	}
+
+	public void UnmergeAllTile() {
+
+		foreach (GameObject tile in mergedTiles) {
+			if (tile != null)
+				tile.GetComponent<TileBehaviour>().Unmerge();
+		}
+
+		mergedTiles.Clear();
 	}
 
 	Vector2 calculateMergedCenterPos(List<GameObject> linkedTiles) {

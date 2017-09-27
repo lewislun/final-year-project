@@ -91,7 +91,7 @@ public class LinkController : MonoBehaviour {
 				TileBehaviour TileBehaviour = go.GetComponent<TileBehaviour>();
 				TileManager.GetInstance().DestroyTile(TileBehaviour.row, TileBehaviour.col);
 			}
-			TileManager.GetInstance().Drop();
+			tileManager.Drop();
 			
 		}
 
@@ -156,6 +156,7 @@ public class LinkController : MonoBehaviour {
 		else if (prevTouching) {
 			//string str = getLinkedWord();
 			print(linkedStr);
+
 			bool isWordValid = WordChecker.GetInstance().IsWordValid(linkedStr);
 			if (!isWordValid && AreAllCharactersSame(linkedStr) && IsLinkRectangle())
 				tileManager.MergeTiles(linkedTiles);

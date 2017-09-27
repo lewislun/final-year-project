@@ -224,6 +224,12 @@ public class TileBehaviour : MonoBehaviour {
 		mergedMaxPos = maxPos;
 	}
 
+	public void Unmerge() {
+		isMerged = false;
+		mTileBackgroundBehaviour.Unmerge();
+		mTileCharacterBehaviour.MoveToOriginalPos();
+	}
+
 	#endregion
 
 }

@@ -13,15 +13,17 @@ public class TileCharacterBehaviour : MonoBehaviour {
 
 	#region Private Variables ------------------
 
-	private Vector3 originalPos;
+	private Vector3 originalAnchoredPos;
 	private Coroutine ongingMovement = null;
+	private float originalZ;
 
 	#endregion
 
 	#region MonoBehaviour Functions ------------
 
 	void Start() {
-		originalPos = transform.position;
+		originalZ = transform.position.z;
+		originalAnchoredPos = GetComponent<RectTransform>().anchoredPosition;
 	}
 
 	#endregion
@@ -34,7 +36,7 @@ public class TileCharacterBehaviour : MonoBehaviour {
 	}
 
 	public void MoveToOriginalPos() {
-		ongingMovement = StartCoroutine(MoveCoroutine(originalPos));
+		ongingMovement = StartCoroutine(MoveToOriginalPosCoroutine());
 	}
 
 	IEnumerator MoveCoroutine(Vector2 targetPos) {
@@ -44,11 +46,29 @@ public class TileCharacterBehaviour : MonoBehaviour {
 		while (timePassed < moveDuration) {
 			timePassed += Time.deltaTime;
 			Vector2 tempV2 = Vector2.Lerp(startPos, targetPos, moveCurve.Evaluate(timePassed / moveDuration));
-			transform.position = new Vector3(tempV2.x, tempV2.y, originalPos.z);
+			transform.position = new Vector3(tempV2.x, tempV2.y, originalZ);
 			yield return new WaitForFixedUpdate();
 		}
 
-		transform.position = new Vector3(targetPos.x, targetPos.y, originalPos.z);
+		transform.position = new Vector3(targetPos.x, targetPos.y, originalZ);
+		ongingMovement = null;
+	}
+
+	IEnumerator MoveToOriginalPosCoroutine() {
+
+		RectTransform rectTransform = GetComponent<RectTransform>();
+
+		Vector2 startPos = rectTransform.anchoredPosition;
+		float timePassed = 0;
+
+		while (timePassed < moveDuration) {
+			timePassed += Time.deltaTime;
+			Vector2 tempV2 = Vector2.Lerp(startPos, originalAnchoredPos, moveCurve.Evaluate(timePassed / moveDuration));
+			rectTransform.anchoredPosition = new Vector3(tempV2.x, tempV2.y, originalZ);
+			yield return new WaitForFixedUpdate();
+		}
+
+		rectTransform.anchoredPosition = new Vector3(originalAnchoredPos.x, originalAnchoredPos.y, originalZ);
 		ongingMovement = null;
 	}
 

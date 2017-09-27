@@ -108,6 +108,16 @@ public class TileBackgroundBehaviour : MonoBehaviour {
 		ongoingMerge = StartCoroutine(MergeCoroutine(cornerDisplacement));
 	}
 
+	public void Unmerge() {
+
+		if (ongoingMerge != null)
+			StopCoroutine(ongoingMerge);
+
+		Vector2[] cornerDisplacement = {new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0), new Vector2(0, 0) };
+
+		ongoingMerge = StartCoroutine(MergeCoroutine(cornerDisplacement));
+	}
+
 	IEnumerator MergeCoroutine(Vector2[] cornerDisplacement) {
 
 		List<Vector2> expectedPos = new List<Vector2>();
