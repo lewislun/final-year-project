@@ -45,7 +45,7 @@ public class LinkController : MonoBehaviour {
 		mLineRenderer.enabled = false;
 	}
 
-	void Update() {
+	void FixedUpdate() {
 		UpdateLink();
 	}
 
