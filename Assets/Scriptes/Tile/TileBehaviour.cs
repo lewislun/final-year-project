@@ -26,8 +26,6 @@ public class TileBehaviour : MonoBehaviour {
 	private Vector2 currentSpeed = Vector2.zero;
 	private Vector2 expectedPos;
 
-
-
 	GameObject tileBackground;
 
 	TileBackgroundBehaviour mTileBackgroundBehaviour;
@@ -40,6 +38,16 @@ public class TileBehaviour : MonoBehaviour {
 
 	#region Public Properties -----------------------------------
 
+	List<GameObject> _mergedPeerTiles = null;
+	public List<GameObject> mergedPeerTiles {
+		get {
+			return _mergedPeerTiles;
+		}
+		private set {
+			_mergedPeerTiles = value;
+		}
+	}
+
 	Vector2 _mergedCenterPos = new Vector2(0, 0);
 	public Vector2 mergedCenterPos {
 		get {
@@ -47,6 +55,26 @@ public class TileBehaviour : MonoBehaviour {
 		}
 		private set {
 			_mergedCenterPos = value;
+		}
+	}
+
+	Vector2 _mergedMinPos = new Vector2(0, 0);
+	public Vector2 mergedMinPos {
+		get {
+			return _mergedMinPos;
+		}
+		private set {
+			_mergedMinPos = value;
+		}
+	}
+
+	Vector2 _mergedMaxPos = new Vector2(0, 0);
+	public Vector2 mergedMaxPos {
+		get {
+			return _mergedMaxPos;
+		}
+		private set {
+			_mergedMaxPos = value;
 		}
 	}
 
@@ -184,11 +212,16 @@ public class TileBehaviour : MonoBehaviour {
 
 	#region Merge -----------------------------------------------
 
-	public void Merge(Vector2 centerPos, bool mergeLeft, bool mergeRight, bool mergeTop, bool mergeBottom) {
+	public void Merge(Vector2 centerPos, Vector2 minPos, Vector2 maxPos, List<GameObject> peerTiles, bool mergeLeft, bool mergeRight, bool mergeTop, bool mergeBottom) {
+
 		isMerged = true;
-		mergedCenterPos = centerPos;
 		mTileCharacterBehaviour.MoveTo(centerPos);
 		mTileBackgroundBehaviour.Merge(mergeLeft, mergeRight, mergeTop, mergeBottom);
+
+		mergedPeerTiles = new List<GameObject>(peerTiles);
+		mergedCenterPos = centerPos;
+		mergedMinPos = minPos;
+		mergedMaxPos = maxPos;
 	}
 
 	#endregion

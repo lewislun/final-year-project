@@ -22,10 +22,13 @@ public class LinkController : MonoBehaviour {
 
 	private List<GameObject> linkedTiles = new List<GameObject>();
 	private bool prevTouching = false;
+	private TileManager tileManager;
 
 	private GameObject linkFlare;
 
 	private LineRenderer mLineRenderer;
+
+	private string linkedStr = "";
 
 	#endregion
 
@@ -33,6 +36,8 @@ public class LinkController : MonoBehaviour {
 	#region MonoBehaviour Functions --------------------------------------
 
 	void Start() {
+
+		tileManager = TileManager.GetInstance();
 
 		linkFlare = transform.FindChild(LinkController.LINK_FLARE).gameObject;
 		mLineRenderer = GetComponent<LineRenderer>();
@@ -76,6 +81,10 @@ public class LinkController : MonoBehaviour {
 
 	void DestroyLink(bool shouldDestroyLinkedTiles) {
 
+		foreach (GameObject go in linkedTiles) {
+			go.GetComponent<TileBehaviour>().isLinked = false;
+		}
+
 		if (shouldDestroyLinkedTiles) {
 			
 			foreach (GameObject go in linkedTiles) {
@@ -90,25 +99,6 @@ public class LinkController : MonoBehaviour {
 		linkedTiles.Clear();
 	}
 
-	bool IsTileLinkable(GameObject go) {
-		if (linkedTiles.Count == 0)
-			return true;
-
-		TileBehaviour tileBehaviour = go.GetComponent<TileBehaviour>();
-
-		int rowDiff = 0;
-		int colDiff = 0;
-
-		if (linkedTiles.Count > 0) {
-			TileBehaviour lastTileInfo = linkedTiles[linkedTiles.Count - 1].GetComponent<TileBehaviour>();
-			rowDiff = tileBehaviour.row - lastTileInfo.row;
-			colDiff = tileBehaviour.col - lastTileInfo.col;
-		}
-
-		return (Mathf.Abs(rowDiff) <= 1 && Mathf.Abs(colDiff) <= 1);
-
-	}
-
 	void LinkTile(GameObject tile) {
 
 		if (linkedTiles.Count == 0) {
@@ -117,11 +107,24 @@ public class LinkController : MonoBehaviour {
 		}
 
 		TileBehaviour tileBehaviour = tile.GetComponent<TileBehaviour>();
+		Vector2 linkAnchor;
 
-		linkedTiles.Add(tile);
-		tileBehaviour.isLinked = true;
+		if (tileBehaviour.isMerged) {
+			foreach (GameObject peerTile in tileBehaviour.mergedPeerTiles) {
+				linkedTiles.Add(peerTile);
+				peerTile.GetComponent<TileBehaviour>().isLinked = true;
+			}
+			linkAnchor = tileBehaviour.mergedCenterPos;
+		}
+		else {
+			linkedTiles.Add(tile);
+			tileBehaviour.isLinked = true;
+			linkAnchor = new Vector2(tile.transform.position.x, tile.transform.position.y);
+		}
 
-		mLineRenderer.SetPosition(mLineRenderer.numPositions-1, new Vector3(tile.transform.position.x, tile.transform.position.y, linkZPos));
+		linkedStr += tileBehaviour.character;
+
+		mLineRenderer.SetPosition(mLineRenderer.numPositions-1, new Vector3(linkAnchor.x, linkAnchor.y, linkZPos));
 		mLineRenderer.numPositions++;
 	}
 
@@ -140,20 +143,25 @@ public class LinkController : MonoBehaviour {
 				if (hit && hit.collider.gameObject.tag == TagsManager.TILE && !hit.collider.transform.parent.GetComponent<TileBehaviour>().isLinked) {
 
 					GameObject tile = hit.collider.transform.parent.gameObject;
-					if (IsTileLinkable(tile)) 
+
+					if (IsTileAdjacentToLastTile(tile)) {
 						LinkTile(tile);
+					}
+						
 				}
 			}
 			SetLinkTailFollowTouch(touchPos);
 		}
 		//end linking
 		else if (prevTouching) {
-			string str = getLinkedWord();
-			print(str);
-			bool isWordValid = WordChecker.GetInstance().IsWordValid(str);
-			if (!isWordValid && AreAllCharactersSame(str) && IsLinkRectangle())
-				MergeLinkedTiles();
+			//string str = getLinkedWord();
+			print(linkedStr);
+			bool isWordValid = WordChecker.GetInstance().IsWordValid(linkedStr);
+			if (!isWordValid && AreAllCharactersSame(linkedStr) && IsLinkRectangle())
+				tileManager.MergeTiles(linkedTiles);
 			DestroyLink(isWordValid);
+
+			linkedStr = "";
 		}
 
 		prevTouching = isTouching;
@@ -172,7 +180,7 @@ public class LinkController : MonoBehaviour {
 	#endregion
 
 
-	#region Merging -------------------------------------------------------
+	#region Checking -------------------------------------------------------
 
 	bool AreAllCharactersSame(string str) {
 		if (str.Length < 2)
@@ -212,59 +220,25 @@ public class LinkController : MonoBehaviour {
 		return ((maxRow - minRow + 1) * (maxCol - minCol + 1) == linkedTiles.Count);
 	}
 
-	void MergeLinkedTiles() { //should move this func to TileManager?
+	bool IsTileAdjacentToLastTile(GameObject tile) {
+		if (linkedTiles.Count == 0)
+			return true;
 
-		int minRow = TileManager.GetInstance().rowCount;
-		int minCol = TileManager.GetInstance().colCount;
-		int maxRow = 0;
-		int maxCol = 0;
+		TileBehaviour tileBehaviour = tile.GetComponent<TileBehaviour>();
+		TileBehaviour lastTileBehaviour = linkedTiles[linkedTiles.Count - 1].GetComponent<TileBehaviour>();
 
-		foreach (GameObject go in linkedTiles) {
-			TileBehaviour tileBehaviour = go.GetComponent<TileBehaviour>();
+		if (lastTileBehaviour.isMerged) {
+			Vector2 topLeftCorner = new Vector2(lastTileBehaviour.mergedMinPos.x - 1, lastTileBehaviour.mergedMinPos.y - 1);
+			Vector2 bottomRightCorner = new Vector2(lastTileBehaviour.mergedMaxPos.x + 1, lastTileBehaviour.mergedMaxPos.y + 1);
 
-			if (tileBehaviour.row < minRow)
-				minRow = tileBehaviour.row;
-			if (tileBehaviour.row > maxRow)
-				maxRow = tileBehaviour.row;
-			if (tileBehaviour.col < minCol)
-				minCol = tileBehaviour.col;
-			if (tileBehaviour.col > maxCol)
-				maxCol = tileBehaviour.col;
+			return tileBehaviour.row >= topLeftCorner.x && tileBehaviour.row <= bottomRightCorner.x && tileBehaviour.col >= topLeftCorner.y && tileBehaviour.col <= bottomRightCorner.y;
 		}
+		else {
+			int rowDiff = tileBehaviour.row - lastTileBehaviour.row;
+			int colDiff = tileBehaviour.col - lastTileBehaviour.col;
 
-		for (int i = 0; i < linkedTiles.Count; i++) {
-			TileBehaviour tileBehaviour = linkedTiles[i].GetComponent<TileBehaviour>();
-			bool mergeRight = tileBehaviour.col + 1 <= maxCol;
-			bool mergeLeft = tileBehaviour.col - 1 >= minCol;
-			bool mergeBottom = tileBehaviour.row + 1 <= maxRow;
-			bool mergeTop = tileBehaviour.row - 1 >= minRow;
-			tileBehaviour.Merge(calculateMergedCenterPos(), mergeLeft, mergeRight, mergeTop, mergeBottom);
+			return (Mathf.Abs(rowDiff) <= 1 && Mathf.Abs(colDiff) <= 1);
 		}
-	}
-
-	Vector2 calculateMergedCenterPos() {
-
-		Vector2 sum = new Vector2(0, 0);
-
-		foreach (GameObject go in linkedTiles) {
-			sum += new Vector2(go.transform.position.x, go.transform.position.y);
-		}
-
-		return sum / linkedTiles.Count;
-	}
-
-	#endregion
-
-	#region Post-Link Actions ----------------------------------------------
-
-	public string getLinkedWord() {
-		string str = "";
-		foreach (GameObject go in linkedTiles) {
-			TileBehaviour TileBehaviour = go.GetComponent<TileBehaviour>();
-			TileBehaviour.isLinked = false;
-			str += TileBehaviour.character.ToUpper();
-		}
-		return str;
 	}
 
 	#endregion

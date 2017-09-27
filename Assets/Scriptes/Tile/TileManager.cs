@@ -208,7 +208,7 @@ public class TileManager : MonoBehaviour {
 	#endregion
 
 
-	#region Drop, Merge and Destroy Tiles ---------------------------------------
+	#region Drop and Destroy Tiles ---------------------------------------
 
 	//1 = down, 2 = left, 3 = up, 4 = right
 	public int GetDropSection(int row, int col) {
@@ -333,6 +333,55 @@ public class TileManager : MonoBehaviour {
 
 	#endregion
 
+
+	#region Merge -------------------------------------------------------
+
+	public void MergeTiles(List<GameObject> linkedTiles) { 
+
+		int minRow = rowCount;
+		int minCol = colCount;
+		int maxRow = 0;
+		int maxCol = 0;
+
+		foreach (GameObject go in linkedTiles) {
+			TileBehaviour tileBehaviour = go.GetComponent<TileBehaviour>();
+
+			if (tileBehaviour.row < minRow)
+				minRow = tileBehaviour.row;
+			if (tileBehaviour.row > maxRow)
+				maxRow = tileBehaviour.row;
+			if (tileBehaviour.col < minCol)
+				minCol = tileBehaviour.col;
+			if (tileBehaviour.col > maxCol)
+				maxCol = tileBehaviour.col;
+		}
+
+		Vector2 centerPos = calculateMergedCenterPos(linkedTiles);
+		Vector2 mergedMinPos = new Vector2(minRow, minCol);
+		Vector2 mergedMaxPos = new Vector2(maxRow, maxCol);
+
+		for (int i = 0; i < linkedTiles.Count; i++) {
+			TileBehaviour tileBehaviour = linkedTiles[i].GetComponent<TileBehaviour>();
+			bool mergeRight = tileBehaviour.col + 1 <= maxCol;
+			bool mergeLeft = tileBehaviour.col - 1 >= minCol;
+			bool mergeBottom = tileBehaviour.row + 1 <= maxRow;
+			bool mergeTop = tileBehaviour.row - 1 >= minRow;
+			tileBehaviour.Merge(centerPos, mergedMinPos, mergedMaxPos, linkedTiles, mergeLeft, mergeRight, mergeTop, mergeBottom);
+		}
+	}
+
+	Vector2 calculateMergedCenterPos(List<GameObject> linkedTiles) {
+
+		Vector2 sum = new Vector2(0, 0);
+
+		foreach (GameObject go in linkedTiles) {
+			sum += new Vector2(go.transform.position.x, go.transform.position.y);
+		}
+
+		return sum / linkedTiles.Count;
+	}
+
+	#endregion
 
 	public static TileManager GetInstance() {
 		return GameObject.Find("Tiles Container").GetComponent<TileManager>();
