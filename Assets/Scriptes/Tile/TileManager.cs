@@ -398,6 +398,26 @@ public class TileManager : MonoBehaviour {
 
 	#endregion
 
+
+	#region Other Tiles Operation ---------------------------------------
+
+	public void ExchangeTiles(int aRow, int aCol, int bRow, int bCol) {
+		TileBehaviour aTileBehaviour = tiles[aRow][aCol].GetComponent<TileBehaviour>();
+		TileBehaviour bTileBehaviour = tiles[bRow][bCol].GetComponent<TileBehaviour>();
+
+		aTileBehaviour.row = bRow;
+		aTileBehaviour.col = bCol;
+		bTileBehaviour.row = aRow;
+		bTileBehaviour.col = aCol;
+
+		GameObject tempTile = tiles[aRow][aCol];
+		tiles[aRow][aCol] = tiles[bRow][bCol];
+		tiles[bRow][bCol] = tempTile; 
+	}
+
+	#endregion
+
+
 	public static TileManager GetInstance() {
 		return GameObject.Find("Tiles Container").GetComponent<TileManager>();
 	}

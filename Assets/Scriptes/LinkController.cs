@@ -23,6 +23,7 @@ public class LinkController : MonoBehaviour {
 	private List<GameObject> linkedTiles = new List<GameObject>();
 	private bool prevTouching = false;
 	private TileManager tileManager;
+	private TouchManager touchManager;
 
 	private GameObject linkFlare;
 
@@ -38,6 +39,7 @@ public class LinkController : MonoBehaviour {
 	void Start() {
 
 		tileManager = TileManager.GetInstance();
+		touchManager = TouchManager.GetInstance();
 
 		linkFlare = transform.FindChild(LinkController.LINK_FLARE).gameObject;
 		mLineRenderer = GetComponent<LineRenderer>();
@@ -53,24 +55,6 @@ public class LinkController : MonoBehaviour {
 
 
 	#region Link Mechanics -----------------------------------------------
-
-	Vector2 GetTouchPos() {
-
-		Vector2 touchPos = Vector2.zero;
-		bool isTouching = true;
-
-		if (Input.touchCount > 0)
-			touchPos = Input.GetTouch(0).position;
-		else if (Input.GetMouseButton(0))
-			touchPos = Input.mousePosition;
-		else
-			isTouching = false;
-
-		if (isTouching)
-			return Camera.main.ScreenToWorldPoint(touchPos);
-		else
-			return Vector2.zero;
-	}
 
 	void SetLinkTailFollowTouch(Vector2 touchPos) {
 		mLineRenderer.SetPosition(mLineRenderer.numPositions -1, new Vector3(touchPos.x, touchPos.y, linkZPos));
@@ -129,8 +113,8 @@ public class LinkController : MonoBehaviour {
 	}
 
 	void UpdateLink() {
-		Vector2 touchPos = GetTouchPos();
-		bool isTouching = touchPos != Vector2.zero;
+		bool isTouching = touchManager.isTouching && touchManager.touchPriority <= 0;
+		Vector2 touchPos = touchManager.touchPos;
 
 		SetLinkFlareActive(isTouching);
 
@@ -139,19 +123,16 @@ public class LinkController : MonoBehaviour {
 
 			if (!prevTouching || linkedTiles.Count > 0) {
 
-				RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector2.zero);
-				if (hit && hit.collider.gameObject.tag == TagsManager.TILE && !hit.collider.transform.parent.GetComponent<TileBehaviour>().isLinked) {
+				GameObject tile = TouchManager.GetTouchingTile();
 
-					GameObject tile = hit.collider.transform.parent.gameObject;
-
-					if (IsTileAdjacentToLastTile(tile)) {
+				if (tile != null && !tile.GetComponent<TileBehaviour>().isLinked) 
+					if (IsTileAdjacentToLastTile(tile)) 
 						LinkTile(tile);
-					}
-						
-				}
+				
 			}
 			SetLinkTailFollowTouch(touchPos);
 		}
+
 		//end linking
 		else if (prevTouching) {
 			//string str = getLinkedWord();
