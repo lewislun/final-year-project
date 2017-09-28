@@ -120,6 +120,10 @@ public class TileBackgroundBehaviour : MonoBehaviour {
 
 	IEnumerator MergeCoroutine(Vector2[] cornerDisplacement) {
 
+		for (int i = 0; i < 4; i++)
+			if (cornerDisplacement[i] != Vector2.zero)
+				tileCorners[i].SetActive(true);
+
 		List<Vector2> expectedPos = new List<Vector2>();
 		List<Vector2> startPos = new List<Vector2>();
 		for (int i = 0; i < 4; i++) {
@@ -136,8 +140,11 @@ public class TileBackgroundBehaviour : MonoBehaviour {
 			yield return new WaitForFixedUpdate();
 		}
 
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++) {
 			tileCorners[i].GetComponent<RectTransform>().anchoredPosition = expectedPos[i];
+			if (tileCorners[i].GetComponent<RectTransform>().anchoredPosition == cornerOriginalPos[i])
+				tileCorners[i].SetActive(false);
+		}
 
 		ongoingMerge = null;
 		yield break;

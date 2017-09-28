@@ -175,7 +175,6 @@ public class TileBehaviour : MonoBehaviour {
 
 		Vector2 distanceDiff = expectedPos - mRectTransform.anchoredPosition;
 
-
 		if (distanceDiff.y == 0)
 			currentSpeed.y = 0; 
 		else
@@ -185,6 +184,9 @@ public class TileBehaviour : MonoBehaviour {
 			currentSpeed.x = 0;
 		else
 			currentSpeed.x += dropAcceleration * Mathf.Sign(distanceDiff.x) * Time.deltaTime;
+
+		if (distanceDiff == Vector2.zero)
+			return;
 
 		Vector2 tempPos = mRectTransform.anchoredPosition + currentSpeed;
 
