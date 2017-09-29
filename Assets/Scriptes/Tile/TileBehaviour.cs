@@ -109,25 +109,37 @@ public class TileBehaviour : MonoBehaviour {
 		}
 	}
 
-	int _row;
+	int _row = -1;
 	public int row {
 		get {
 			return _row;
 		}
 		set {
 			_row = value;
+			isStable = false;
 			expectedPos = transform.parent.GetComponent<TileManager>().GetTilePos(row, col);
 		}
 	}
 
-	int _col;
+	int _col = -1;
 	public int col {
 		get {
 			return _col;
 		}
 		set {
 			_col = value;
+			isStable = false;
 			expectedPos = transform.parent.GetComponent<TileManager>().GetTilePos(row, col);
+		}
+	}
+
+	bool _isStable = false;
+	public bool isStable {
+		get {
+			return _isStable;
+		}
+		private set {
+			_isStable = value;
 		}
 	}
 
@@ -163,7 +175,8 @@ public class TileBehaviour : MonoBehaviour {
 	}
 
 	void FixedUpdate() {
-		MoveToExpectedPos();
+		if (!isStable)
+			MoveToExpectedPos();
 	}
 
 	#endregion
@@ -185,8 +198,10 @@ public class TileBehaviour : MonoBehaviour {
 		else
 			currentSpeed.x += dropAcceleration * Mathf.Sign(distanceDiff.x) * Time.deltaTime;
 
-		if (distanceDiff == Vector2.zero)
+		if (distanceDiff == Vector2.zero) {
+			isStable = true;
 			return;
+		}
 
 		Vector2 tempPos = mRectTransform.anchoredPosition + currentSpeed;
 
