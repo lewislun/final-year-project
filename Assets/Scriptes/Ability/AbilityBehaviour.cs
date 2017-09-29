@@ -4,6 +4,13 @@ using UnityEngine;
 
 public abstract class AbilityBehaviour : MonoBehaviour {
 
+	#region Children Names -----------------------------------
+
+	public static string ACTIVATING_VISUAL_EFFECTS = "Activating Visual Effects";
+
+	#endregion
+
+
 	#region Public Variables ---------------------------------
 
 	public float cooldown = 10f;
@@ -19,6 +26,7 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 			return _isActivating;
 		}
 		private set {
+			transform.FindChild(ACTIVATING_VISUAL_EFFECTS).gameObject.SetActive(value);
 			_isActivating = value;
 		}
 	}

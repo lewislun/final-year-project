@@ -156,6 +156,15 @@ public class TileBehaviour : MonoBehaviour {
 		}
 	}
 
+	public Color glowingBorderColor {
+		get {
+			return transform.FindChild(LINKED_GROWING_BORDER).GetComponent<SpriteRenderer>().color;
+		}
+		set {
+			transform.FindChild(LINKED_GROWING_BORDER).GetComponent<SpriteRenderer>().color = value;
+		}
+	}
+
 	#endregion
 
 

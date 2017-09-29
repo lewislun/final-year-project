@@ -5,12 +5,21 @@ using UnityEngine;
 
 public class ExchangeAbilityBehaviour : AbilityBehaviour {
 
+	#region Children Names -----------------------------------
+
+	public static string VORTEX_PARTICLE = "Vortex Particle";
+
+	#endregion
+
 
 	#region Public Variables ---------------------------------
 
 	public float animationDuration = 1f;
 	public AnimationCurve diagonalPointCurve;
 	public AnimationCurve animationCurve;
+	public AnimationCurve darkenCurve;
+	public Color selectedTileBorderColor;
+	public GameObject darkenFilter;
 
 	#endregion
 
@@ -18,6 +27,8 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 
 	private GameObject firstTile = null;
 	private GameObject secondTile = null;
+	private Color firstTileBorderColor;
+	private Color secondTileBorderColor;
 
 	private TouchManager touchManager;
 
@@ -35,15 +46,24 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 			return;
 
 		GameObject touchingTile = TouchManager.GetTouchingTile();
+		if (touchingTile == null)
+			return;
 
-		if (touchingTile != null && !touchingTile.GetComponent<TileBehaviour>().isMerged) {
+		TileBehaviour tileBehaviour = touchingTile.GetComponent<TileBehaviour>();
+
+		if (!tileBehaviour.isMerged) {
 			if (firstTile == null) {
 				firstTile = touchingTile;
-				firstTile.GetComponent<TileBehaviour>().isLinked = true;
+				tileBehaviour.isLinked = true;
+				firstTileBorderColor = tileBehaviour.glowingBorderColor;
+				tileBehaviour.glowingBorderColor = selectedTileBorderColor;
+
 			}
 			else if (secondTile == null && touchingTile != firstTile) {
 				secondTile = touchingTile;
 				secondTile.GetComponent<TileBehaviour>().isLinked = true;
+				secondTileBorderColor = tileBehaviour.glowingBorderColor;
+				tileBehaviour.glowingBorderColor = selectedTileBorderColor;
 				StartCoroutine(Exchange());
 			}
 		}
@@ -64,9 +84,11 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 		Vector2 centerPos = (startPos1 + startPos2) / 2;
 		Vector2 relativePos1 = new Vector2(startPos1.x, startPos1.y) - centerPos;
 		Vector2 relativePos2 = new Vector2(startPos2.x, startPos2.y) - centerPos;
-
 		Vector2 diagonalPoint1 = new Vector2(relativePos1.y, relativePos2.x);
 		Vector2 diagonalPoint2 = new Vector2(relativePos2.y, relativePos1.x);
+
+		if (darkenFilter != null)
+			darkenFilter.SetActive(true);
 
 		float timePassed = 0;
 		while (timePassed < animationDuration) {
@@ -77,16 +99,25 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 
 			tempPos1.z = -5;
 			tempPos2.z = -5;
-
 			firstTile.transform.position = tempPos1;
 			secondTile.transform.position = tempPos2;
+
+			if (darkenFilter != null) {
+				Color tempDarkenColor = darkenFilter.GetComponent<SpriteRenderer>().color;
+				tempDarkenColor.a = darkenCurve.Evaluate(timePassed / animationDuration);
+				darkenFilter.GetComponent<SpriteRenderer>().color = tempDarkenColor;
+			}
 
 			yield return new WaitForFixedUpdate();
 		}
 
+		if (darkenFilter != null)
+			darkenFilter.SetActive(false);
 
 		firstTileBehaviour.isLinked = false;
 		secondTileBehaviour.isLinked = false;
+		firstTileBehaviour.glowingBorderColor = firstTileBorderColor;
+		secondTileBehaviour.glowingBorderColor = secondTileBorderColor;
 
 		firstTile.transform.position = startPos2;
 		secondTile.transform.position = startPos1;
@@ -104,14 +135,18 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 	}
 
 	public override void Activate() {
-
 		base.Activate();
-
-
-		
-		//todo: darken all UI
-
+		SetVortexParticleActive(true);
 		touchManager.touchPriority = 1;
 	}
 
+	public override void Deactivate() {
+		base.Deactivate();
+		SetVortexParticleActive(false);
+	}
+
+	void SetVortexParticleActive(bool active) {
+		ParticleSystem.EmissionModule emission = transform.FindChild(VORTEX_PARTICLE).GetComponent<ParticleSystem>().emission;
+		emission.enabled = active;
+	}
 }
