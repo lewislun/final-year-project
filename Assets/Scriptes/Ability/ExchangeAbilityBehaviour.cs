@@ -23,6 +23,7 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 
 	#endregion
 
+
 	#region Private Variables --------------------------------
 
 	private GameObject firstTile = null;
@@ -72,6 +73,8 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 
 	#endregion
 
+
+	#region Visual Effect -------------------------------------
 
 	IEnumerator Exchange() {
 
@@ -124,10 +127,18 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 
 		TileManager.GetInstance().ExchangeTiles(firstTileBehaviour.row, firstTileBehaviour.col, secondTileBehaviour.row, secondTileBehaviour.col);
 
-		touchManager.touchPriority = 0;
 		Deactivate();
 	}
 
+	void SetVortexParticleActive(bool active) {
+		ParticleSystem.EmissionModule emission = transform.FindChild(VORTEX_PARTICLE).GetComponent<ParticleSystem>().emission;
+		emission.enabled = active;
+	}
+
+	#endregion
+
+
+	#region Ability Behaviour ---------------------------------
 
 	protected override void InitAbility() {
 		firstTile = null;
@@ -143,10 +154,8 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 	public override void Deactivate() {
 		base.Deactivate();
 		SetVortexParticleActive(false);
+		touchManager.touchPriority = 0;
 	}
 
-	void SetVortexParticleActive(bool active) {
-		ParticleSystem.EmissionModule emission = transform.FindChild(VORTEX_PARTICLE).GetComponent<ParticleSystem>().emission;
-		emission.enabled = active;
-	}
+	#endregion
 }

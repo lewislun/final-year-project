@@ -122,20 +122,32 @@ public class TileManager : MonoBehaviour {
 		}
 	}
 
-	public void CreateTile(string tileCharacter, int row, int col, int startPosOffset) {
+	void ApplyTileSpriteInfo(GameObject tile, string tileCharacter) {
 
 		TileSpriteInfo tileSpriteInfo = GetTileSpriteInfo(tileCharacter);
+		if (tileSpriteInfo == null) {
+			print("tileSpriteInfo of " + tileCharacter + " does not exist");
+			return;
+		}
 
-		if (tileSpriteInfo != null && tilePrefab) {
+		SpriteRenderer characterSpriteRenderer = tile.transform.FindChild(TileBehaviour.CHARACTER).GetComponent<SpriteRenderer>();
+		characterSpriteRenderer.color = tileSpriteInfo.characterColor;
+		characterSpriteRenderer.sprite = tileSpriteInfo.characterSprite;
+
+		TileBehaviour newTileBehaviour = tile.GetComponent<TileBehaviour>();
+		newTileBehaviour.backgroundColor = tileSpriteInfo.tileColor;
+	}
+
+	public void CreateTile(string tileCharacter, int row, int col, int startPosOffset) {
+
+
+		if (tilePrefab) {
 			GameObject newTile = Instantiate(tilePrefab, transform);
 			newTile.name = row + "" + col + " Tile";
 
-			SpriteRenderer characterSpriteRenderer = newTile.transform.FindChild(TileBehaviour.CHARACTER).GetComponent<SpriteRenderer>();
-			characterSpriteRenderer.color = tileSpriteInfo.characterColor;
-			characterSpriteRenderer.sprite = tileSpriteInfo.characterSprite;
+			ApplyTileSpriteInfo(newTile, tileCharacter);
 
 			TileBehaviour newTileBehaviour = newTile.GetComponent<TileBehaviour>();
-			newTileBehaviour.backgroundColor = tileSpriteInfo.tileColor;
 			newTileBehaviour.character = tileCharacter;
 			newTileBehaviour.row = row;
 			newTileBehaviour.col = col;
@@ -399,7 +411,7 @@ public class TileManager : MonoBehaviour {
 	#endregion
 
 
-	#region Other Tiles Operation ---------------------------------------
+	#region Other Tiles Operations ---------------------------------------
 
 	public void ExchangeTiles(int aRow, int aCol, int bRow, int bCol) {
 		TileBehaviour aTileBehaviour = tiles[aRow][aCol].GetComponent<TileBehaviour>();
@@ -417,6 +429,25 @@ public class TileManager : MonoBehaviour {
 
 	#endregion
 
+
+	#region Tile Transformation ------------------------------------------
+
+	public void TransformTile (GameObject tile, string newCharacter) {
+		TileBehaviour tileBehaviour = tile.GetComponent<TileBehaviour>();
+		if (tileBehaviour.isMerged) {
+			foreach (GameObject peerTile in tileBehaviour.mergedPeerTiles) {
+				ApplyTileSpriteInfo(peerTile, newCharacter);
+				peerTile.GetComponent<TileBehaviour>().character = newCharacter;
+			}
+		}
+		else {
+			ApplyTileSpriteInfo(tile, newCharacter);
+			tileBehaviour.character = newCharacter;
+		}
+
+	}
+
+	#endregion
 
 	public static TileManager GetInstance() {
 		return GameObject.Find("Tiles Container").GetComponent<TileManager>();
