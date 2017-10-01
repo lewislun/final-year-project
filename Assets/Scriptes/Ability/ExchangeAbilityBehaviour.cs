@@ -97,8 +97,10 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 		while (timePassed < animationDuration) {
 			timePassed += Time.deltaTime;
 
-			Vector3 tempPos1 = Vector2.Lerp(startPos1, startPos2, animationCurve.Evaluate(timePassed / animationDuration)) + diagonalPoint1 * diagonalPointCurve.Evaluate(timePassed / animationDuration);
-			Vector3 tempPos2 = Vector2.Lerp(startPos2, startPos1, animationCurve.Evaluate(timePassed / animationDuration)) + diagonalPoint2 * diagonalPointCurve.Evaluate(timePassed / animationDuration);
+			float curveValue = animationCurve.Evaluate(timePassed / animationDuration);
+			float diagonalCurveValue = diagonalPointCurve.Evaluate(timePassed / animationDuration);
+			Vector3 tempPos1 = Vector2.Lerp(startPos1, startPos2, curveValue) + diagonalPoint1 * diagonalCurveValue;
+			Vector3 tempPos2 = Vector2.Lerp(startPos2, startPos1, curveValue) + diagonalPoint2 * diagonalCurveValue;
 
 			tempPos1.z = -5;
 			tempPos2.z = -5;
@@ -147,14 +149,18 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 
 	public override void Activate() {
 		base.Activate();
-		SetVortexParticleActive(true);
-		touchManager.touchPriority = 1;
+
+		if (isActivating) { 
+			SetVortexParticleActive(true);
+			touchManager.touchPriority = 1;
+		}
 	}
 
 	public override void Deactivate() {
 		base.Deactivate();
 		SetVortexParticleActive(false);
 		touchManager.touchPriority = 0;
+		StartCooldown();
 	}
 
 	#endregion

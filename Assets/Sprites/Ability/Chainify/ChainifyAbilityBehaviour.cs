@@ -47,12 +47,16 @@ public class ChainifyAbilityBehaviour : AbilityBehaviour {
 
 	public override void Activate() {
 		base.Activate();
-		touchManager.touchPriority = 1;
+
+		if (isActivating) { 
+			touchManager.touchPriority = 1;
+		}
 	}
 
 	public override void Deactivate() {
 		base.Deactivate();
 		touchManager.touchPriority = 0;
+		StartCooldown();
 	}
 
 	#endregion
