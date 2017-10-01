@@ -105,6 +105,19 @@ public class TileBackgroundBehaviour : MonoBehaviour {
 			cornerDisplacement[3].y = -cornerMoveDistance;
 		}
 
+		BoxCollider2D collider = GetComponent<BoxCollider2D>();
+		float xSizeExpand = 0.75f;
+		float ySizeExpand = 0.75f;
+
+		collider.size = new Vector2(
+				4 + (shouldMergeLeft ? xSizeExpand : 0) + (shouldMergeRight ? xSizeExpand : 0),
+				4 + (shouldMergeTop ? ySizeExpand : 0) + (shouldMergeBottom ? ySizeExpand : 0)
+			);
+		collider.offset = new Vector2(
+				(shouldMergeLeft ? -xSizeExpand/2 : 0) + (shouldMergeRight ? xSizeExpand/2 : 0),
+				(shouldMergeTop ? ySizeExpand/2 : 0) + (shouldMergeBottom ? -ySizeExpand/2 : 0)
+			);
+
 		ongoingMerge = StartCoroutine(MergeCoroutine(cornerDisplacement));
 	}
 

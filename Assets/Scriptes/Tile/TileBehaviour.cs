@@ -12,6 +12,7 @@ public class TileBehaviour : MonoBehaviour {
 
 	#endregion
 
+
 	#region Public Variables ------------------------------------
 
 	public float dropAcceleration;
@@ -30,13 +31,14 @@ public class TileBehaviour : MonoBehaviour {
 
 	TileBackgroundBehaviour mTileBackgroundBehaviour;
 	TileCharacterBehaviour mTileCharacterBehaviour;
+	TileGlowingBorderBehaviour mTileGlowingBorderBehaviour;
 	RectTransform mRectTransform;
 	Animator mAnimator;
 
 	#endregion
 
 
-	#region Public Properties -----------------------------------
+	#region Properties -----------------------------------
 
 	List<GameObject> _mergedPeerTiles = null;
 	public List<GameObject> mergedPeerTiles {
@@ -158,10 +160,10 @@ public class TileBehaviour : MonoBehaviour {
 
 	public Color glowingBorderColor {
 		get {
-			return transform.FindChild(LINKED_GROWING_BORDER).GetComponent<SpriteRenderer>().color;
+			return transform.FindChild(LINKED_GROWING_BORDER).GetComponent<TileGlowingBorderBehaviour>().color;
 		}
 		set {
-			transform.FindChild(LINKED_GROWING_BORDER).GetComponent<SpriteRenderer>().color = value;
+			transform.FindChild(LINKED_GROWING_BORDER).GetComponent<TileGlowingBorderBehaviour>().color = value;
 		}
 	}
 
@@ -181,6 +183,7 @@ public class TileBehaviour : MonoBehaviour {
 		mAnimator = GetComponent<Animator>();
 		mTileBackgroundBehaviour = tileBackground.GetComponent<TileBackgroundBehaviour>();
 		mTileCharacterBehaviour = transform.FindChild(CHARACTER).GetComponent<TileCharacterBehaviour>();
+		mTileGlowingBorderBehaviour = transform.FindChild(LINKED_GROWING_BORDER).GetComponent<TileGlowingBorderBehaviour>();
 	}
 
 	void FixedUpdate() {
@@ -243,6 +246,7 @@ public class TileBehaviour : MonoBehaviour {
 		isMerged = true;
 		mTileCharacterBehaviour.MoveTo(centerPos);
 		mTileBackgroundBehaviour.Merge(mergeLeft, mergeRight, mergeTop, mergeBottom);
+		mTileGlowingBorderBehaviour.MergeBorder(mergeLeft, mergeRight, mergeTop, mergeBottom);
 
 		mergedPeerTiles = new List<GameObject>(peerTiles);
 		mergedCenterPos = centerPos;
@@ -254,6 +258,7 @@ public class TileBehaviour : MonoBehaviour {
 		isMerged = false;
 		mTileBackgroundBehaviour.Unmerge();
 		mTileCharacterBehaviour.MoveToOriginalPos();
+		mTileGlowingBorderBehaviour.MergeBorder(false, false, false, false);
 	}
 
 	#endregion

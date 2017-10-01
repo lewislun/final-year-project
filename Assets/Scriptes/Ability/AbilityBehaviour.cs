@@ -68,7 +68,7 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	protected abstract void InitAbility();
 
 	public virtual void Activate() {
-		if (hasActivatingAbility)
+		if (hasActivatingAbility || isCoolingDown)
 			return;
 		isActivating = true;
 		hasActivatingAbility = true;

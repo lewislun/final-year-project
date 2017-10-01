@@ -39,6 +39,25 @@ public class TileManager : MonoBehaviour {
 	#endregion
 
 
+	#region Properties -------------------------------------
+
+	public Vector2 tileSpacing {
+		get {
+			RectTransform rt = GetComponent<RectTransform>();
+			RectTransform tileRt = tilePrefab.GetComponent<RectTransform>();
+			float totalWidth = tileRt.sizeDelta.x * colCount;
+			float totalHeight = tileRt.sizeDelta.y * rowCount;
+
+			return new Vector2(
+				(rt.sizeDelta.x - totalWidth) / (colCount - 1),
+				(rt.sizeDelta.y - totalHeight) / (rowCount - 1)
+			);
+		}
+	}
+
+	#endregion
+
+
 	#region MonoBehaviour Functions ---------------------------------------------
 
 	public void Start() {
@@ -77,17 +96,12 @@ public class TileManager : MonoBehaviour {
 	}
 
 	Vector2 CalculateTilePos(int row, int col) {
-		RectTransform rt = GetComponent<RectTransform>();
 		RectTransform tileRt = tilePrefab.GetComponent<RectTransform>();
-
-		float totalWidth = tileRt.sizeDelta.x * colCount;
-		float totalHeight = tileRt.sizeDelta.y * rowCount;
-		float spacingX = (rt.sizeDelta.x - totalWidth) / (colCount - 1);
-		float spacingY = (rt.sizeDelta.y - totalHeight) / (rowCount - 1);
+		Vector2 spacing = tileSpacing;
 
 		return new Vector2(
-			(tileRt.sizeDelta.x + spacingX) * col + tileRt.sizeDelta.x/2,
-			0 - (tileRt.sizeDelta.y + spacingY) * row - tileRt.sizeDelta.y/2
+			(tileRt.sizeDelta.x + spacing.x) * col + tileRt.sizeDelta.x/2,
+			0 - (tileRt.sizeDelta.y + spacing.y) * row - tileRt.sizeDelta.y/2
 		);
 
 	}
