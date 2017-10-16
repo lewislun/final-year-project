@@ -45,9 +45,7 @@ public class TileGlowingBorderBehaviour : MonoBehaviour {
 				FindChildren();
 			foreach (GameObject borderPart in borderParts) {
 				borderPart.GetComponent<SpriteRenderer>().color = value;
-				print(borderPart.name);
 			}
-			print(value);
 		}
 	}
 
