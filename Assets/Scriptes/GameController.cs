@@ -34,6 +34,7 @@ public class GameController : MonoBehaviour {
 	public void StartGame(List<string> wordList) {
 		PageNavigationManager.GetInstance().ChangePage("game");
 		wordChecker.wordList = wordList;
+		wordChecker.AddWordList();
 		tileManager.AutoAdjustCharacterWeight(wordList);
 		tileManager.GenerateTiles();
 	}

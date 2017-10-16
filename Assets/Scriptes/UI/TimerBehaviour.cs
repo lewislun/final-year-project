@@ -4,13 +4,29 @@ using UnityEngine;
 
 public class TimerBehaviour : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	#region Public Variables ---------------
+
+	public float duration;
+
+	#endregion
+
+	public void StartTimer() {
+		StartCoroutine(TimerCoroutine());
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	void changeTimerVisual(float timePassed) {
+
 	}
+
+	IEnumerator TimerCoroutine() {
+		float timePassed = 0;
+		while (timePassed > duration) {
+			changeTimerVisual(timePassed);
+			yield return new WaitForFixedUpdate();
+			timePassed += Time.deltaTime;
+
+		}
+
+	}
+
 }

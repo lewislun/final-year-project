@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LinkController : MonoBehaviour {
 
@@ -14,6 +15,7 @@ public class LinkController : MonoBehaviour {
 	#region Public Variables ---------------------------------------------
 
 	public float linkZPos = -1;
+	public Text LinkedWordText;
 
 	#endregion
 
@@ -107,6 +109,7 @@ public class LinkController : MonoBehaviour {
 		}
 
 		linkedStr += tileBehaviour.character;
+		LinkedWordText.text = linkedStr;
 
 		mLineRenderer.SetPosition(mLineRenderer.numPositions-1, new Vector3(linkAnchor.x, linkAnchor.y, linkZPos));
 		mLineRenderer.numPositions++;
@@ -144,6 +147,7 @@ public class LinkController : MonoBehaviour {
 			DestroyLink(isWordValid);
 
 			linkedStr = "";
+			LinkedWordText.text = "";
 		}
 
 		prevTouching = isTouching;
