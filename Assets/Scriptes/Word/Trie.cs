@@ -25,6 +25,12 @@ class Node {
 	}
 }
 
+public struct LinkableCharacter {
+	public string word;
+	public int row;
+	public int col;
+}
+
 public class Trie {
 
 	public const string WORD_END = "$";
@@ -138,6 +144,55 @@ public class Trie {
 			characters[emptyRow][emptyCol] = emptySlot.Value;
 			Debug.Log("hihi");
 		}
+	}
+
+	public List<LinkableCharacter> FindAllLinkableCharacters(List<List<string>> characters) {
+
+		List<LinkableCharacter> resultList = new List<LinkableCharacter>();
+
+		for (int i = 0; i < characters.Count; i++) {
+			for (int j = 0; j < characters[i].Count; j++) {
+				string output = SearchLinkableWord(characters, i, j, "", root);
+				if (output != null) {
+					LinkableCharacter newLinkable;
+					newLinkable.row = i;
+					newLinkable.col = j;
+					newLinkable.word = output;
+					resultList.Add(newLinkable);
+				}
+			}
+		}
+
+		return resultList;
+	}
+
+	string SearchLinkableWord(List<List<string>> characters, int curRow, int curCol, string curStr, Node curNode) {
+		string curCharacter = characters[curRow][curCol];
+
+		if (curNode.children.ContainsKey(curCharacter)) {
+			curStr += curCharacter;
+			Node nextNode = curNode.children[curCharacter];
+			if (nextNode.children.ContainsKey(WORD_END)) {
+				//this character is linkable
+				return curStr;
+			}
+
+			int rowCount = TileManager.GetInstance().rowCount;
+			int colCount = TileManager.GetInstance().colCount;
+			for (int i = -1; i <= 1; i++) {
+				for (int j = -1; j <= 1; j++) {
+					int nextRow = curRow + i;
+					int nextCol = curCol + j;
+					if (!(i == 0 && j == 0) && nextRow >= 0 && nextRow < rowCount && nextCol >= 0 && nextCol < colCount) {
+						string output = SearchLinkableWord(characters, nextRow, nextCol, curStr, nextNode);
+						if (output != null)
+							return output;
+					}
+				}
+			}
+		}
+
+		return null;
 	}
 
 	#endregion

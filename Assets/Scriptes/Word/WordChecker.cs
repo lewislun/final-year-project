@@ -81,6 +81,26 @@ public class WordChecker : MonoBehaviour {
 		return trie.FillEmptySlotsWithLinkableCharacters(characters);
 	}
 
+	public List<LinkableCharacter> FindAllLinkableCharacter(List<List<GameObject>> tiles) {
+		List<List<string>> characters = new List<List<string>>();
+		for (int i = 0; i < tiles.Count; i++) {
+			characters.Add(new List<string>());
+			for (int j = 0; j < tiles[i].Count; j++) {
+				if (tiles[i][j] == null)
+					characters[i].Add("");
+				else
+					characters[i].Add(tiles[i][j].GetComponent<TileBehaviour>().character);
+			}
+		}
+		List<LinkableCharacter> list = trie.FindAllLinkableCharacters(characters);
+
+		foreach (LinkableCharacter linkable in list) {
+			print(linkable.row + " " + linkable.col + ": " + linkable.word);
+		}
+
+		return list;
+	}
+
 	#endregion
 
 

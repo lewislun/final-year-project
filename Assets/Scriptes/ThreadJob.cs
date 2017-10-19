@@ -35,18 +35,6 @@ public class ThreadedJob {
 
 	protected virtual void OnFinished() { }
 
-	public virtual bool Update() {
-		if (isDone) {
-			OnFinished();
-			return true;
-		}
-		return false;
-	}
-	public IEnumerator WaitFor() {
-		while (!Update()) {
-			yield return null;
-		}
-	}
 	private void Run() {
 		ThreadFunction();
 		isDone = true;

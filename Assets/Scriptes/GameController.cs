@@ -37,7 +37,6 @@ public class GameController : MonoBehaviour {
 		wordChecker.AddWordList();
 		tileManager.AutoAdjustCharacterWeight(wordList);
 		tileManager.GenerateTiles();
-
 	}
 
 	#endregion

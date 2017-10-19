@@ -360,6 +360,13 @@ public class TileManager : MonoBehaviour {
 
 
 		//WordChecker.GetInstance().FindLinkableCharactersForEmptySlots(tiles);
+		List<LinkableCharacter> linkables = WordChecker.GetInstance().FindAllLinkableCharacter(tiles);
+		foreach (List<GameObject> tileRow in tiles)
+			foreach (GameObject tile in tileRow)
+				tile.GetComponent<TileBehaviour>().isHint = false;
+		foreach(LinkableCharacter linkable in linkables) {
+			tiles[linkable.row][linkable.col].GetComponent<TileBehaviour>().isHint = true;
+		}
 	}
 
 	#endregion
