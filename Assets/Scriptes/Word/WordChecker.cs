@@ -81,7 +81,7 @@ public class WordChecker : MonoBehaviour {
 		return trie.FillEmptySlotsWithLinkableCharacters(characters);
 	}
 
-	public List<LinkableCharacter> FindAllLinkableCharacter(List<List<GameObject>> tiles) {
+	public void FindAllLinkableCharacter(List<List<GameObject>> tiles) {
 		List<List<string>> characters = new List<List<string>>();
 		for (int i = 0; i < tiles.Count; i++) {
 			characters.Add(new List<string>());
@@ -92,13 +92,25 @@ public class WordChecker : MonoBehaviour {
 					characters[i].Add(tiles[i][j].GetComponent<TileBehaviour>().character);
 			}
 		}
-		List<LinkableCharacter> list = trie.FindAllLinkableCharacters(characters);
 
-		foreach (LinkableCharacter linkable in list) {
-			print(linkable.row + " " + linkable.col + ": " + linkable.word);
-		}
+		ThreadedJob job = new ThreadedJob();
+		job.threadFunctions.Add(() => {
+			job.args["list"] = trie.FindAllLinkableCharacters(characters);
+		});
+		job.onFinish.Add(() => {
+			print("finished");
+			foreach (List<GameObject> tileRow in tiles)
+				foreach (GameObject tile in tileRow)
+					tile.GetComponent<TileBehaviour>().isHint = false;
+			foreach (LinkableCharacter linkable in (List<LinkableCharacter>)job.args["list"]) {
+				print(linkable.row + " " + linkable.col + ": " + linkable.word);
+				tiles[linkable.row][linkable.col].GetComponent<TileBehaviour>().isHint = true;
+			}
+		});
 
-		return list;
+		job.Start();
+		StartCoroutine(job.WaitFor());
+
 	}
 
 	#endregion

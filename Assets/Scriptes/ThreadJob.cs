@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Threading;
 using System.Collections.Generic;
+using UnityEngine;
+
+public delegate void NoArgFunc();
 
 public class ThreadedJob {
 	
@@ -31,13 +34,31 @@ public class ThreadedJob {
 		thread.Abort();
 	}
 
-	protected virtual void ThreadFunction() { }
+	//protected virtual void ThreadFunction() { }
 
-	protected virtual void OnFinished() { }
+	//protected virtual void OnFinished() { }
+
+	public List<NoArgFunc> threadFunctions = new List<NoArgFunc>();
+	public List<NoArgFunc> onFinish = new List<NoArgFunc>();
+	public Dictionary<string, object> args = new Dictionary<string, object>();
 
 	private void Run() {
-		ThreadFunction();
+		Debug.Log(threadFunctions.Count);
+		for (int i = 0; i < threadFunctions.Count; i++) {
+			Debug.Log("hehe");
+			threadFunctions[i]();
+			Debug.Log("hehe");
+		}
+			
 		isDone = true;
-		OnFinished();
+		//OnFinished();
+	}
+
+	public IEnumerator WaitFor() {
+		while (!isDone) {
+			yield return null;
+		}
+		for (int i = 0; i < onFinish.Count; i++)
+			onFinish[i]();
 	}
 }

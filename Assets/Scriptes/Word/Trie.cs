@@ -177,8 +177,8 @@ public class Trie {
 				return curStr;
 			}
 
-			int rowCount = TileManager.GetInstance().rowCount;
-			int colCount = TileManager.GetInstance().colCount;
+			int rowCount = characters.Count;
+			int colCount = characters[0].Count;
 			for (int i = -1; i <= 1; i++) {
 				for (int j = -1; j <= 1; j++) {
 					int nextRow = curRow + i;
