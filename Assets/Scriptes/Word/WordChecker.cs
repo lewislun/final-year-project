@@ -95,14 +95,14 @@ public class WordChecker : MonoBehaviour {
 
 		ThreadedJob job = new ThreadedJob();
 		job.threadFunctions.Add(() => {
-			job.args["list"] = trie.FindAllLinkableCharacters(characters);
+			job.args["list_of_linkables"] = trie.FindAllLinkableCharacters(characters);
 		});
 		job.onFinish.Add(() => {
 			print("finished");
 			foreach (List<GameObject> tileRow in tiles)
 				foreach (GameObject tile in tileRow)
 					tile.GetComponent<TileBehaviour>().isHint = false;
-			foreach (LinkableCharacter linkable in (List<LinkableCharacter>)job.args["list"]) {
+			foreach (LinkableCharacter linkable in (List<LinkableCharacter>)job.args["list_of_linkables"]) {
 				print(linkable.row + " " + linkable.col + ": " + linkable.word);
 				tiles[linkable.row][linkable.col].GetComponent<TileBehaviour>().isHint = true;
 			}

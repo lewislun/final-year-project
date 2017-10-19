@@ -38,27 +38,22 @@ public class ThreadedJob {
 
 	//protected virtual void OnFinished() { }
 
-	public List<NoArgFunc> threadFunctions = new List<NoArgFunc>();
-	public List<NoArgFunc> onFinish = new List<NoArgFunc>();
+	public List<NoArgFunc> threadFunctions = new List<NoArgFunc>(); //cannot use Unity API
+	public List<NoArgFunc> onFinish = new List<NoArgFunc>();  //can use Unity API
 	public Dictionary<string, object> args = new Dictionary<string, object>();
 
 	private void Run() {
 		Debug.Log(threadFunctions.Count);
-		for (int i = 0; i < threadFunctions.Count; i++) {
-			Debug.Log("hehe");
-			threadFunctions[i]();
-			Debug.Log("hehe");
-		}
-			
+		foreach (NoArgFunc func in threadFunctions)
+			func();
 		isDone = true;
-		//OnFinished();
 	}
 
 	public IEnumerator WaitFor() {
 		while (!isDone) {
 			yield return null;
 		}
-		for (int i = 0; i < onFinish.Count; i++)
-			onFinish[i]();
+		foreach (NoArgFunc func in onFinish)
+			func();
 	}
 }
