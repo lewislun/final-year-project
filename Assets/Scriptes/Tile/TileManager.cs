@@ -358,6 +358,8 @@ public class TileManager : MonoBehaviour {
 			}
 		}
 
+
+		//WordChecker.GetInstance().FindLinkableCharactersForEmptySlots(tiles);
 	}
 
 	#endregion

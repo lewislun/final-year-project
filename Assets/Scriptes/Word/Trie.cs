@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 class Node {
 	public string value { get; set; }
@@ -76,7 +77,70 @@ public class Trie {
 		}
 	}
 
+	public List<List<string>> FillEmptySlotsWithLinkableCharacters(List<List<string>> characters) {
+		for (int i = 0; i < characters.Count; i++) {
+			for (int j = 0; j < characters[i].Count; j++) {
+				SearchForLinkableCharacters(characters, i, j, root, new Dictionary<string, string>());
+			}
+		}
+		return characters;
+	}
+
+	void SearchForLinkableCharacters(List<List<string>> characters, int row, int col, Node curNode, Dictionary<string, string> emptySlotDict) {
+	
+		string curCharacter = characters[row][col];
+		int rowCount = TileManager.GetInstance().rowCount;
+		int colCount = TileManager.GetInstance().colCount;
+
+		if (curCharacter == "") {
+			foreach(KeyValuePair<string, Node> pair in curNode.children) {
+				Node nextNode = pair.Value;
+				Dictionary<string, string> newDict = new Dictionary<string, string>(emptySlotDict);
+				newDict[row + "/" + col] = pair.Key;
+
+				if (nextNode.children.ContainsKey(WORD_END)) {
+					FillEmptySlots(characters, emptySlotDict);
+					return;
+				}
+
+				for (int i = -1; i <= 1; i++) {
+					for (int j = -1; j <= 1; j++) {
+						int nextRow = row + i;
+						int nextCol = col + j;
+						if (!(i == 0 && j == 0) && nextRow >= 0 && nextRow < rowCount && nextCol >= 0 && nextCol < colCount)
+							SearchForLinkableCharacters(characters, nextRow, nextCol, nextNode, emptySlotDict);
+					}
+				}
+			}
+		}
+		else if (curNode.children.ContainsKey(curCharacter)) {
+			Node nextNode = curNode.children[curCharacter];
+			if (nextNode.children.ContainsKey(WORD_END)) {
+				FillEmptySlots(characters, emptySlotDict);
+				return;
+			}
+			for (int i = -1; i <= 1; i++) {
+				for (int j = -1; j <= 1; j++) {
+					int nextRow = row + i;
+					int nextCol = col + j;
+					if (!(i == 0 && j == 0) && nextRow >= 0 && nextRow < rowCount && nextCol >= 0 && nextCol < colCount)
+						SearchForLinkableCharacters(characters, nextRow, nextCol, nextNode, emptySlotDict);
+				}
+			}
+		}
+	}
+
+	void FillEmptySlots(List<List<string>> characters, Dictionary<string, string> emptySlotDict) {
+		foreach (KeyValuePair<string, string> emptySlot in emptySlotDict) {
+			string[] rowCol = emptySlot.Key.Split('/');
+			int emptyRow = int.Parse(rowCol[0]);
+			int emptyCol = int.Parse(rowCol[1]	);
+			characters[emptyRow][emptyCol] = emptySlot.Value;
+			Debug.Log("hihi");
+		}
+	}
+
 	#endregion
 
 
-}
+	}

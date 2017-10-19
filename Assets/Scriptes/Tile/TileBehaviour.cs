@@ -6,9 +6,10 @@ public class TileBehaviour : MonoBehaviour {
 
 	#region Children Names ---------------------------------------
 
-	public static string LINKED_GROWING_BORDER = "Linked Growing Border";
-	public static string CHARACTER = "Character";
-	public static string TILE_BACKGROUND = "Tile Background";
+	public const string LINKED_GROWING_BORDER = "Linked Growing Border";
+	public const string CHARACTER = "Character";
+	public const string TILE_BACKGROUND = "Tile Background";
+	public const string HINT_HIGHLIGHT = "Hint Highlight";
 
 	#endregion
 
@@ -98,6 +99,17 @@ public class TileBehaviour : MonoBehaviour {
 		}
 		private set {
 			_isMerged = value;
+		}
+	}
+
+	bool _isHint = false;
+	public bool isHint {
+		get {
+			return _isHint;
+		}
+		set {
+			_isHint = value;
+			transform.FindChild(HINT_HIGHLIGHT).gameObject.SetActive(value);
 		}
 	}
 

@@ -66,25 +66,25 @@ public class WordChecker : MonoBehaviour {
 
 
 	#region Search Word ----------------------------------------------------
-
-	public string[,] FingLinkableCharacterForEmptySlots(List<List<GameObject>> tiles) {
-		string[,] characters = new string[tiles.Count, tiles[0].Count];
-		for (int i = 0; i < tiles.Count; i++)
-			for (int j = 0; j < tiles[0].Count; j++)
-				characters[i,j] = tiles[i][j].GetComponent<TileBehaviour>().character;
-		return FindLinkableCharacterForEmptySlots(characters);
-	}
-
-	public string[,] FindLinkableCharacterForEmptySlots(string[,] characters) {
-
-		return characters;
+	
+	public List<List<string>> FindLinkableCharactersForEmptySlots(List<List<GameObject>> tiles) {
+		List<List<string>> characters = new List<List<string>>();
+		for (int i = 0; i < tiles.Count; i++) {
+			characters.Add(new List<string>());
+			for (int j = 0; j < tiles[i].Count; j++) {
+				if (tiles[i][j] == null)
+					characters[i].Add("");
+				else
+					characters[i].Add(tiles[i][j].GetComponent<TileBehaviour>().character);
+			}
+		}
+		return trie.FillEmptySlotsWithLinkableCharacters(characters);
 	}
 
 	#endregion
 
 
 	public bool IsWordValid(string inputWord) {
-
 		return trie.IsWordExist(inputWord);
 	}
 
