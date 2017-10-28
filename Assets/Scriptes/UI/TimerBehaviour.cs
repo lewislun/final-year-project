@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimerBehaviour : MonoBehaviour {
 
@@ -14,19 +15,31 @@ public class TimerBehaviour : MonoBehaviour {
 		StartCoroutine(TimerCoroutine());
 	}
 
-	void changeTimerVisual(float timePassed) {
+	string secondToTimeStr(float time) {
+		int minute = (int)(time / 60);
+		float second = time % 60;
+		string str = "";
 
+		if (minute < 10)
+			str += "0";
+		str += minute + ":";
+		str += second.ToString("00.00");
+
+		return str;
+	}
+
+	void changeTimeVisual(float timeRemain){
+		GetComponent<Text>().text = secondToTimeStr(timeRemain);
 	}
 
 	IEnumerator TimerCoroutine() {
-		float timePassed = 0;
-		while (timePassed > duration) {
-			changeTimerVisual(timePassed);
+		float timeRemain = duration;
+		while (timeRemain <= 0) {
+			changeTimeVisual(timeRemain);
 			yield return new WaitForFixedUpdate();
-			timePassed += Time.deltaTime;
-
+			timeRemain -= Time.deltaTime;
 		}
-
+		changeTimeVisual(timeRemain);
 	}
 
 }

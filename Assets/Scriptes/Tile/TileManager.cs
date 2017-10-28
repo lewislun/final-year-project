@@ -68,6 +68,7 @@ public class TileManager : MonoBehaviour {
 		foreach (TileSpriteInfo ts in tileSpritesInfo)
 			tileSpritesDictionary.Add(ts.character, ts);
 
+		ResizeTileContainer();
 		InitTilePos();
 	}
 
@@ -113,7 +114,14 @@ public class TileManager : MonoBehaviour {
 
 	public void GenerateTiles() {
 		InitTileList();
+		ResizeTileContainer();
 		Drop();
+	}
+
+	public void GenerateTiles(string[][] tileSetup) {
+		InitTileList();
+		ResizeTileContainer();
+		Drop(tileSetup);
 	}
 
 	void InitTileList() {
@@ -126,7 +134,7 @@ public class TileManager : MonoBehaviour {
 	}
 
 	public TileSpriteInfo GetTileSpriteInfo(string str) {
-
+		str = str.ToUpper();
 		TileSpriteInfo tempTS;
 		if (tileSpritesDictionary.TryGetValue(str, out tempTS)) 
 			return tempTS;
@@ -153,7 +161,6 @@ public class TileManager : MonoBehaviour {
 	}
 
 	public void CreateTile(string tileCharacter, int row, int col, int startPosOffset) {
-
 
 		if (tilePrefab) {
 			GameObject newTile = Instantiate(tilePrefab, transform);
@@ -256,7 +263,11 @@ public class TileManager : MonoBehaviour {
 		tiles[row][col] = null;
 	}
 
-	public void Drop() {
+	public void Drop(){
+		Drop(new string[0][]);
+	}
+
+	public void Drop(string[][] tileSetup) {
 
 		UnmergeAllTile();
 
@@ -280,8 +291,13 @@ public class TileManager : MonoBehaviour {
 						}
 						row--;
 					}
-					if (row == -1)
-						CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[j]);
+					if (row == -1){
+						if (i < tileSetup.Length && j < tileSetup[i].Length)
+							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[j]);
+						else
+							CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[j]);
+					}
+						
 				}
 			}
 		}
@@ -304,8 +320,13 @@ public class TileManager : MonoBehaviour {
 						}
 						col++;
 					}
-					if (col == colCount)
-						CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[i]);
+					if (col == colCount){
+						if (i < tileSetup.Length && j < tileSetup[i].Length)
+							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[i]);
+						else
+							CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[i]);
+					}
+						
 				}
 			}
 		}
@@ -328,8 +349,12 @@ public class TileManager : MonoBehaviour {
 						}
 						row++;
 					}
-					if (row == rowCount)
-						CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[j]);
+					if (row == rowCount){
+						if (i < tileSetup.Length && j < tileSetup[i].Length)
+							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[j]);
+						else
+							CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[j]);
+					}
 				}
 			}
 		}
@@ -352,8 +377,12 @@ public class TileManager : MonoBehaviour {
 						}
 						col--;
 					}
-					if (col == -1)
-						CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[i]);
+					if (col == -1){
+						if (i < tileSetup.Length && j < tileSetup[i].Length)
+							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[i]);
+						else
+							CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[i]);
+					}
 				}
 			}
 		}
@@ -428,7 +457,7 @@ public class TileManager : MonoBehaviour {
 	#endregion
 
 
-	#region Other Tiles Operations ---------------------------------------
+	#region Tile Operations --------------------------------------------
 
 	public void ExchangeTiles(int aRow, int aCol, int bRow, int bCol) {
 		TileBehaviour aTileBehaviour = tiles[aRow][aCol].GetComponent<TileBehaviour>();
@@ -444,11 +473,6 @@ public class TileManager : MonoBehaviour {
 		tiles[bRow][bCol] = tempTile; 
 	}
 
-	#endregion
-
-
-	#region Tile Transformation ------------------------------------------
-
 	public void TransformTile (GameObject tile, string newCharacter) {
 		TileBehaviour tileBehaviour = tile.GetComponent<TileBehaviour>();
 		if (tileBehaviour.isMerged) {
@@ -462,6 +486,18 @@ public class TileManager : MonoBehaviour {
 			tileBehaviour.character = newCharacter;
 		}
 
+	}
+
+	#endregion
+
+
+	#region idk ------------------------------------------
+
+	public void ResizeTileContainer(){
+		Vector2 tempSize = gameObject.GetComponent<RectTransform>().sizeDelta;
+		tempSize.x = 5.3f / 8 * rowCount;
+		tempSize.y = 5.3f / 8 * colCount;
+		gameObject.GetComponent<RectTransform>().sizeDelta = tempSize;
 	}
 
 	#endregion

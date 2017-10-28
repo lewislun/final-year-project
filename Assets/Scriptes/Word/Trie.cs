@@ -69,10 +69,11 @@ public class Trie {
 	#region Checking --------------------------------------------
 
 	public bool IsWordExist(string word) {
-		return IsWordExistRecur(word, root);
+		return IsWordExistRecur(word.ToUpper(), root);
 	}
 
 	bool IsWordExistRecur(string word, Node curNode) {
+		Debug.Log(word);
 		if (word == "")
 			return curNode.children.ContainsKey(WORD_END);
 		else {

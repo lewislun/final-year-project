@@ -43,7 +43,6 @@ public class ThreadedJob {
 	public Dictionary<string, object> args = new Dictionary<string, object>();
 
 	private void Run() {
-		Debug.Log(threadFunctions.Count);
 		foreach (NoArgFunc func in threadFunctions)
 			func();
 		isDone = true;

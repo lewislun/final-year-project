@@ -1,0 +1,142 @@
+{
+	"levels": [
+		{
+			"name": "Try Link Mechanics 1",
+			"rowCount": 1,
+			"colCount": 6,
+			"topText": "Tab the P and drag all the way to O to link the word POTATO",
+			"words": ["potato"],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"showHints": false,
+			"tiles": [
+				"p,o,t,a,t,o"
+			]
+		},
+		{
+			"name": "Try Link Mechanics 2",
+			"rowCount": 3,
+			"colCount": 3,
+			"topText": "You can link tiles vertically, horizontally or diagonally.",
+			"words": ["potato"],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"showHints": false,
+			"tiles": [
+				"p,o,z",
+				"t,o,t",
+				"z,a,z"
+			]
+		},
+		{
+			"name": "Try Link Mechanics 3",
+			"rowCount": 4,
+			"colCount": 4,
+			"topText": "Let me give you some help just in case you are a real potato...",
+			"words": ["potato"],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"tiles": [
+				"p,o,t,p",
+				"t,o,a,t",
+				"a,a,t,p",
+				"t,o,a,a"
+			]
+		},
+		{
+			"name": "Try Merge 1",
+			"rowCount": 4,
+			"colCount": 4,
+			"topText": "Look, we dont need two A here. Lets link them together to merge it into one large A.",
+			"words": ["potato"],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"tiles": [
+				"p,o,t,z",
+				"z,z,a,z",
+				"z,z,a,z",
+				"z,o,t,z"
+			]
+		},
+		{
+			"name": "Try Merge 2",
+			"rowCount": 4,
+			"colCount": 4,
+			"topText": "Whoa, it is way too many O here...",
+			"words": ["potato"],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"tiles": [
+				"p,z,o,t",
+				"o,o,o,a",
+				"o,o,o,t",
+				"o,o,o,z"
+			]
+		},
+		{
+			"name": "Try Merge 3",
+			"rowCount": 4,
+			"colCount": 4,
+			"topText": "Remember, you can only merge tiles if they have the same lettes and are able to form a rectangle shape.",
+			"words": ["potato"],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"tiles": [
+				"p,z,t,o",
+				"o,z,a,z",
+				"o,z,a,z",
+				"o,t,a,z"
+			]
+		},
+		{
+			"name": "Chainify 1",
+			"rowCount": 3,
+			"colCount": 3,
+			"topText": "Hey potato, the icon at the bottom is Chainify. It turns one of the tiles into a Chain tile, which helps you bridge two tiles that are one block away from each other. Just tap the blue icon, then tap the Z to link POTATO.",
+			"words": ["potato"],
+			"enableChainify": true,
+			"enableExchange": false,
+			"canRetry": true,
+			"tiles": [
+				"p,y,a",
+				"o,z,t",
+				"t,y,o"
+			]
+		},
+		{
+			"name": "Chainify 2",
+			"rowCount": 4,
+			"colCount": 4,
+			"topText": "Want to prove you are a smart potato? Turn a merged tile into a Chain tile.",
+			"words": ["potato"],
+			"enableChainify": true,
+			"enableExchange": false,
+			"canRetry": true,
+			"tiles": [
+				"p,o,t,y",
+				"y,y,z,y",
+				"y,y,z,y",
+				"o,t,a,y"
+			]
+		},
+		{
+			"name": "Exchange 1",
+			"rowCount": 1,
+			"colCount": 6,
+			"topText": "Oops, the order is messed up. Can you help me swap the A and T by using the Exchange ability? Just simply tap the two tiles you want to swap after activating it.",
+			"words": ["potato"],
+			"enableChainify": false,
+			"enableExchange": true,
+			"canRetry": true,
+			"tiles": [
+				"p,o,a,t,t,o"
+			]
+		}
+	]
+}

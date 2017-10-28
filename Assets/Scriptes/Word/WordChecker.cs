@@ -20,7 +20,10 @@ public class WordChecker : MonoBehaviour {
 
 	#region Trie Operations ---------------------------------------------
 
-	public void AddWordList() {
+	public void SetWordList(List<string> newList) {
+		wordList = newList;
+		for(int i = 0; i < wordList.Count; i++)
+			wordList[i] = wordList[i].ToUpper();
 		trie.Clear();
 		trie.Addwords(wordList);
 	}
@@ -100,8 +103,9 @@ public class WordChecker : MonoBehaviour {
 		job.onFinish.Add(() => {
 			print("finished");
 			foreach (List<GameObject> tileRow in tiles)
-				foreach (GameObject tile in tileRow)
+				foreach (GameObject tile in tileRow) {
 					tile.GetComponent<TileBehaviour>().isHint = false;
+				}
 			foreach (LinkableCharacter linkable in (List<LinkableCharacter>)job.args["list_of_linkables"]) {
 				print(linkable.row + " " + linkable.col + ": " + linkable.word);
 				tiles[linkable.row][linkable.col].GetComponent<TileBehaviour>().isHint = true;
