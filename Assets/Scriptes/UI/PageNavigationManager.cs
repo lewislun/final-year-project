@@ -61,6 +61,9 @@ public class PageNavigationManager : MonoBehaviour {
 			return;
 		}
 
+		if (pageIdx == curPage)
+			return;
+
 		UnmountPage(curPage);
 		MountPage(pageIdx);
 

@@ -13,11 +13,24 @@ public class GameController : MonoBehaviour {
 	#endregion
 
 
+	#region Properties -----------------------------------------------
+
+	public bool isTutorial{
+		get{
+			return tutorialLevelIndex != -1;
+		}
+	}
+
+	#endregion
+
+
 	#region Private Variables ----------------------------------------
 
 	WordChecker wordChecker;
 	TileManager tileManager;
 	LevelInfo[] tutorialLevels = {};
+
+	int tutorialLevelIndex = -1;
 
 	#endregion
 
@@ -55,9 +68,26 @@ public class GameController : MonoBehaviour {
 		tileManager.GenerateTiles(levelInfo.tileSetup);
 	}
 
-	//testing
+	#endregion
+
+
+	#region Tutorial Levels ------------------------------------------
+
 	public void StartTutorial(){
-		StartGame(tutorialLevels[1]);
+		tutorialLevelIndex = -1;
+		StartNextTutorialLevel();
+	}
+
+	public void StartNextTutorialLevel(){
+		tutorialLevelIndex++;
+		if (tutorialLevelIndex >= tutorialLevels.Length){
+			tutorialLevelIndex = -1;
+			PageNavigationManager.GetInstance().ChangePage("tab");
+		}
+		else{
+			print("tutorial level: " + tutorialLevelIndex + "/" + tutorialLevels.Length);
+			StartGame(tutorialLevels[tutorialLevelIndex]);
+		}
 	}
 
 	#endregion

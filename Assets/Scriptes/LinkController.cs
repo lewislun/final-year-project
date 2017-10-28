@@ -142,10 +142,15 @@ public class LinkController : MonoBehaviour {
 			print(linkedStr);
 
 			bool isWordValid = WordChecker.GetInstance().IsWordValid(linkedStr);
-			if (!isWordValid && AreAllCharactersSame(linkedStr) && IsLinkRectangle())
-				tileManager.MergeTiles(linkedTiles);
-			DestroyLink(isWordValid);
-
+			if (isWordValid && GameController.GetInstance().isTutorial){
+				GameController.GetInstance().StartNextTutorialLevel();
+				DestroyLink(false);
+			}
+			else {
+				if (!isWordValid && AreAllCharactersSame(linkedStr) && IsLinkRectangle())
+					tileManager.MergeTiles(linkedTiles);
+				DestroyLink(isWordValid);
+			}
 			linkedStr = "";
 			LinkedWordText.text = "";
 		}

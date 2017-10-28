@@ -113,18 +113,23 @@ public class TileManager : MonoBehaviour {
 	#region Tile Generation -----------------------------------------------------
 
 	public void GenerateTiles() {
-		InitTileList();
+		InitTiles();
 		ResizeTileContainer();
 		Drop();
 	}
 
 	public void GenerateTiles(string[][] tileSetup) {
-		InitTileList();
+		InitTiles();
 		ResizeTileContainer();
 		Drop(tileSetup);
 	}
 
-	void InitTileList() {
+	void InitTiles() {
+
+		int childCount = transform.childCount;
+		for(int i = childCount - 1; i >= 0; i--)
+			Destroy(transform.GetChild(i).gameObject);
+
 		tiles.Clear();
 		for (int i = 0; i < rowCount; i++) {
 			tiles.Add(new List<GameObject>());

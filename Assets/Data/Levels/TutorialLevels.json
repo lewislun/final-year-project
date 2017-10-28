@@ -2,7 +2,7 @@
 	"levels": [
 		{
 			"name": "Try Link Mechanics 1",
-			"rowCount": 1,
+			"rowCount": 6,
 			"colCount": 6,
 			"topText": "Tab the P and drag all the way to O to link the word POTATO",
 			"words": ["potato"],
@@ -11,7 +11,12 @@
 			"canRetry": true,
 			"showHints": false,
 			"tiles": [
-				"p,o,t,a,t,o"
+				"z,z,z,z,z,z",
+				"z,z,z,z,z,z",
+				"p,o,t,a,t,o",
+				"z,z,z,z,z,z",
+				"z,z,z,z,z,z",
+				"z,z,z,z,z,z"
 			]
 		},
 		{
@@ -127,7 +132,7 @@
 		},
 		{
 			"name": "Exchange 1",
-			"rowCount": 1,
+			"rowCount": 6,
 			"colCount": 6,
 			"topText": "Oops, the order is messed up. Can you help me swap the A and T by using the Exchange ability? Just simply tap the two tiles you want to swap after activating it.",
 			"words": ["potato"],
@@ -135,7 +140,12 @@
 			"enableExchange": true,
 			"canRetry": true,
 			"tiles": [
-				"p,o,a,t,t,o"
+				"z,z,z,z,z,z",
+				"z,z,z,z,z,z",
+				"p,o,a,t,t,o",
+				"z,z,z,z,z,z",
+				"z,z,z,z,z,z",
+				"z,z,z,z,z,z"
 			]
 		}
 	]
