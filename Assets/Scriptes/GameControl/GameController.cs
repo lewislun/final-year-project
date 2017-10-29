@@ -77,6 +77,8 @@ public class GameController : MonoBehaviour {
 			topText.text = levelInfo.topText;
 
 		AbilityBehaviour.StopAllCooldown();
+		AbilityBehaviour.SetAbilityEnabled(AbilityBehaviour.AbilityName.Chainify, levelInfo.enableChainify);
+		AbilityBehaviour.SetAbilityEnabled(AbilityBehaviour.AbilityName.Exchange, levelInfo.enableExchange);
 	}
 
 	#endregion

@@ -24,6 +24,17 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 	#endregion
 
 
+	#region Properties ----------------------------------
+
+	public override AbilityName abilityName {
+		get {
+			return AbilityName.Exchange;
+		}
+	}
+
+	#endregion
+
+
 	#region Private Variables --------------------------------
 
 	private GameObject firstTile = null;
@@ -39,7 +50,7 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 	#region MonoBehaviour ------------------------------------
 
 	void FixedUpdate() {
-		if (!isActivating)
+		if (!activating)
 			return;
 
 		GameObject touchingTile = TouchManager.GetTouchingTile();
@@ -150,7 +161,7 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 	public override void Activate() {
 		base.Activate();
 
-		if (isActivating) { 
+		if (activating) { 
 			SetVortexParticleActive(true);
 			touchManager.touchPriority = 1;
 		}

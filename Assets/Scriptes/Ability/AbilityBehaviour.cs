@@ -13,9 +13,19 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	#endregion
 
 
+	#region Ability Names ------------------------------------
+
+	public enum AbilityName {
+		Chainify,
+		Exchange
+	}
+
+	#endregion
+
+
 	#region Static Variables ---------------------------------
 
-	public static List<AbilityBehaviour> abilities = new List<AbilityBehaviour>();
+	public static Dictionary<AbilityName, AbilityBehaviour> abilities = new Dictionary<AbilityName, AbilityBehaviour>();
 	public static bool hasActivatingAbility = false;
 	public static float cooldownYOffset = 0.35f;
 	public static float cooldownAnimationDuration = 0.2f;
@@ -41,24 +51,38 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 
 	#region Properties ---------------------------------------
 
-	private bool _isActivating = false;
-	public bool isActivating {
+	public abstract AbilityName abilityName{ get; }
+
+	private bool _activating = false;
+	public bool activating {
 		get {
-			return _isActivating;
+			return _activating;
 		}
 		private set {
 			transform.FindChild(ACTIVATING_VISUAL_EFFECTS).gameObject.SetActive(value);
-			_isActivating = value;
+			_activating = value;
 		}
 	}
 
-	private bool _isCoolingDown = false;
-	public bool isCoolingDown {
+	private bool _coolingDown = false;
+	public bool coolingDown {
 		get {
-			return _isCoolingDown;
+			return _coolingDown;
 		}
 		private set {
-			_isCoolingDown = value;
+			_coolingDown = value;
+		}
+	}
+
+	public bool abilityEnabled {
+		set {
+			CanvasGroup cg = GetComponent<CanvasGroup>();
+			cg.alpha = value? 1: 0;
+			cg.interactable = value;
+			cg.blocksRaycasts = value;
+		}
+		get {
+			return GetComponent<CanvasGroup>().interactable;
 		}
 	}
 
@@ -67,8 +91,11 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 
 	#region MonoBehaviour Functions --------------------------
 
+	protected void Awake(){
+		abilities[abilityName] = this;
+	}
+
 	protected void Start(){
-		abilities.Add(this);
 		InheritedStart();
 	}
 
@@ -87,16 +114,16 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	protected abstract void InitAbility();
 
 	public virtual void Activate() {
-		if (hasActivatingAbility || isCoolingDown)
+		if (hasActivatingAbility || coolingDown)
 			return;
-		isActivating = true;
+		activating = true;
 		hasActivatingAbility = true;
 		InitAbility();
 	}
 
 	public virtual void Deactivate() {
 		print("deacitivated");
-		isActivating = false;
+		activating = false;
 		hasActivatingAbility = false;
 	}
 
@@ -106,8 +133,17 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	#region Abilities Control --------------------------------
 
 	public static void StopAllCooldown(){
-		foreach(AbilityBehaviour ability in abilities)
-			ability.StopCooldown(true);
+		foreach(KeyValuePair<AbilityName, AbilityBehaviour> ability in abilities)
+			ability.Value.StopCooldown(true);
+	}
+
+	public static void SetAbilityEnabled(AbilityName abilityName, bool enabled){
+		if (!abilities.ContainsKey(abilityName)){
+			Debug.Log("ability " + abilityName + " does not exist");
+			return;
+		}
+
+		abilities[abilityName].abilityEnabled = enabled;
 	}
 
 	#endregion
@@ -123,7 +159,7 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	}
 
 	public void StopCooldown(bool hasAnimation){
-		if (!isCoolingDown)
+		if (!coolingDown)
 			return;
 
 		if (cooldownCounter != null){
@@ -139,8 +175,8 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 			cooldownAnimation = StartCoroutine(CooldownAnimation(false));
 		else
 			transform.position = originalPos;
-			
-		isCoolingDown = false;
+
+		coolingDown = false;
 		transform.FindChild(COOLDOWN_FILTER).GetComponent<Image>().fillAmount = 0;
 	}
 
@@ -169,7 +205,7 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	}
 
 	IEnumerator CooldownCounter() {
-		isCoolingDown = true;
+		coolingDown = true;
 		float timePassed = 0;
 		Image cooldownFilterImage = transform.FindChild(COOLDOWN_FILTER).GetComponent<Image>();
 
@@ -181,7 +217,7 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 
 		cooldownFilterImage.fillAmount = 0;
 
-		isCoolingDown = false;
+		coolingDown = false;
 		if (cooldownAnimation != null)
 			StopCoroutine(cooldownAnimation);
 		cooldownAnimation = StartCoroutine(CooldownAnimation(false));

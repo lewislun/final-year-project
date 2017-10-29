@@ -5,9 +5,13 @@ using UnityEngine;
 public class ChainifyAbilityBehaviour : AbilityBehaviour {
 
 
-	#region Public Variables ----------------------------------
+	#region Properties ----------------------------------
 
-
+	public override AbilityName abilityName {
+		get {
+			return AbilityName.Chainify;
+		}
+	}
 
 	#endregion
 
@@ -21,7 +25,7 @@ public class ChainifyAbilityBehaviour : AbilityBehaviour {
 	#region MonoBehaviour -------------------------------------
 
 	void FixedUpdate() {
-		if (!isActivating)
+		if (!activating)
 			return;
 
 		GameObject touchingTile = TouchManager.GetTouchingTile();
@@ -48,7 +52,7 @@ public class ChainifyAbilityBehaviour : AbilityBehaviour {
 	public override void Activate() {
 		base.Activate();
 
-		if (isActivating) { 
+		if (activating) { 
 			touchManager.touchPriority = 1;
 		}
 	}

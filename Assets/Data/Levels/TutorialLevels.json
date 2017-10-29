@@ -87,7 +87,7 @@
 			"name": "Try Merge 3",
 			"rowCount": 4,
 			"colCount": 4,
-			"topText": "Remember, you can only merge tiles if they have the same lettes and are able to form a rectangle shape.",
+			"topText": "Remember, you can only merge tiles if they have the same lettes and are able to form a rectangular shape.",
 			"words": ["potato"],
 			"enableChainify": false,
 			"enableExchange": false,
