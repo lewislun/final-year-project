@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 
 public class GameController : MonoBehaviour {
 
 	#region Public Variables -----------------------------------------
+
+	public Text topText;
 
 	public TimerBehaviour timerBehaviour;
 	public TextAsset tutorialLevelsJson;
@@ -66,6 +69,11 @@ public class GameController : MonoBehaviour {
 		tileManager.rowCount = levelInfo.rowCount;
 		tileManager.colCount = levelInfo.colCount;
 		tileManager.GenerateTiles(levelInfo.tileSetup);
+
+		if (topText == null)
+			Debug.Log("topText == null");
+		else
+			topText.text = levelInfo.topText;
 	}
 
 	#endregion

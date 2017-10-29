@@ -63,6 +63,15 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	#endregion
 
 
+	#region MonoBehaviour Functions --------------------------
+
+	void OnDisable(){
+		print("disable");
+	}
+
+	#endregion
+
+
 	#region Ability Lifecycle --------------------------------
 
 	protected abstract void InitAbility();

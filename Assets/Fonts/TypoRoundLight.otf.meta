@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 1f3ea2db09dd4024f9975f9e3d20afcc
+timeCreated: 1509275243
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Typo Round Light Demo
+  fontNames:
+  - Typo Round Light Demo
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b9172c9627270024bba9f0ba45d49d3b, type: 3}
+  - {fileID: 12800000, guid: 8231dc4fdfcce1943b80bd430dbb070f, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
