@@ -38,10 +38,6 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 
 	#region MonoBehaviour ------------------------------------
 
-	void Start() {
-		touchManager = TouchManager.GetInstance();
-	}
-
 	void FixedUpdate() {
 		if (!isActivating)
 			return;
@@ -141,6 +137,10 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 
 
 	#region Ability Behaviour ---------------------------------
+
+	protected override void InheritedStart(){
+		touchManager = TouchManager.GetInstance();
+	}
 
 	protected override void InitAbility() {
 		firstTile = null;

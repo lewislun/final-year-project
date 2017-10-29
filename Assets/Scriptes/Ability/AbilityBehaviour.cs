@@ -13,8 +13,9 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	#endregion
 
 
-	#region Static Variabels ---------------------------------
+	#region Static Variables ---------------------------------
 
+	public static List<AbilityBehaviour> abilities = new List<AbilityBehaviour>();
 	public static bool hasActivatingAbility = false;
 	public static float cooldownYOffset = 0.35f;
 	public static float cooldownAnimationDuration = 0.2f;
@@ -33,6 +34,7 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 
 	private Vector3 originalPos = Vector3.zero;
 	private Coroutine cooldownAnimation = null;
+	private Coroutine cooldownCounter = null;
 
 	#endregion
 
@@ -65,14 +67,22 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 
 	#region MonoBehaviour Functions --------------------------
 
+	protected void Start(){
+		abilities.Add(this);
+		InheritedStart();
+	}
+
 	void OnDisable(){
-		print("disable");
+		print("disabled ability");
+		StopCooldown(false);
 	}
 
 	#endregion
 
 
 	#region Ability Lifecycle --------------------------------
+
+	protected abstract void InheritedStart();
 
 	protected abstract void InitAbility();
 
@@ -93,13 +103,45 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	#endregion
 
 
+	#region Abilities Control --------------------------------
+
+	public static void StopAllCooldown(){
+		foreach(AbilityBehaviour ability in abilities)
+			ability.StopCooldown(true);
+	}
+
+	#endregion
+
+
 	#region Cooldown -----------------------------------------
 
 	protected void StartCooldown() {
 		if (cooldownAnimation != null)
 			StopCoroutine(cooldownAnimation);
 		cooldownAnimation = StartCoroutine(CooldownAnimation(true));
-		StartCoroutine(CooldownCounter());
+		cooldownCounter = StartCoroutine(CooldownCounter());
+	}
+
+	public void StopCooldown(bool hasAnimation){
+		if (!isCoolingDown)
+			return;
+
+		if (cooldownCounter != null){
+			StopCoroutine(cooldownCounter);
+			cooldownCounter = null;
+		}
+		if (cooldownAnimation != null){
+			StopCoroutine(cooldownAnimation);
+			cooldownAnimation = null;
+		}
+
+		if (hasAnimation)
+			cooldownAnimation = StartCoroutine(CooldownAnimation(false));
+		else
+			transform.position = originalPos;
+			
+		isCoolingDown = false;
+		transform.FindChild(COOLDOWN_FILTER).GetComponent<Image>().fillAmount = 0;
 	}
 
 	IEnumerator CooldownAnimation(bool isStartCooldown) {
@@ -115,9 +157,6 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 			isStartCooldown? (originalPos.y - cooldownYOffset): originalPos.y,
 			originalPos.z
 		);
-
-		print(startPos);
-		print(targetPos);
 		
 		while (timePassed < cooldownAnimationDuration) {
 			yield return new WaitForFixedUpdate();
@@ -146,7 +185,7 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 		if (cooldownAnimation != null)
 			StopCoroutine(cooldownAnimation);
 		cooldownAnimation = StartCoroutine(CooldownAnimation(false));
-
+		cooldownCounter = null;
 	}
 
 	#endregion

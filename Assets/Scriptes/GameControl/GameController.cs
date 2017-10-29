@@ -60,6 +60,7 @@ public class GameController : MonoBehaviour {
 
 	public void StartGame(LevelInfo levelInfo) {
 		PageNavigationManager.GetInstance().ChangePage("game");
+
 		List<string> wordList = new List<string>(levelInfo.words);
 		wordChecker.SetWordList(wordList);
 		if (levelInfo.weights.Length == 0)
@@ -74,6 +75,8 @@ public class GameController : MonoBehaviour {
 			Debug.Log("topText == null");
 		else
 			topText.text = levelInfo.topText;
+
+		AbilityBehaviour.StopAllCooldown();
 	}
 
 	#endregion
@@ -90,6 +93,7 @@ public class GameController : MonoBehaviour {
 		tutorialLevelIndex++;
 		if (tutorialLevelIndex >= tutorialLevels.Length){
 			tutorialLevelIndex = -1;
+			tileManager.InitTiles();
 			PageNavigationManager.GetInstance().ChangePage("tab");
 		}
 		else{

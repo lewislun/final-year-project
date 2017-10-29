@@ -124,7 +124,7 @@ public class TileManager : MonoBehaviour {
 		Drop(tileSetup);
 	}
 
-	void InitTiles() {
+	public void InitTiles() {
 
 		int childCount = transform.childCount;
 		for(int i = childCount - 1; i >= 0; i--)
