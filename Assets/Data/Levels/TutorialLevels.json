@@ -6,6 +6,12 @@
 			"colCount": 6,
 			"topText": "Tab the P and drag all the way to O to link the word POTATO",
 			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,
@@ -25,6 +31,12 @@
 			"colCount": 3,
 			"topText": "You can link tiles vertically, horizontally or diagonally.",
 			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,
@@ -41,6 +53,12 @@
 			"colCount": 4,
 			"topText": "Let me give you some help just in case you are a real potato...",
 			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,
@@ -57,6 +75,12 @@
 			"colCount": 4,
 			"topText": "Look, we dont need two A here. Lets link them together to merge it into one large A.",
 			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,
@@ -73,6 +97,12 @@
 			"colCount": 4,
 			"topText": "Whoa, it is way too many O here...",
 			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,
@@ -89,6 +119,12 @@
 			"colCount": 4,
 			"topText": "Remember, you can only merge tiles if they have the same lettes and are able to form a rectangular shape.",
 			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,
@@ -105,6 +141,12 @@
 			"colCount": 3,
 			"topText": "Hey potato, the icon at the bottom is Chainify. It turns one of the tiles into a Chain tile, which helps you bridge two tiles that are one block away from each other. Just tap the blue icon, then tap the Z to link POTATO.",
 			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
 			"enableChainify": true,
 			"enableExchange": false,
 			"canRetry": true,
@@ -120,6 +162,12 @@
 			"colCount": 4,
 			"topText": "Want to prove you are a smart potato? Turn a merged tile into a Chain tile.",
 			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
 			"enableChainify": true,
 			"enableExchange": false,
 			"canRetry": true,
@@ -136,6 +184,12 @@
 			"colCount": 6,
 			"topText": "Oops, the order is messed up. Can you help me swap the A and T by using the Exchange ability? Just simply tap the two tiles you want to swap after activating it.",
 			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
 			"enableChainify": false,
 			"enableExchange": true,
 			"canRetry": true,

@@ -142,8 +142,7 @@ public class LinkController : MonoBehaviour {
 			print(linkedStr);
 
 			bool isWordValid = WordChecker.GetInstance().IsWordValid(linkedStr);
-			if (isWordValid && GameController.GetInstance().isTutorial){
-				GameController.GetInstance().StartNextTutorialLevel();
+			if (isWordValid && GameController.GetInstance().FinishWord(linkedStr)){
 				DestroyLink(false);
 			}
 			else {

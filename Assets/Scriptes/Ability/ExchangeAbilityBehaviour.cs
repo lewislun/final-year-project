@@ -110,7 +110,7 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 			Vector3 tempPos2 = Vector2.Lerp(startPos2, startPos1, curveValue) + diagonalPoint2 * diagonalCurveValue;
 
 			tempPos1.z = -5;
-			tempPos2.z = -5;
+			tempPos2.z = -8;
 			firstTile.transform.position = tempPos1;
 			secondTile.transform.position = tempPos2;
 

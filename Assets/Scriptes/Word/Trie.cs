@@ -73,7 +73,6 @@ public class Trie {
 	}
 
 	bool IsWordExistRecur(string word, Node curNode) {
-		Debug.Log(word);
 		if (word == "")
 			return curNode.children.ContainsKey(WORD_END);
 		else {

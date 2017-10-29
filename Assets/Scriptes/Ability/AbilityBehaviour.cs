@@ -5,20 +5,16 @@ using UnityEngine.UI;
 
 public abstract class AbilityBehaviour : MonoBehaviour {
 
-	#region Children Names -----------------------------------
-
-	public static string ACTIVATING_VISUAL_EFFECTS = "Activating Visual Effects";
-	public static string COOLDOWN_FILTER = "Cooldown Filter";
-
-	#endregion
-
-
-	#region Ability Names ------------------------------------
-
 	public enum AbilityName {
 		Chainify,
 		Exchange
 	}
+
+
+	#region Children Names -----------------------------------
+
+	public static string ACTIVATING_VISUAL_EFFECTS = "Activating Visual Effects";
+	public static string COOLDOWN_FILTER = "Cooldown Filter";
 
 	#endregion
 
@@ -100,7 +96,6 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	}
 
 	void OnDisable(){
-		print("disabled ability");
 		StopCooldown(false);
 	}
 
