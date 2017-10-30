@@ -7,6 +7,7 @@ public class WordChecker : MonoBehaviour {
 	#region Public Variables --------------------------------------------
 
 	public List<string> wordList = new List<string>();
+	public bool showHints = true;
 
 	#endregion
 
@@ -85,6 +86,10 @@ public class WordChecker : MonoBehaviour {
 	}
 
 	public void FindAllLinkableCharacter(List<List<GameObject>> tiles) {
+
+		if (!showHints)
+			return;
+
 		List<List<string>> characters = new List<List<string>>();
 		for (int i = 0; i < tiles.Count; i++) {
 			characters.Add(new List<string>());

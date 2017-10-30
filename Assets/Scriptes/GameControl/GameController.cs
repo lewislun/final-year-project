@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
 	#region Public Variables -----------------------------------------
 
 	public Text topText;
+	public GameObject retryButton;
 
 	public TimerBehaviour timerBehaviour;
 	public TextAsset tutorialLevelsJson;
@@ -65,6 +66,10 @@ public class GameController : MonoBehaviour {
 
 	public void StartGame(LevelInfo levelInfo) {
 		PageNavigationManager.GetInstance().ChangePage("game");
+
+		wordChecker.showHints = levelInfo.showHints;
+		if (retryButton != null)
+			retryButton.SetActive(levelInfo.canRetry);
 
 		List<string> wordList = new List<string>(levelInfo.words);
 		wordChecker.SetWordList(wordList);

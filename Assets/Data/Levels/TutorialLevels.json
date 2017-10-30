@@ -15,7 +15,7 @@
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,
-			"showHints": true,
+			"showHints": false,
 			"tiles": [
 				"z,z,z,z,z,z",
 				"z,z,z,z,z,z",
