@@ -4,7 +4,7 @@
 			"name": "Try Link Mechanics 1",
 			"rowCount": 6,
 			"colCount": 6,
-			"topText": "Tab the P and drag all the way to O to link the word POTATO",
+			"topText": "Tab the P and drag all the way to O to link the word POTATO.",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -14,7 +14,7 @@
 			],
 			"enableChainify": false,
 			"enableExchange": false,
-			"canRetry": true,
+			"canRetry": false,
 			"showHints": false,
 			"tiles": [
 				"z,z,z,z,z,z",
@@ -39,10 +39,10 @@
 			],
 			"enableChainify": false,
 			"enableExchange": false,
-			"canRetry": true,
+			"canRetry": false,
 			"showHints": false,
 			"tiles": [
-				"p,o,z",
+				"p,z,o",
 				"t,o,t",
 				"z,a,z"
 			]
@@ -73,7 +73,7 @@
 			"name": "Try Merge 1",
 			"rowCount": 4,
 			"colCount": 4,
-			"topText": "Look, we dont need two A here. Lets link them together to merge it into one large A.",
+			"topText": "Obviously, we don't need two A here.",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -100,7 +100,7 @@
 			"name": "Try Merge 2",
 			"rowCount": 4,
 			"colCount": 4,
-			"topText": "Whoa, it is way too many O here...",
+			"topText": "You can always try again by pressing the Retry button at the top if you messed up.",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -144,7 +144,7 @@
 			"name": "Chainify 1",
 			"rowCount": 3,
 			"colCount": 3,
-			"topText": "Hey potato, the icon at the bottom is Chainify. It turns one of the tiles into a Chain tile, which helps you bridge two tiles that are one block away from each other. Just tap the blue icon, then tap the Z to link POTATO.",
+			"topText": "What if I put an Z at the very middle...",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -152,6 +152,11 @@
 					"count": 1
 				}
 			],
+			"detailPanel": {
+				"title": "Ability: Chainify",
+				"imagePath": "Tutorial/chainify-demo",
+				"visible": true
+			},
 			"enableChainify": true,
 			"enableExchange": false,
 			"canRetry": true,
@@ -165,7 +170,7 @@
 			"name": "Chainify 2",
 			"rowCount": 4,
 			"colCount": 4,
-			"topText": "Want to prove you are a smart potato? Turn a merged tile into a Chain tile.",
+			"topText": "Did you know? You can turn a MERGED tile into a Chain Tile.",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -187,7 +192,7 @@
 			"name": "Exchange 1",
 			"rowCount": 6,
 			"colCount": 6,
-			"topText": "Oops, the order is messed up. Can you help me swap the A and T by using the Exchange ability? Just simply tap the two tiles you want to swap after activating it.",
+			"topText": "Oops, the order of the letters is messed up...",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -195,6 +200,11 @@
 					"count": 1
 				}
 			],
+			"detailPanel": {
+				"title": "Ability: Exchange",
+				"imagePath": "Tutorial/exchange-demo",
+				"visible": true
+			},
 			"enableChainify": false,
 			"enableExchange": true,
 			"canRetry": true,
