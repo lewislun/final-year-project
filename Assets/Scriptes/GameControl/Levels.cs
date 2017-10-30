@@ -7,9 +7,16 @@ public class Levels {
 }
 
 [System.Serializable]
-public class RequiredWord{
+public class RequiredWord {
 	public string word;
 	public int count;
+}
+
+[System.Serializable]
+public class LevelDetailPanel {
+	public bool visible = false;
+	public string imagePath = "";
+	public string title = "";
 }
 
 [System.Serializable]
@@ -28,6 +35,7 @@ public class LevelInfo {
 	public bool showHints = true;
 	public TileManager.CharacterWeight[] weights = {};
 	public RequiredWord[] requiredWords = {};
+	public LevelDetailPanel detailPanel = null;
 
 	public void ParseTilesPreset(){
 		tileSetup = new string[tiles.Length][];

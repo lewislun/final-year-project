@@ -81,6 +81,11 @@
 					"count": 1
 				}
 			],
+			"detailPanel": {
+				"title": "Merging Tiles",
+				"imagePath": "Tutorial/merge-demo",
+				"visible": true
+			},
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,

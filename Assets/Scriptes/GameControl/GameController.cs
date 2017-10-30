@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
 
 	public Text topText;
 	public GameObject retryButton;
+	public DetailPanelBehaviour detailPanel;
 
 	public TimerBehaviour timerBehaviour;
 	public TextAsset tutorialLevelsJson;
@@ -67,10 +68,8 @@ public class GameController : MonoBehaviour {
 	public void StartGame(LevelInfo levelInfo) {
 		PageNavigationManager.GetInstance().ChangePage("game");
 
+		//init tileManager and wordChecker
 		wordChecker.showHints = levelInfo.showHints;
-		if (retryButton != null)
-			retryButton.SetActive(levelInfo.canRetry);
-
 		List<string> wordList = new List<string>(levelInfo.words);
 		wordChecker.SetWordList(wordList);
 		if (levelInfo.weights.Length == 0)
@@ -81,15 +80,35 @@ public class GameController : MonoBehaviour {
 		tileManager.colCount = levelInfo.colCount;
 		tileManager.GenerateTiles(levelInfo.tileSetup);
 
+		//UI related
 		if (topText == null)
 			Debug.Log("topText == null");
 		else
 			topText.text = levelInfo.topText;
+		if (retryButton == null)
+			Debug.Log("retryButton == null");
+		else
+			retryButton.SetActive(levelInfo.canRetry);
+		if (detailPanel == null)
+			Debug.Log("detailPanel == null");
+		else {
+			if (levelInfo.detailPanel.visible){
+				detailPanel.Show(true);
+				detailPanel.title = levelInfo.detailPanel.title;
+				if (levelInfo.detailPanel.imagePath != "")
+					detailPanel.image = Resources.Load<Sprite>(levelInfo.detailPanel.imagePath);
+			}
+			else
+				detailPanel.Hide(false);
+		}
 
+
+		//init abilities
 		AbilityBehaviour.StopAllCooldown();
 		AbilityBehaviour.SetAbilityEnabled(AbilityBehaviour.AbilityName.Chainify, levelInfo.enableChainify);
 		AbilityBehaviour.SetAbilityEnabled(AbilityBehaviour.AbilityName.Exchange, levelInfo.enableExchange);
 
+		//level required words
 		if (levelInfo.requiredWords.Length == 0)
 			hasWordTarget = false;
 		else{
@@ -107,7 +126,6 @@ public class GameController : MonoBehaviour {
 		
 		word = word.ToUpper();
 		if (requiredWords.ContainsKey(word)){
-			print("rw[word]: " + requiredWords[word]);
 			requiredWords[word]--;
 			if (requiredWords[word] <= 0){
 				requiredWords.Remove(word);
