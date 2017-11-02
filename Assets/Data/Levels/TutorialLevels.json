@@ -155,6 +155,11 @@
 					"count": 1
 				}
 			],
+			"detailPanel": {
+				"title": "Linking Merged Tiles",
+				"imagePath": "Tutorial/merged-tile-edge-demo",
+				"visible": true
+			},
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,
@@ -169,7 +174,7 @@
 			"name": "Try Merge 3",
 			"rowCount": 4,
 			"colCount": 4,
-			"topText": "Merge, merge and merge.",
+			"topText": "Merge, merge, link.",
 			"words": ["potato"],
 			"requiredWords": [
 				{
