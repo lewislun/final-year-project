@@ -147,7 +147,7 @@
 			"name": "Try Merge 2",
 			"rowCount": 4,
 			"colCount": 4,
-			"topText": "Way too many O...",
+			"topText": "Merge, merge, link.",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -164,17 +164,17 @@
 			"enableExchange": false,
 			"canRetry": true,
 			"tiles": [
-				"p,z,o,t",
-				"o,o,o,a",
-				"o,o,o,t",
-				"o,o,o,z"
+				"p,z,t,o",
+				"o,z,a,z",
+				"o,z,a,z",
+				"o,t,a,z"
 			]
 		},
 		{
 			"name": "Try Merge 3",
 			"rowCount": 4,
 			"colCount": 4,
-			"topText": "Merge, merge, link.",
+			"topText": "Way too many O...",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -182,14 +182,19 @@
 					"count": 1
 				}
 			],
+			"detailPanel": {
+				"title": "Linking Merged Tiles",
+				"imagePath": "Tutorial/retry-demo",
+				"visible": true
+			},
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,
 			"tiles": [
-				"p,z,t,o",
-				"o,z,a,z",
-				"o,z,a,z",
-				"o,t,a,z"
+				"p,z,o,t",
+				"o,o,o,a",
+				"o,o,o,t",
+				"o,o,o,z"
 			]
 		},
 		{

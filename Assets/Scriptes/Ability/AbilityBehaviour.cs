@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CanvasFadeBehaviour))]
+
 public abstract class AbilityBehaviour : MonoBehaviour {
 
 	public enum AbilityName {
@@ -25,6 +27,8 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	public static bool hasActivatingAbility = false;
 	public static float cooldownYOffset = 0.35f;
 	public static float cooldownAnimationDuration = 0.2f;
+
+	public static float hideAlpha = 0.2f;
 
 	#endregion
 
@@ -73,9 +77,11 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	public bool abilityEnabled {
 		set {
 			CanvasGroup cg = GetComponent<CanvasGroup>();
-			cg.alpha = value? 1: 0;
-			cg.interactable = value;
-			cg.blocksRaycasts = value;
+			CanvasFadeBehaviour fadeBehaviour = GetComponent<CanvasFadeBehaviour>();
+			if (value)
+				fadeBehaviour.Show(true);
+			else
+				fadeBehaviour.Hide(true);
 		}
 		get {
 			return GetComponent<CanvasGroup>().interactable;
@@ -89,6 +95,7 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 
 	protected void Awake(){
 		abilities[abilityName] = this;
+		GetComponent<CanvasFadeBehaviour>().hideAlpha = hideAlpha;
 	}
 
 	protected void Start(){

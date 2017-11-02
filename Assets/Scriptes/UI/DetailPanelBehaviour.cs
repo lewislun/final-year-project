@@ -59,19 +59,13 @@ public class DetailPanelBehaviour : MonoBehaviour {
 	public void Show(bool animated){
 		if (mCanvasFadeBehaviour == null)
 			mCanvasFadeBehaviour = GetComponent<CanvasFadeBehaviour>();
-		if (animated)
-			mCanvasFadeBehaviour.FadeIn();
-		else
-			mCanvasFadeBehaviour.Show();
+		mCanvasFadeBehaviour.Show(animated);
 	}
 
 	public void Hide(bool animated){
 		if (mCanvasFadeBehaviour == null)
 			mCanvasFadeBehaviour = GetComponent<CanvasFadeBehaviour>();
-		if (animated)
-			mCanvasFadeBehaviour.FadeOut();
-		else
-			mCanvasFadeBehaviour.Hide();
+		mCanvasFadeBehaviour.Hide(animated);
 	}
 
 	#endregion

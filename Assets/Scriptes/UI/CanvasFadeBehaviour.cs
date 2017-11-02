@@ -2,12 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CanvasGroup))]
+
 public class CanvasFadeBehaviour : MonoBehaviour {
 
 	#region Public Variables ---------------------------------
 
 	public float fadeDuration = 0.3f;
-	public AnimationCurve fadeCurve;
+	public float showAlpha = 1f;
+	public float hideAlpha = 0f;
+	public AnimationCurve fadeCurve = AnimationCurve.EaseInOut(0,0,1,1);
 
 	#endregion
 
@@ -21,61 +25,38 @@ public class CanvasFadeBehaviour : MonoBehaviour {
 
 	#region Fade ---------------------------------------------
 
-	public void Show(){
+	public void Show(bool animated){
 		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-		if (canvasGroup == null){
-			Debug.Log(gameObject.name + ".CanvasFadeBehaviour: no CanvasGroup attached");
-			return;
-		}
 
+		if (animated){
+			if (ongoingFade != null)
+				StopCoroutine(ongoingFade);
+			ongoingFade = StartCoroutine(Fade(showAlpha));
+		}
+		else
+			canvasGroup.alpha = showAlpha;
 		canvasGroup.interactable = true;
 		canvasGroup.blocksRaycasts = true;
-		canvasGroup.alpha = 1;
 	}
 
-	public void Hide(){
+	public void Hide(bool animated){
 		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-		if (canvasGroup == null){
-			Debug.Log(gameObject.name + ".CanvasFadeBehaviour: no CanvasGroup attached");
-			return;
-		}
 
+		if (animated){
+			if (ongoingFade != null)
+				StopCoroutine(ongoingFade);
+			ongoingFade = StartCoroutine(Fade(hideAlpha));
+		}
+		else
+			canvasGroup.alpha = hideAlpha;
 		canvasGroup.interactable = false;
 		canvasGroup.blocksRaycasts = false;
-		canvasGroup.alpha = 0;
 	}
 
-	public void FadeIn(){
-		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-		if (canvasGroup == null){
-			Debug.Log(gameObject.name + ".CanvasFadeBehaviour: no CanvasGroup attached");
-			return;
-		}
-
-		canvasGroup.interactable = true;
-		canvasGroup.blocksRaycasts = true;
-		if (ongoingFade != null)
-			StopCoroutine(ongoingFade);
-		ongoingFade = StartCoroutine(Fade(0,1));
-	}
-
-	public void FadeOut(){
-		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
-		if (canvasGroup == null){
-			Debug.Log(gameObject.name + ".CanvasFadeBehaviour: no CanvasGroup attached");
-			return;
-		}
-
-		canvasGroup.interactable = false;
-		canvasGroup.blocksRaycasts = false;
-		if (ongoingFade != null)
-			StopCoroutine(ongoingFade);
-		ongoingFade = StartCoroutine(Fade(1,0));
-	}
-
-	IEnumerator Fade(float startAlpha, float endAlpha){
+	IEnumerator Fade(float endAlpha){
 		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
 		float timePassed = 0;
+		float startAlpha = canvasGroup.alpha;
 		float alphaDiff = endAlpha - startAlpha;
 		while (timePassed < fadeDuration){
 			timePassed += Time.deltaTime;
