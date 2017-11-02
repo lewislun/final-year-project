@@ -147,6 +147,7 @@ public class GameController : MonoBehaviour {
 			PageNavigationManager.GetInstance().ChangePage("tab");
 		}
 		else{
+			Debug.Log("Level: " + curLevelIndex + "/" + curLevelSeries.Length);
 			StartGame(curLevelSeries[curLevelIndex]);
 		}
 	}

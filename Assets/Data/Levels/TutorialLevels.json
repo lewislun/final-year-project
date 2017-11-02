@@ -4,7 +4,7 @@
 			"name": "Try Link Mechanics 1",
 			"rowCount": 6,
 			"colCount": 6,
-			"topText": "Tab the P and drag all the way to O to link the word POTATO.",
+			"topText": "Tab P and drag all the way to O to link the word POTATO.",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -29,7 +29,54 @@
 			"name": "Try Link Mechanics 2",
 			"rowCount": 3,
 			"colCount": 3,
-			"topText": "You can link tiles vertically, horizontally or diagonally.",
+			"topText": "Not every word lines up perfectly.",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": false,
+			"showHints": false,
+			"tiles": [
+				"p,o,t",
+				"z,z,a",
+				"z,o,t"
+			]
+		},
+		{
+			"name": "Try Link Mechanics 3",
+			"rowCount": 6,
+			"colCount": 6,
+			"topText": "You can link diagonally.",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": false,
+			"showHints": false,
+			"tiles": [
+				"p,z,z,z,z,z",
+				"z,o,z,z,z,z",
+				"z,z,t,z,z,z",
+				"z,z,z,a,z,z",
+				"z,z,z,z,t,z",
+				"z,z,z,z,z,o"
+			]
+		},
+		{
+			"name": "Try Link Mechanics 2",
+			"rowCount": 3,
+			"colCount": 3,
+			"topText": "Even a potato can do this. Easy.",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -48,10 +95,10 @@
 			]
 		},
 		{
-			"name": "Try Link Mechanics 3",
+			"name": "Try Link Mechanics 4",
 			"rowCount": 4,
 			"colCount": 4,
-			"topText": "Let me give you some help just in case you are a real potato...",
+			"topText": "Start with that glowing tile, potato!",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -100,7 +147,7 @@
 			"name": "Try Merge 2",
 			"rowCount": 4,
 			"colCount": 4,
-			"topText": "You can always try again by pressing the Retry button at the top if you messed up.",
+			"topText": "Way too many O...",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -122,7 +169,7 @@
 			"name": "Try Merge 3",
 			"rowCount": 4,
 			"colCount": 4,
-			"topText": "Remember, you can only merge tiles if they have the same lettes and are able to form a rectangular shape.",
+			"topText": "Merge, merge and merge.",
 			"words": ["potato"],
 			"requiredWords": [
 				{
