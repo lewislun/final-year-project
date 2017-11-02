@@ -9,7 +9,8 @@ public class DetailPanelBehaviour : MonoBehaviour {
 
 	public static string PANEL = "Panel";
 	public static string PANEL_IMAGE = "Panel Image";
-	public static string TITLE = "Title";
+	public static string PANEL_TITLE = "Title";
+	public static string PANEL_WORD_LIST = "Word List";
 
 	#endregion
 
@@ -18,26 +19,19 @@ public class DetailPanelBehaviour : MonoBehaviour {
 
 	public string title {
 		get {
-			if (titleText == null)
-				titleText = transform.Find(PANEL).Find(TITLE).GetComponent<Text>();
 			return titleText.text;
 		}
 		set {
-			if (titleText == null)
-				titleText = transform.Find(PANEL).Find(TITLE).GetComponent<Text>();
 			titleText.text = value;
 		}
 	}
 
 	public Sprite image {
 		get {
-			if (panelImage == null)
-				panelImage = transform.Find(PANEL).Find(PANEL_IMAGE).GetComponent<Image>();
 			return panelImage.sprite;
 		}
 		set {
-			if (panelImage == null)
-				panelImage = transform.Find(PANEL).Find(PANEL_IMAGE).GetComponent<Image>();
+			panelImage.enabled = value != null;
 			panelImage.sprite = value;
 		}
 	}
@@ -54,17 +48,24 @@ public class DetailPanelBehaviour : MonoBehaviour {
 	#endregion
 
 
+	#region MonoBehaviour Functions ----------
+
+	void Awake(){
+		panelImage = transform.Find(PANEL).Find(PANEL_IMAGE).GetComponent<Image>();
+		titleText = transform.Find(PANEL).Find(PANEL_TITLE).GetComponent<Text>();
+		mCanvasFadeBehaviour = GetComponent<CanvasFadeBehaviour>();
+	}
+
+	#endregion
+
+
 	#region Panel Control --------------------
 
 	public void Show(bool animated){
-		if (mCanvasFadeBehaviour == null)
-			mCanvasFadeBehaviour = GetComponent<CanvasFadeBehaviour>();
 		mCanvasFadeBehaviour.Show(animated);
 	}
 
 	public void Hide(bool animated){
-		if (mCanvasFadeBehaviour == null)
-			mCanvasFadeBehaviour = GetComponent<CanvasFadeBehaviour>();
 		mCanvasFadeBehaviour.Hide(animated);
 	}
 

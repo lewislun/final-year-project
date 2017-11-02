@@ -95,8 +95,7 @@ public class GameController : MonoBehaviour {
 			if (levelInfo.detailPanel.visible){
 				detailPanel.Show(true);
 				detailPanel.title = levelInfo.detailPanel.title;
-				if (levelInfo.detailPanel.imagePath != "")
-					detailPanel.image = Resources.Load<Sprite>(levelInfo.detailPanel.imagePath);
+				detailPanel.image = Resources.Load<Sprite>(levelInfo.detailPanel.imagePath);
 			}
 			else
 				detailPanel.Hide(false);
