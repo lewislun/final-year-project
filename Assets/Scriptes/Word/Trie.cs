@@ -152,7 +152,7 @@ public class Trie {
 
 		for (int i = 0; i < characters.Count; i++) {
 			for (int j = 0; j < characters[i].Count; j++) {
-				string output = SearchLinkableWord(characters, i, j, "", root);
+				string output = SearchLinkableWord(characters, i, j, "", root, new List<string>());
 				if (output != null) {
 					LinkableCharacter newLinkable;
 					newLinkable.row = i;
@@ -166,7 +166,11 @@ public class Trie {
 		return resultList;
 	}
 
-	string SearchLinkableWord(List<List<string>> characters, int curRow, int curCol, string curStr, Node curNode) {
+	string SearchLinkableWord(List<List<string>> characters, int curRow, int curCol, string curStr, Node curNode, List<string> visitedTiles) {
+		if (visitedTiles.Contains(curCol + "/" + curRow))
+			return null;
+		visitedTiles.Add(curCol + "/" + curRow);
+
 		string curCharacter = characters[curRow][curCol];
 
 		if (curNode.children.ContainsKey(curCharacter)) {
@@ -184,7 +188,7 @@ public class Trie {
 					int nextRow = curRow + i;
 					int nextCol = curCol + j;
 					if (!(i == 0 && j == 0) && nextRow >= 0 && nextRow < rowCount && nextCol >= 0 && nextCol < colCount) {
-						string output = SearchLinkableWord(characters, nextRow, nextCol, curStr, nextNode);
+						string output = SearchLinkableWord(characters, nextRow, nextCol, curStr, nextNode, new List<string>(visitedTiles));
 						if (output != null)
 							return output;
 					}
