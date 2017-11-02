@@ -33,7 +33,7 @@ public class ChainifyAbilityBehaviour : AbilityBehaviour {
 			return;
 
 		TileManager.GetInstance().TransformTile(touchingTile, "");
-		Deactivate();
+		Deactivate(true);
 	}
 
 	#endregion
@@ -49,18 +49,12 @@ public class ChainifyAbilityBehaviour : AbilityBehaviour {
 
 	}
 
-	public override void Activate() {
-		base.Activate();
-
-		if (activating) { 
-			touchManager.touchPriority = 1;
-		}
+	protected override void AbilityActivated() {
+		touchManager.touchPriority = 1;
 	}
 
-	public override void Deactivate() {
-		base.Deactivate();
+	protected override void AbilityDeactivated() {
 		touchManager.touchPriority = 0;
-		StartCooldown();
 	}
 
 	#endregion

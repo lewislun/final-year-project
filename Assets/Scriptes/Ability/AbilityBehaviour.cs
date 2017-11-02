@@ -111,22 +111,35 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 
 	#region Ability Lifecycle --------------------------------
 
-	protected abstract void InheritedStart();
+	protected virtual void InheritedStart() {}
 
-	protected abstract void InitAbility();
+	protected virtual void InitAbility() {}
 
-	public virtual void Activate() {
+	protected virtual void AbilityActivated() {}
+
+	protected virtual void AbilityDeactivated() {}
+
+	public void Activate() {
+		if (activating){
+			Deactivate(false);
+			return;
+		}
 		if (hasActivatingAbility || coolingDown)
 			return;
+		
 		activating = true;
 		hasActivatingAbility = true;
 		InitAbility();
+		AbilityActivated();
 	}
 
-	public virtual void Deactivate() {
+	public void Deactivate(bool startCooldown) {
 		print("deacitivated");
 		activating = false;
 		hasActivatingAbility = false;
+		if (startCooldown)
+			StartCooldown();
+		AbilityDeactivated();
 	}
 
 	#endregion

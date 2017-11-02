@@ -136,7 +136,7 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 
 		TileManager.GetInstance().ExchangeTiles(firstTileBehaviour.row, firstTileBehaviour.col, secondTileBehaviour.row, secondTileBehaviour.col);
 
-		Deactivate();
+		Deactivate(true);
 	}
 
 	void SetVortexParticleActive(bool active) {
@@ -158,20 +158,16 @@ public class ExchangeAbilityBehaviour : AbilityBehaviour {
 		secondTile = null;
 	}
 
-	public override void Activate() {
-		base.Activate();
-
+	protected override void AbilityActivated() {
 		if (activating) { 
 			SetVortexParticleActive(true);
 			touchManager.touchPriority = 1;
 		}
 	}
 
-	public override void Deactivate() {
-		base.Deactivate();
+	protected override void AbilityDeactivated() {
 		SetVortexParticleActive(false);
 		touchManager.touchPriority = 0;
-		StartCooldown();
 	}
 
 	#endregion
