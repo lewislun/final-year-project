@@ -15,6 +15,13 @@ public class DetailPanelBehaviour : MonoBehaviour {
 	#endregion
 
 
+	#region Public Variables -----------------
+
+	public GameObject wordListItemPrefab;
+
+	#endregion
+
+
 	#region Properties -----------------------
 
 	public string title {
@@ -71,5 +78,13 @@ public class DetailPanelBehaviour : MonoBehaviour {
 
 	#endregion
 
+
+	#region Word List ------------------------
+
+	public void setWordList(List<string> wordList) {
+		
+	}
+
+	#endregion
 
 }
