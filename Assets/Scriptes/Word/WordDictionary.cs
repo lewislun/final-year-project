@@ -19,7 +19,7 @@ public class WordDictionary: MonoBehaviour {
 	#region Public Variables ---------------
 
 	public TextAsset dictionaryJson = null;
-	public List<WordDefinition> wordDefinitions = new List<WordDefinition>();
+	public Dictionary<string, WordDefinition> wordDefinitions = new Dictionary<string, WordDefinition>();
 
 	#endregion
 
@@ -38,9 +38,11 @@ public class WordDictionary: MonoBehaviour {
 
 	void ReadDictionaryJson() {
 		Words temp = JsonUtility.FromJson<Words>(dictionaryJson.text);
-		wordDefinitions = new List<WordDefinition>(temp.words);
+		wordDefinitions = new Dictionary<string, WordDefinition>();
 
-		Debug.Log(GetInstance().wordDefinitions);
+		for(int i = 0; i < temp.words.Length; i++){
+			wordDefinitions[temp.words[i].word.ToUpper()] = temp.words[i];
+		}
 	}
 
 	public static WordDictionary GetInstance(){

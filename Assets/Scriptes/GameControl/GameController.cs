@@ -96,6 +96,9 @@ public class GameController : MonoBehaviour {
 				detailPanel.Show(true);
 				detailPanel.title = levelInfo.detailPanel.title;
 				detailPanel.image = Resources.Load<Sprite>(levelInfo.detailPanel.imagePath);
+				if (detailPanel.image == null) {
+					detailPanel.setWordList(new List<RequiredWord>(levelInfo.requiredWords));
+				}
 			}
 			else
 				detailPanel.Hide(false);
