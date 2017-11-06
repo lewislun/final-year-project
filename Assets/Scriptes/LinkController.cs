@@ -116,7 +116,7 @@ public class LinkController : MonoBehaviour {
 	}
 
 	void UpdateLink() {
-		bool isTouching = touchManager.isTouching && touchManager.touchPriority <= 0;
+		bool isTouching = touchManager.isTouching && touchManager.touchPriority <= 0 && !touchManager.isTouchingUI;
 		Vector2 touchPos = touchManager.touchPos;
 
 		SetLinkFlareActive(isTouching);

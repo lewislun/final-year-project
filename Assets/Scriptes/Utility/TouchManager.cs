@@ -23,6 +23,16 @@ public class TouchManager : MonoBehaviour {
 		}
 	}
 
+	private bool _isTouchingUI = false;
+	public bool isTouchingUI {
+		get {
+			return _isTouchingUI;
+		}
+		private set {
+			_isTouchingUI = value;
+		}
+	}
+
 	private Vector2 _touchPos = Vector2.zero;
 	public Vector2 touchPos {
 		get {
@@ -74,12 +84,14 @@ public class TouchManager : MonoBehaviour {
 			touchPos = Camera.main.ScreenToWorldPoint(tempPos);
 		else
 			touchPos = Vector2.zero;
+
+		isTouchingUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(-1) || UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(0);
 	}
 
 	
 	public static GameObject GetTouchingTile() {
 
-		if (!GetInstance().isTouching) 
+		if (!GetInstance().isTouching || GetInstance().isTouchingUI) 
 			return null;
 
 		Vector2 touchPos = GetInstance().touchPos;
