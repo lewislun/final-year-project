@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour {
 	public GameObject retryButton;
 	public GameObject detailButton;
 	public DetailPanelBehaviour detailPanel;
+	public RemainingWordlistBehaviour remainingWordlist;
 
 	public TimerBehaviour timerBehaviour;
 	public TextAsset tutorialLevelsJson;
@@ -55,6 +56,8 @@ public class GameController : MonoBehaviour {
 			Debug.Log("detailButton == null");
 		if (detailPanel == null)
 			Debug.Log("detailPanel == null");
+		if (remainingWordlist == null)
+			Debug.Log("remainingWOrdlist == null");
 	}
 
 	void Start () {
@@ -93,8 +96,15 @@ public class GameController : MonoBehaviour {
 		//UI related
 		if (topText == null)
 			Debug.Log("topText == null");
-		else
+		else {
+			remainingWordlist.ClearList();
 			topText.text = levelInfo.topText;
+			if (levelInfo.topText == "") {
+				remainingWordlist.SetWordList(levelInfo.requiredWords);
+			}
+
+		}
+			
 
 		retryButton.SetActive(levelInfo.canRetry);
 		detailButton.SetActive(levelInfo.detailPanel.visible);

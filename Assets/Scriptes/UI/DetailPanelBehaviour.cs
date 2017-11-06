@@ -117,7 +117,7 @@ public class DetailPanelBehaviour : MonoBehaviour {
 			return;
 		}
 
-		string displayWord = StrToFirstCap(definition.word) + " (" + definition.partOfSpeech + ".)";
+		string displayWord = StringOperation.ToFirstUpper(definition.word) + " (" + definition.partOfSpeech + ".)";
 
 		GameObject newItem = Instantiate(wordListItemPrefab, wordListItemContainer.transform);
 		newItem.transform.localScale = Vector3.one;
@@ -125,18 +125,6 @@ public class DetailPanelBehaviour : MonoBehaviour {
 		Transform upperPart = newItem.transform.Find(PANEL_WORD_LIST_ITEM_UPPER_PART);
 		upperPart.Find(PANEL_WORD_LIST_ITEM_UPPER_PART_WORD).GetComponent<Text>().text = displayWord;
 		upperPart.Find(PANEL_WORD_LIST_ITEM_UPPER_PART_COUNT).GetComponent<Text>().text = "x" + count;
-	}
-
-	string StrToFirstCap(string str){
-		if (str == null)
-			return "";
-		string result = "";
-		if (str.Length > 0)
-			result += str.Substring(0,1).ToUpper();
-		if (str.Length > 1)
-			result += str.Substring(1,str.Length - 1);
-		
-		return result;
 	}
 
 	#endregion
