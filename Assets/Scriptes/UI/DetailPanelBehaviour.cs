@@ -88,7 +88,7 @@ public class DetailPanelBehaviour : MonoBehaviour {
 
 	#region Word List ------------------------
 
-	public void setWordList(List<RequiredWord> wordList) {
+	public void SetWordList(List<RequiredWord> wordList) {
 		ClearWordList();
 		Dictionary<string, WordDefinition> wordDefinitions = WordDictionary.GetInstance().wordDefinitions;
 		foreach(RequiredWord word in wordList){
@@ -104,7 +104,7 @@ public class DetailPanelBehaviour : MonoBehaviour {
 		}
 	}
 
-	void ClearWordList(){
+	public void ClearWordList(){
 		int itemCount = wordListItemContainer.transform.childCount;
 		for (int i = itemCount - 1; i >= 0; i--){
 			Destroy(wordListItemContainer.transform.GetChild(i).gameObject);

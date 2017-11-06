@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour {
 
 	public Text topText;
 	public GameObject retryButton;
+	public GameObject detailButton;
 	public DetailPanelBehaviour detailPanel;
 
 	public TimerBehaviour timerBehaviour;
@@ -46,6 +47,15 @@ public class GameController : MonoBehaviour {
 
 
 	#region MonoBehaviour Functions ----------------------------------
+
+	void Awake() {
+		if (retryButton == null)
+			Debug.Log("retryButton == null");
+		if (detailButton == null)
+			Debug.Log("detailButton == null");
+		if (detailPanel == null)
+			Debug.Log("detailPanel == null");
+	}
 
 	void Start () {
 		tileManager = TileManager.GetInstance();
@@ -85,23 +95,21 @@ public class GameController : MonoBehaviour {
 			Debug.Log("topText == null");
 		else
 			topText.text = levelInfo.topText;
-		if (retryButton == null)
-			Debug.Log("retryButton == null");
-		else
-			retryButton.SetActive(levelInfo.canRetry);
-		if (detailPanel == null)
-			Debug.Log("detailPanel == null");
-		else {
-			if (levelInfo.detailPanel.visible){
-				detailPanel.Show(true);
-				detailPanel.title = levelInfo.detailPanel.title;
-				detailPanel.image = Resources.Load<Sprite>(levelInfo.detailPanel.imagePath);
-				if (detailPanel.image == null) {
-					detailPanel.setWordList(new List<RequiredWord>(levelInfo.requiredWords));
-				}
+
+		retryButton.SetActive(levelInfo.canRetry);
+		detailButton.SetActive(levelInfo.detailPanel.visible);
+
+		if (levelInfo.detailPanel.visible){
+			detailPanel.Show(true);
+			detailPanel.title = levelInfo.detailPanel.title;
+			detailPanel.image = Resources.Load<Sprite>(levelInfo.detailPanel.imagePath);
+			if (detailPanel.image == null) {
+				detailPanel.SetWordList(new List<RequiredWord>(levelInfo.requiredWords));
+			} else {
+				detailPanel.ClearWordList();
 			}
-			else
-				detailPanel.Hide(false);
+		} else {
+			detailPanel.Hide(false);
 		}
 
 

@@ -1,0 +1,32 @@
+{
+	"levels": [
+		{
+			"name": "Try Link Mechanics 1",
+			"rowCount": 6,
+			"colCount": 6,
+			"topText": "Tab P and drag all the way to O to link the word POTATO.",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"visible": true
+			},
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": false,
+			"showHints": false,
+			"tiles": [
+				"z,z,z,z,z,z",
+				"z,z,z,z,z,z",
+				"p,o,t,a,t,o",
+				"z,z,z,z,z,z",
+				"z,z,z,z,z,z",
+				"z,z,z,z,z,z"
+			]
+		}
+	]
+}
