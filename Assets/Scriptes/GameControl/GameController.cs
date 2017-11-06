@@ -102,10 +102,8 @@ public class GameController : MonoBehaviour {
 			if (levelInfo.topText == "") {
 				remainingWordlist.SetWordList(levelInfo.requiredWords);
 			}
-
 		}
 			
-
 		retryButton.SetActive(levelInfo.canRetry);
 		detailButton.SetActive(levelInfo.detailPanel.visible);
 
@@ -147,6 +145,7 @@ public class GameController : MonoBehaviour {
 		word = word.ToUpper();
 		if (requiredWords.ContainsKey(word)){
 			requiredWords[word]--;
+			remainingWordlist.UpdateCount(word, requiredWords[word]);
 			if (requiredWords[word] <= 0){
 				requiredWords.Remove(word);
 				if (requiredWords.Count <= 0){

@@ -12,6 +12,7 @@ public class RemainingWordlistBehaviour : MonoBehaviour {
 
 	public static string REMAINING_WORD_ITEM_WORD = "Word";
 	public static string REMAINING_WORD_ITEM_COUNT = "Count";
+	public static string REMAINING_WORD_ITEM_STRIKETHROUGH = "Strikethrough";
 
 	#endregion
 
@@ -75,6 +76,26 @@ public class RemainingWordlistBehaviour : MonoBehaviour {
 		newItem.transform.localScale = Vector3.one;
 
 		remainingWords[word.ToUpper()] = newItem;
+	}
+
+	public void UpdateCount(string word, int newCount) {
+		string upperWord = word.ToUpper();
+		if (!remainingWords.ContainsKey(upperWord)){
+			Debug.Log("RemainingWordlistBehaviour.UpdateCount(): word not found (" + word + ")");
+			return;
+		}
+
+		GameObject go = remainingWords[upperWord];
+		go.transform.Find(REMAINING_WORD_ITEM_COUNT).GetComponent<Text>().text = "x" + newCount;
+		CanvasFadeBehaviour strikethoughFader = go.transform.Find(REMAINING_WORD_ITEM_STRIKETHROUGH).GetComponent<CanvasFadeBehaviour>();
+		CanvasFadeBehaviour goFader = go.GetComponent<CanvasFadeBehaviour>();
+		if (newCount == 0){
+			strikethoughFader.Show(true);
+			goFader.Hide(true);
+		} else {
+			strikethoughFader.Hide(true);
+			goFader.Show(true);
+		}
 	}
 
 	#endregion
