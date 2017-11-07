@@ -1,0 +1,74 @@
+{
+	"levels": [
+		{
+			"name": "Try Link Mechanics 1",
+			"rowCount": 6,
+			"colCount": 6,
+			"topText": "",
+			"words": ["potato", "embargo"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				},
+				{
+					"word": "embargo",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"visible": true
+			},
+			"abilities": [
+				{
+					"abilityName": "Chainify",
+					"enabled": true,
+					"isChargeMode": true,
+					"chargeCount": 3
+				}
+			],
+			"canRetry": false,
+			"showHints": true,
+			"tiles": [
+				"a,b,c,d,e,f",
+				"g,h,i,j,k,l",
+				"m,n,o,p,q,r",
+				"s,t,u,v,w,x",
+				"y,z,,,,",
+				",,,,,"
+			]
+		},
+		{
+			"name": "Try Link Mechanics 1",
+			"rowCount": 6,
+			"colCount": 6,
+			"topText": "",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"visible": true
+			},
+			"abilities": [
+				{
+					"abilityName": "Chainify",
+					"enabled": true,
+					"isChargeMode": true,
+					"chargeCount": 3
+				},
+				{
+					"abilityName": "Exchange",
+					"enabled": true,
+					"isChargeMode": true,
+					"chargeCount": 1
+				}
+			],
+			"canRetry": false,
+			"showHints": true
+		}
+	]
+}

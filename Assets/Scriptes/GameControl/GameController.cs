@@ -121,10 +121,12 @@ public class GameController : MonoBehaviour {
 		}
 
 
-		//init abilities
-		AbilityBehaviour.StopAllCooldown();
-		AbilityBehaviour.SetAbilityEnabled(AbilityBehaviour.AbilityName.Chainify, levelInfo.enableChainify);
-		AbilityBehaviour.SetAbilityEnabled(AbilityBehaviour.AbilityName.Exchange, levelInfo.enableExchange);
+		//abilities
+		AbilityBehaviour.ResetAllAbilities();
+		/*AbilityBehaviour.SetAbilityEnabled(AbilityBehaviour.AbilityName.Chainify, levelInfo.enableChainify);
+		AbilityBehaviour.SetAbilityEnabled(AbilityBehaviour.AbilityName.Exchange, levelInfo.enableExchange);*/
+		for(int i = 0; i < levelInfo.abilities.Length; i++)
+			AbilityBehaviour.ConfigAbility(levelInfo.abilities[i]);
 
 		//level required words
 		if (levelInfo.requiredWords.Length == 0)

@@ -29,13 +29,14 @@ public class LevelInfo {
 	public string[][] tileSetup = {};	//Unity JsonParser does not support nested array
 	public int rowCount = 8;
 	public int colCount = 8;
-	public bool enableChainify = true;
-	public bool enableExchange = true;
+	//public bool enableChainify = true;
+	//public bool enableExchange = true;
 	public bool canRetry = false;
 	public bool showHints = true;
 	public TileManager.CharacterWeight[] weights = {};
 	public RequiredWord[] requiredWords = {};
 	public LevelDetailPanel detailPanel = null;
+	public AbilityBehaviour.AbilityConfig[] abilities = {};
 
 	public void ParseTilesPreset(){
 		tileSetup = new string[tiles.Length][];

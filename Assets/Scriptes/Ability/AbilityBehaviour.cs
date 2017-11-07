@@ -12,11 +12,20 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 		Exchange
 	}
 
+	[System.Serializable]
+	public class AbilityConfig {
+		public string abilityName = "";
+		public bool enabled = true;
+		public bool isChargeMode = false;
+		public int chargeCount = 0;
+	}
+
 
 	#region Children Names -----------------------------------
 
 	public static string ACTIVATING_VISUAL_EFFECTS = "Activating Visual Effects";
 	public static string COOLDOWN_FILTER = "Cooldown Filter";
+	public static string CHARGE_COUNT = "Charge Count";
 
 	#endregion
 
@@ -45,6 +54,8 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	private Vector3 originalPos = Vector3.zero;
 	private Coroutine cooldownAnimation = null;
 	private Coroutine cooldownCounter = null;
+
+	private GameObject chargeCountText = null;
 
 	#endregion
 
@@ -88,6 +99,28 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 		}
 	}
 
+	bool _isChargeMode = false;
+	public bool isChargeMode {
+		get {
+			return _isChargeMode;
+		}
+		set {
+			_isChargeMode = value;
+			chargeCountText.SetActive(value);
+		}
+	}
+
+	int _chargeCount = 0;
+	public int chargeCount {
+		get {
+			return _chargeCount;
+		}
+		set {
+			_chargeCount = value;
+			chargeCountText.GetComponent<Text>().text = value + "";
+		}
+	}
+
 	#endregion
 
 
@@ -96,6 +129,8 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	protected void Awake(){
 		abilities[abilityName] = this;
 		GetComponent<CanvasFadeBehaviour>().hideAlpha = hideAlpha;
+		chargeCountText = transform.Find(CHARGE_COUNT).gameObject;
+		chargeCountText.SetActive(isChargeMode);
 	}
 
 	protected void Start(){
@@ -152,6 +187,15 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 			ability.Value.StopCooldown(true);
 	}
 
+	public static void ResetAllAbilities(){
+		foreach(KeyValuePair<AbilityName, AbilityBehaviour> ability in abilities) {
+			ability.Value.abilityEnabled = false;
+			ability.Value.isChargeMode = false;
+			ability.Value.chargeCount = 0;
+			ability.Value.StopCooldown(true);
+		}
+	}
+
 	public static void SetAbilityEnabled(AbilityName abilityName, bool enabled){
 		if (!abilities.ContainsKey(abilityName)){
 			Debug.Log("ability " + abilityName + " does not exist");
@@ -159,6 +203,19 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 		}
 
 		abilities[abilityName].abilityEnabled = enabled;
+	}
+
+	public static void ConfigAbility(AbilityConfig config){
+		AbilityName abilityName = (AbilityName)System.Enum.Parse(typeof(AbilityName), StringOperation.ToFirstUpper(config.abilityName));
+		if (!abilities.ContainsKey(abilityName)){
+			Debug.Log("ability " + abilityName + " does not exist");
+			return;
+		}
+
+		AbilityBehaviour ability = abilities[abilityName];
+		ability.abilityEnabled = config.enabled;
+		ability.isChargeMode = config.isChargeMode;
+		ability.chargeCount = config.chargeCount;
 	}
 
 	#endregion
@@ -169,8 +226,17 @@ public abstract class AbilityBehaviour : MonoBehaviour {
 	protected void StartCooldown() {
 		if (cooldownAnimation != null)
 			StopCoroutine(cooldownAnimation);
-		cooldownAnimation = StartCoroutine(CooldownAnimation(true));
-		cooldownCounter = StartCoroutine(CooldownCounter());
+
+		if (isChargeMode){
+			chargeCount--;
+			if (chargeCount == 0) {
+				//cooldownAnimation = StartCoroutine(CooldownAnimation(true));
+				abilityEnabled = false;
+			}
+		} else {	//normal cooldown mode
+			cooldownAnimation = StartCoroutine(CooldownAnimation(true));
+			cooldownCounter = StartCoroutine(CooldownCounter());
+		}
 	}
 
 	public void StopCooldown(bool hasAnimation){
