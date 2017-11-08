@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 using System.IO;
 
 public class GameController : MonoBehaviour {
@@ -15,6 +16,8 @@ public class GameController : MonoBehaviour {
 	public DetailPanelBehaviour detailPanel;
 	public RemainingWordlistBehaviour remainingWordlist;
 	public TimerBehaviour timer;
+
+	public UnityEvent onInitLevel = new UnityEvent();
 
 	public TextAsset tutorialLevelsJson;
 
@@ -86,6 +89,8 @@ public class GameController : MonoBehaviour {
 	public void StartGame(LevelInfo levelInfo) {
 		PageNavigationManager.GetInstance().ChangePage("game");
 
+		onInitLevel.Invoke();
+
 		//init tileManager and wordChecker
 		wordChecker.showHints = levelInfo.showHints;
 		List<string> wordList = new List<string>(levelInfo.words);
@@ -128,6 +133,7 @@ public class GameController : MonoBehaviour {
 
 		//Timer
 		timer.StopTimer();
+		timer.paused = false;
 		timer.duration = levelInfo.duration;
 
 		//abilities

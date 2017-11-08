@@ -14,6 +14,9 @@ public class TimerBehaviour : MonoBehaviour {
 	public Color endColor = Color.white;
 	public AnimationCurve colorCurve = AnimationCurve.Linear(0,0,1,1);
 	public UnityEvent onTimeUp = new UnityEvent();
+	public UnityEvent onPause = new UnityEvent();
+	public UnityEvent onResume = new UnityEvent();
+	public bool paused = false;
 
 	#endregion
 
@@ -70,6 +73,16 @@ public class TimerBehaviour : MonoBehaviour {
 			StopCoroutine(runningTimer);
 	}
 
+	public void Pause(){
+		paused = true;
+		onPause.Invoke();
+	}
+
+	public void Resume(){
+		paused = false;
+		onResume.Invoke();
+	}
+
 	#endregion
 
 
@@ -95,7 +108,8 @@ public class TimerBehaviour : MonoBehaviour {
 		while (timeRemain > 0) {
 			ChangeTimeVisual(timeRemain);
 			yield return new WaitForFixedUpdate();
-			timeRemain -= Time.deltaTime;
+			if (!paused)
+				timeRemain -= Time.deltaTime;
 		}
 		ChangeTimeVisual(timeRemain);
 		runningTimer = null;
