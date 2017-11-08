@@ -13,8 +13,8 @@ public class GameController : MonoBehaviour {
 	public GameObject detailButton;
 	public DetailPanelBehaviour detailPanel;
 	public RemainingWordlistBehaviour remainingWordlist;
+	public TimerBehaviour timer;
 
-	public TimerBehaviour timerBehaviour;
 	public TextAsset tutorialLevelsJson;
 
 	#endregion
@@ -58,11 +58,13 @@ public class GameController : MonoBehaviour {
 			Debug.Log("detailPanel == null");
 		if (remainingWordlist == null)
 			Debug.Log("remainingWOrdlist == null");
+		if (timer == null)
+			Debug.Log("timer == null");
+		tileManager = TileManager.GetInstance();
+		wordChecker = WordChecker.GetInstance();
 	}
 
 	void Start () {
-		tileManager = TileManager.GetInstance();
-		wordChecker = WordChecker.GetInstance();
 		tutorialLevels = ReadLevels(tutorialLevelsJson);
 	}
 
@@ -120,11 +122,12 @@ public class GameController : MonoBehaviour {
 			detailPanel.Hide(false);
 		}
 
+		//Timer
+		timer.StopTimer();
+		timer.duration = levelInfo.duration;
 
 		//abilities
 		AbilityBehaviour.ResetAllAbilities();
-		/*AbilityBehaviour.SetAbilityEnabled(AbilityBehaviour.AbilityName.Chainify, levelInfo.enableChainify);
-		AbilityBehaviour.SetAbilityEnabled(AbilityBehaviour.AbilityName.Exchange, levelInfo.enableExchange);*/
 		for(int i = 0; i < levelInfo.abilities.Length; i++)
 			AbilityBehaviour.ConfigAbility(levelInfo.abilities[i]);
 

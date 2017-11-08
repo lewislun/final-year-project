@@ -3,17 +3,106 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Image))]
+
 public class TimerBehaviour : MonoBehaviour {
 
 	#region Public Variables ---------------
 
-	public float duration;
+	public Color startColor = Color.white;
+	public Color endColor = Color.white;
+	public AnimationCurve colorCurve = AnimationCurve.Linear(0,0,1,1);
 
 	#endregion
 
-	public void StartTimer() {
-		StartCoroutine(TimerCoroutine());
+
+	#region Private Variables -------------
+
+	Coroutine runningTimer = null;
+	Image mImage;
+
+	#endregion
+
+
+	#region Properties --------------------
+
+	private float _duration = -1f;
+	public float duration {
+		get {
+			return _duration;
+		}
+		set {
+			_duration = value;
+			CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
+			if (value < 0){
+				canvasGroup.alpha = 0;
+			} else {
+				canvasGroup.alpha = 1;
+			}
+		}
 	}
+
+	#endregion
+
+
+	#region MonoBehaviour -----------------
+
+	void Awake(){
+		mImage = GetComponent<Image>();
+	}
+
+	#endregion
+
+
+	#region Timer Control -----------------
+
+	public void StartTimer() {
+		Debug.Log(duration);
+		StopTimer();
+		if (duration >= 0)
+			runningTimer = StartCoroutine(TimerCoroutine());
+	}
+
+	public void StopTimer(){
+		if (runningTimer != null)
+			StopCoroutine(runningTimer);
+	}
+
+	#endregion
+
+
+	#region Visual ------------------------
+
+	void ChangeTimerLineScaleX(float timeRemain){
+		Vector3 tempV3 = transform.localScale;
+		tempV3.x = timeRemain/duration;
+		transform.localScale = tempV3;
+	}
+
+	void ChangeTimerLineColor(float timeRemain){
+		mImage.color = Color.Lerp(endColor, startColor, colorCurve.Evaluate(timeRemain / duration));
+	}
+
+	void ChangeTimeVisual(float timeRemain){
+		ChangeTimerLineScaleX(timeRemain);
+		ChangeTimerLineColor(timeRemain);
+	}
+
+	IEnumerator TimerCoroutine() {
+		float timeRemain = duration;
+		while (timeRemain > 0) {
+			ChangeTimeVisual(timeRemain);
+			yield return new WaitForFixedUpdate();
+			timeRemain -= Time.deltaTime;
+		}
+		ChangeTimeVisual(timeRemain);
+		runningTimer = null;
+	}
+
+	#endregion
+
+
+	#region utils ------------------------
 
 	string secondToTimeStr(float time) {
 		int minute = (int)(time / 60);
@@ -28,18 +117,6 @@ public class TimerBehaviour : MonoBehaviour {
 		return str;
 	}
 
-	void changeTimeVisual(float timeRemain){
-		GetComponent<Text>().text = secondToTimeStr(timeRemain);
-	}
-
-	IEnumerator TimerCoroutine() {
-		float timeRemain = duration;
-		while (timeRemain <= 0) {
-			changeTimeVisual(timeRemain);
-			yield return new WaitForFixedUpdate();
-			timeRemain -= Time.deltaTime;
-		}
-		changeTimeVisual(timeRemain);
-	}
+	#endregion
 
 }
