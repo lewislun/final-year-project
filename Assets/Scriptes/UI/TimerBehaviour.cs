@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Image))]
 
@@ -12,6 +13,7 @@ public class TimerBehaviour : MonoBehaviour {
 	public Color startColor = Color.white;
 	public Color endColor = Color.white;
 	public AnimationCurve colorCurve = AnimationCurve.Linear(0,0,1,1);
+	public UnityEvent onTimeUp = new UnityEvent();
 
 	#endregion
 
@@ -80,7 +82,7 @@ public class TimerBehaviour : MonoBehaviour {
 	}
 
 	void ChangeTimerLineColor(float timeRemain){
-		mImage.color = Color.Lerp(endColor, startColor, colorCurve.Evaluate(timeRemain / duration));
+		mImage.color = Color.Lerp(startColor, endColor, colorCurve.Evaluate(1 - (timeRemain / duration)));
 	}
 
 	void ChangeTimeVisual(float timeRemain){
@@ -97,6 +99,8 @@ public class TimerBehaviour : MonoBehaviour {
 		}
 		ChangeTimeVisual(timeRemain);
 		runningTimer = null;
+		if (onTimeUp != null)
+			onTimeUp.Invoke();
 	}
 
 	#endregion

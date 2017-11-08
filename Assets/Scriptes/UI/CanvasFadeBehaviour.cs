@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(CanvasGroup))]
 
@@ -12,6 +13,8 @@ public class CanvasFadeBehaviour : MonoBehaviour {
 	public float showAlpha = 1f;
 	public float hideAlpha = 0f;
 	public AnimationCurve fadeCurve = AnimationCurve.EaseInOut(0,0,1,1);
+	public UnityEvent onShown = new UnityEvent();
+	public UnityEvent onHidden = new UnityEvent();
 
 	#endregion
 
@@ -31,7 +34,7 @@ public class CanvasFadeBehaviour : MonoBehaviour {
 		if (animated){
 			if (ongoingFade != null)
 				StopCoroutine(ongoingFade);
-			ongoingFade = StartCoroutine(Fade(showAlpha));
+			ongoingFade = StartCoroutine(Fade(showAlpha, onShown));
 		}
 		else
 			canvasGroup.alpha = showAlpha;
@@ -45,7 +48,7 @@ public class CanvasFadeBehaviour : MonoBehaviour {
 		if (animated){
 			if (ongoingFade != null)
 				StopCoroutine(ongoingFade);
-			ongoingFade = StartCoroutine(Fade(hideAlpha));
+			ongoingFade = StartCoroutine(Fade(hideAlpha, onHidden));
 		}
 		else
 			canvasGroup.alpha = hideAlpha;
@@ -53,7 +56,7 @@ public class CanvasFadeBehaviour : MonoBehaviour {
 		canvasGroup.blocksRaycasts = false;
 	}
 
-	IEnumerator Fade(float endAlpha){
+	IEnumerator Fade(float endAlpha, UnityEvent onFaded){
 		CanvasGroup canvasGroup = GetComponent<CanvasGroup>();
 		float timePassed = 0;
 		float startAlpha = canvasGroup.alpha;
@@ -66,6 +69,8 @@ public class CanvasFadeBehaviour : MonoBehaviour {
 		
 		canvasGroup.alpha = endAlpha;
 		ongoingFade = null;
+		if (onFaded != null)
+			onFaded.Invoke();
 	}
 
 	#endregion

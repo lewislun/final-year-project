@@ -27,7 +27,7 @@
 					"chargeCount": 3
 				}
 			],
-			"duration": 10,
+			"duration": 5,
 			"canRetry": false,
 			"showHints": true,
 			"tiles": [
