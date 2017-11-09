@@ -16,6 +16,7 @@ public class LinkController : MonoBehaviour {
 
 	public float linkZPos = -1;
 	public Text LinkedWordText;
+	public bool shouldGenerateNewTile = false;
 
 	#endregion
 
@@ -77,7 +78,7 @@ public class LinkController : MonoBehaviour {
 				TileBehaviour TileBehaviour = go.GetComponent<TileBehaviour>();
 				TileManager.GetInstance().DestroyTile(TileBehaviour.row, TileBehaviour.col);
 			}
-			tileManager.Drop();
+			tileManager.Drop(shouldGenerateNewTile);
 			
 		}
 

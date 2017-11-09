@@ -272,7 +272,11 @@ public class TileManager : MonoBehaviour {
 		Drop(new string[0][]);
 	}
 
-	public void Drop(string[][] tileSetup) {
+	public void Drop(bool shouldGenerateTile){
+		Drop(new string[0][], shouldGenerateTile);
+	}
+
+	public void Drop(string[][] tileSetup, bool shouldGenerateTile = true) {
 
 		UnmergeAllTile();
 
@@ -296,7 +300,7 @@ public class TileManager : MonoBehaviour {
 						}
 						row--;
 					}
-					if (row == -1){
+					if (shouldGenerateTile && row == -1){
 						if (i < tileSetup.Length && j < tileSetup[i].Length)
 							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[j]);
 						else
@@ -325,7 +329,7 @@ public class TileManager : MonoBehaviour {
 						}
 						col++;
 					}
-					if (col == colCount){
+					if (shouldGenerateTile && col == colCount){
 						if (i < tileSetup.Length && j < tileSetup[i].Length)
 							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[i]);
 						else
@@ -354,7 +358,7 @@ public class TileManager : MonoBehaviour {
 						}
 						row++;
 					}
-					if (row == rowCount){
+					if (shouldGenerateTile && row == rowCount){
 						if (i < tileSetup.Length && j < tileSetup[i].Length)
 							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[j]);
 						else
@@ -382,7 +386,7 @@ public class TileManager : MonoBehaviour {
 						}
 						col--;
 					}
-					if (col == -1){
+					if (shouldGenerateTile && col == -1){
 						if (i < tileSetup.Length && j < tileSetup[i].Length)
 							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[i]);
 						else
@@ -490,7 +494,13 @@ public class TileManager : MonoBehaviour {
 			ApplyTileSpriteInfo(tile, newCharacter);
 			tileBehaviour.character = newCharacter;
 		}
+	}
 
+	public void ClearHints(){
+		foreach(List<GameObject> tileRow in tiles)
+			foreach(GameObject tile in tileRow)
+				if (tile != null)
+					tile.GetComponent<TileBehaviour>().isHint = false;
 	}
 
 	#endregion

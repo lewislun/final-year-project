@@ -107,10 +107,7 @@ public class WordChecker : MonoBehaviour {
 		});
 		job.onFinish.Add(() => {
 			print("finished");
-			foreach (List<GameObject> tileRow in tiles)
-				foreach (GameObject tile in tileRow) {
-					tile.GetComponent<TileBehaviour>().isHint = false;
-				}
+			TileManager.GetInstance().ClearHints();
 			foreach (LinkableCharacter linkable in (List<LinkableCharacter>)job.args["list_of_linkables"]) {
 				print(linkable.row + " " + linkable.col + ": " + linkable.word);
 				tiles[linkable.row][linkable.col].GetComponent<TileBehaviour>().isHint = true;

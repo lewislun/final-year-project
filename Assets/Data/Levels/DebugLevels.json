@@ -2,6 +2,43 @@
 	"levels": [
 		{
 			"name": "Try Link Mechanics 1",
+			"rowCount": 5,
+			"colCount": 5,
+			"topText": "",
+			"words": ["potato", "embargo"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				},
+				{
+					"word": "embargo",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"visible": true
+			},
+			"abilities": [
+				{
+					"abilityName": "Exchange",
+					"enabled": true,
+					"isChargeMode": true,
+					"chargeCount": 2
+				}
+			],
+			"canRetry": false,
+			"showHints": true,
+			"tiles": [
+				"z,z,z,z,o",
+				"z,p,o,t,z",
+				"z,e,t,a,z",
+				"z,m,b,a,o",
+				"z,z,r,g,z"
+			]
+		},
+		{
+			"name": "Try Link Mechanics 1",
 			"rowCount": 6,
 			"colCount": 6,
 			"topText": "",
@@ -27,7 +64,7 @@
 					"chargeCount": 3
 				}
 			],
-			"duration": 5,
+			"duration": 10,
 			"canRetry": false,
 			"showHints": true,
 			"tiles": [

@@ -7,8 +7,10 @@ using UnityEngine.Events;
 public class PageInfo {
 	public string name;
 	public GameObject pageCanvas;
-	public UnityEvent pageConstructor;
-	public UnityEvent pageDestructor;
+	public UnityEvent pageConstructor = new UnityEvent();
+	public UnityEvent pageLateConstructor = new UnityEvent();
+	public UnityEvent pageLateDestructor = new UnityEvent();
+	public UnityEvent pageDestructor = new UnityEvent();
 }
 
 public class PageNavigationManager : MonoBehaviour {
@@ -78,12 +80,14 @@ public class PageNavigationManager : MonoBehaviour {
 		pageInfos[pageIdx].pageCanvas.SetActive(true);
 		FadeInPage(pageIdx);
 		pageInfos[pageIdx].pageConstructor.Invoke();
+		pageInfos[pageIdx].pageLateConstructor.Invoke();
 
 	}
 
 	void UnmountPage(int pageIdx) {
 		if (pageIdx != -1) {
 			pageInfos[pageIdx].pageDestructor.Invoke();
+			pageInfos[pageIdx].pageLateDestructor.Invoke();
 			if (pageInfos[pageIdx].pageCanvas) {
 				FadeOutPage(pageIdx);
 				pageInfos[pageIdx].pageCanvas.GetComponent<CanvasGroup>().interactable = false;

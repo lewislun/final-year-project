@@ -10,9 +10,9 @@ public class GameController : MonoBehaviour {
 	#region Public Variables -----------------------------------------
 
 	public Text topText;
+	public GameObject pauseButton;
 	public GameObject retryButton;
 	public GameObject detailButton;
-	public GameObject timeUpPanel;
 	public DetailPanelBehaviour detailPanel;
 	public RemainingWordlistBehaviour remainingWordlist;
 	public TimerBehaviour timer;
@@ -58,10 +58,10 @@ public class GameController : MonoBehaviour {
 			Debug.Log("retryButton == null");
 		if (detailButton == null)
 			Debug.Log("detailButton == null");
-		if (timeUpPanel == null)
-			Debug.Log("timeUpPanel == null");
 		if (detailPanel == null)
 			Debug.Log("detailPanel == null");
+		if (pauseButton == null)
+			Debug.Log("pauseButton == null");
 		if (remainingWordlist == null)
 			Debug.Log("remainingWOrdlist == null");
 		if (timer == null)
@@ -114,7 +114,6 @@ public class GameController : MonoBehaviour {
 			}
 		}
 			
-		timeUpPanel.GetComponent<CanvasFadeBehaviour>().Hide(false);
 		retryButton.SetActive(levelInfo.canRetry);
 		detailButton.SetActive(levelInfo.detailPanel.visible);
 
@@ -131,10 +130,11 @@ public class GameController : MonoBehaviour {
 			detailPanel.Hide(false);
 		}
 
-		//Timer
+		//Timer related
 		timer.StopTimer();
 		timer.paused = false;
 		timer.duration = levelInfo.duration;
+		pauseButton.SetActive(levelInfo.duration >= 0);
 
 		//abilities
 		AbilityBehaviour.ResetAllAbilities();
