@@ -28,6 +28,7 @@ public class RemainingWordlistBehaviour : MonoBehaviour {
 	GameObject leftContainer = null;
 	GameObject rightContainer = null;
 	Dictionary<string, GameObject> remainingWords = new Dictionary<string, GameObject>();
+	Dictionary<string, string> filteredWords = new Dictionary<string, string>();
 
 	#endregion
 
@@ -47,15 +48,25 @@ public class RemainingWordlistBehaviour : MonoBehaviour {
 
 	#region Wordlist Operation ----------------------
 
-	public void SetWordList(RequiredWord[] requiredWords) {
+	public void SetWordList(RequiredWord[] requiredWords, Dictionary<string, string> filteredWords) {
 		ClearList();
+		this.filteredWords = filteredWords;
 		for(int i = 0; i < requiredWords.Length; i++){
+			string filteredWord = FilterWord(requiredWords[i].word, filteredWords);
 			if (i%2 == 0){
-				AddWordItem(requiredWords[i], leftContainer);
+				AddWordItem(filteredWord, requiredWords[i].count, leftContainer);
 			} else {
-				AddWordItem(requiredWords[i], rightContainer);
+				AddWordItem(filteredWord, requiredWords[i].count, rightContainer);
 			}
 		}
+	}
+
+	string FilterWord(string word, Dictionary<string, string> filteredWords){
+		string upperWord = word.ToUpper();
+		if (filteredWords.ContainsKey(upperWord))
+			return filteredWords[upperWord];
+		else
+			return word;
 	}
 
 	public void ClearList(){
@@ -80,6 +91,9 @@ public class RemainingWordlistBehaviour : MonoBehaviour {
 
 	public void UpdateCount(string word, int newCount) {
 		string upperWord = word.ToUpper();
+		if (filteredWords.ContainsKey(upperWord)){
+			upperWord = filteredWords[upperWord].ToUpper();
+		}
 		if (!remainingWords.ContainsKey(upperWord)){
 			Debug.Log("RemainingWordlistBehaviour.UpdateCount(): word not found (" + word + ")");
 			return;

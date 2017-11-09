@@ -88,19 +88,27 @@ public class DetailPanelBehaviour : MonoBehaviour {
 
 	#region Word List ------------------------
 
-	public void SetWordList(List<RequiredWord> wordList) {
+	public void SetWordList(List<RequiredWord> wordList, Dictionary<string, string> filteredWords) {
 		ClearWordList();
 		Dictionary<string, WordDefinition> wordDefinitions = WordDictionary.GetInstance().wordDefinitions;
 		foreach(RequiredWord word in wordList){
 			string upperWord = word.word.ToUpper();
+			string filteredWord = FilterWord(upperWord, filteredWords);
 			if (wordDefinitions.ContainsKey(upperWord)){
-				AddWordListItem(wordDefinitions[upperWord], word.count);
+				AddWordListItem(wordDefinitions[upperWord], filteredWord, word.count);
 			} else {
 				WordDefinition tempDefinition = new WordDefinition();
-				tempDefinition.word = word.word;
-				AddWordListItem(tempDefinition, word.count);
+				AddWordListItem(tempDefinition, filteredWord, word.count);
 				Debug.Log("DetailPanelDehavbiour: word (" + word + ") not found in dictionary.");
 			}
+		}
+	}
+
+	string FilterWord(string upperWord, Dictionary<string, string> filteredWords){
+		if (filteredWords.ContainsKey(upperWord)){
+			return filteredWords[upperWord];
+		} else {
+			return upperWord;
 		}
 	}
 
@@ -111,13 +119,13 @@ public class DetailPanelBehaviour : MonoBehaviour {
 		}
 	}
 
-	void AddWordListItem(WordDefinition definition, int count) {
+	void AddWordListItem(WordDefinition definition, string displayWord, int count) {
 		if (wordListItemPrefab == null){
 			Debug.Log("DetailPanelDehaviour: missin wordListItemPrefab");
 			return;
 		}
 
-		string displayWord = StringOperation.ToFirstUpper(definition.word) + " (" + definition.partOfSpeech + ".)";
+		displayWord = StringOperation.ToFirstUpper(displayWord) + " (" + definition.partOfSpeech + ".)";
 
 		GameObject newItem = Instantiate(wordListItemPrefab, wordListItemContainer.transform);
 		newItem.transform.localScale = Vector3.one;

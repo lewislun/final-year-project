@@ -26,12 +26,6 @@ public class GameController : MonoBehaviour {
 
 	#region Properties -----------------------------------------------
 
-	public bool isTutorial{
-		get{
-			return tutorialLevelIndex != -1;
-		}
-	}
-
 	LevelInfo[] _levelSeries = {};
 	public LevelInfo[] levelSeries {
 		get {
@@ -50,8 +44,6 @@ public class GameController : MonoBehaviour {
 	WordChecker wordChecker;
 	TileManager tileManager;
 	LinkController linkController;
-
-	int tutorialLevelIndex = -1;
 
 	LevelInfo[] curLevelSeries;
 	int curLevelIndex = -1;
@@ -114,14 +106,29 @@ public class GameController : MonoBehaviour {
 		tileManager.colCount = levelInfo.colCount;
 		tileManager.GenerateTiles(levelInfo.tileSetup);
 
+		//level required words
+		if (levelInfo.requiredWords.Length == 0)
+			hasWordTarget = false;
+		else{
+			hasWordTarget = true;
+			for(int i = 0; i < levelInfo.requiredWords.Length; i++){
+				RequiredWord rw = levelInfo.requiredWords[i];
+				requiredWords[rw.word.ToUpper()] = rw.count;
+			}
+		}
+
+		//Filtered words for quiz level
+		Dictionary<string, string> filteredWords = new Dictionary<string, string>();
+		for (int i = 0; i < levelInfo.filteredWords.Length; i++){
+			filteredWords[levelInfo.filteredWords[i].originalWord.ToUpper()] = levelInfo.filteredWords[i].filteredWord;
+		}
+
 		//UI related
-		if (topText == null)
-			Debug.Log("topText == null");
-		else {
+		if (topText != null) {
 			remainingWordlist.ClearList();
 			topText.text = levelInfo.topText;
 			if (levelInfo.topText == "") {
-				remainingWordlist.SetWordList(levelInfo.requiredWords);
+				remainingWordlist.SetWordList(levelInfo.requiredWords, filteredWords);
 			}
 		}
 			
@@ -133,7 +140,7 @@ public class GameController : MonoBehaviour {
 			detailPanel.title = levelInfo.detailPanel.title;
 			detailPanel.image = Resources.Load<Sprite>(levelInfo.detailPanel.imagePath);
 			if (detailPanel.image == null) {
-				detailPanel.SetWordList(new List<RequiredWord>(levelInfo.requiredWords));
+				detailPanel.SetWordList(new List<RequiredWord>(levelInfo.requiredWords), filteredWords);
 			} else {
 				detailPanel.ClearWordList();
 			}
@@ -151,17 +158,6 @@ public class GameController : MonoBehaviour {
 		AbilityBehaviour.ResetAllAbilities();
 		for(int i = 0; i < levelInfo.abilities.Length; i++)
 			AbilityBehaviour.ConfigAbility(levelInfo.abilities[i]);
-
-		//level required words
-		if (levelInfo.requiredWords.Length == 0)
-			hasWordTarget = false;
-		else{
-			hasWordTarget = true;
-			for(int i = 0; i < levelInfo.requiredWords.Length; i++){
-				RequiredWord rw = levelInfo.requiredWords[i];
-				requiredWords[rw.word.ToUpper()] = rw.count;
-			}
-		}
 
 		//link
 		linkController.shouldGenerateNewTile = levelInfo.shouldGenerateNewTile;

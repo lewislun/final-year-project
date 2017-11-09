@@ -56,6 +56,8 @@ public class LevelContainerBehaviour : MonoBehaviour {
 		Image image = levelItem.GetComponent<Image>();
 		if (levelInfo.isTutorial)
 			image.color = tutorialLevelColor;
+		else if (levelInfo.filteredWords.Length > 0) 
+			image.color = quizLevelColor;
 		else if (levelInfo.duration >= 0)
 			image.color = timedLevelColor;
 		else

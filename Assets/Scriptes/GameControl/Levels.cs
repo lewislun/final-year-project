@@ -20,6 +20,12 @@ public class LevelDetailPanel {
 }
 
 [System.Serializable]
+public class FilteredWord {
+	public string originalWord;
+	public string filteredWord;
+}
+
+[System.Serializable]
 public class LevelInfo {
 	public string name = "";
 	public string topText = "";
@@ -37,6 +43,7 @@ public class LevelInfo {
 	public bool isTutorial = false;
 	public TileManager.CharacterWeight[] weights = {};
 	public RequiredWord[] requiredWords = {};
+	public FilteredWord[] filteredWords = {};
 	public LevelDetailPanel detailPanel = null;
 	public AbilityBehaviour.AbilityConfig[] abilities = {};
 
