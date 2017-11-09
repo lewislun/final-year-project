@@ -27,7 +27,13 @@
 					"chargeCount": 2
 				}
 			],
-			"canRetry": false,
+			"weights": [
+				{
+					"character": "z",
+					"weight": 1
+				}
+			],
+			"canRetry": true,
 			"showHints": true,
 			"tiles": [
 				"z,z,z,z,o",

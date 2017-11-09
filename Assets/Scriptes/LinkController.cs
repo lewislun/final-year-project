@@ -16,7 +16,7 @@ public class LinkController : MonoBehaviour {
 
 	public float linkZPos = -1;
 	public Text LinkedWordText;
-	public bool shouldGenerateNewTile = false;
+	public bool shouldGenerateNewTile = true;
 
 	#endregion
 
@@ -234,5 +234,9 @@ public class LinkController : MonoBehaviour {
 
 	#endregion
 
+
+	public static LinkController GetInstance(){
+		return GameObject.Find("Line Container").GetComponent<LinkController>();
+	}
 
 }

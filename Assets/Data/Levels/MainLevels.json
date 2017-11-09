@@ -1,48 +1,10 @@
 {
 	"levels": [
 		{
-			"name": "Try Link Mechanics 1",
+			"name": "link mechanics demo 1",
 			"rowCount": 6,
 			"colCount": 6,
-			"topText": "",
-			"words": ["potato", "embargo"],
-			"requiredWords": [
-				{
-					"word": "potato",
-					"count": 1
-				},
-				{
-					"word": "embargo",
-					"count": 1
-				}
-			],
-			"detailPanel": {
-				"visible": true
-			},
-			"abilities": [
-				{
-					"abilityName": "Chainify",
-					"enabled": true,
-					"isChargeMode": true,
-					"chargeCount": 3
-				}
-			],
-			"canRetry": false,
-			"showHints": true,
-			"tiles": [
-				"a,b,c,d,e,f",
-				"g,h,i,j,k,l",
-				"m,n,o,p,q,r",
-				"s,t,u,v,w,x",
-				"y,z,,,,",
-				",,,,,"
-			]
-		},
-		{
-			"name": "Try Link Mechanics 1",
-			"rowCount": 6,
-			"colCount": 6,
-			"topText": "",
+			"topText": "Tab P and drag all the way to O to link the word POTATO.",
 			"words": ["potato"],
 			"requiredWords": [
 				{
@@ -51,24 +13,139 @@
 				}
 			],
 			"detailPanel": {
-				"visible": true
+				"visible": false
 			},
-			"abilities": [
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": false,
+			"showHints": true,
+			"tiles": [
+				"x,x,x,x,x,x",
+				"x,x,x,x,x,x",
+				"p,o,t,a,t,o",
+				"x,x,x,x,x,x",
+				"x,x,x,x,x,x",
+				"x,x,x,x,x,x"
+			]
+		},
+		{
+			"name": "link mechanics demo 2",
+			"rowCount": 5,
+			"colCount": 5,
+			"topText": "Not every word lines up perfectly.",
+			"words": ["potato"],
+			"requiredWords": [
 				{
-					"abilityName": "Chainify",
-					"enabled": true,
-					"isChargeMode": true,
-					"chargeCount": 3
-				},
-				{
-					"abilityName": "Exchange",
-					"enabled": true,
-					"isChargeMode": true,
-					"chargeCount": 1
+					"word": "potato",
+					"count": 1
 				}
 			],
+			"detailPanel": {
+				"visible": false
+			},
+			"enableChainify": false,
+			"enableExchange": false,
 			"canRetry": false,
-			"showHints": true
+			"showHints": true,
+			"tiles": [
+				"x,x,x,x,x",
+				"x,p,o,t,x",
+				"x,x,x,a,x",
+				"x,x,o,t,x",
+				"x,x,x,x,x"
+			]
+		},
+		{
+			"name": "link mechanics demo 3",
+			"rowCount": 6,
+			"colCount": 6,
+			"topText": "You can link diagonally.",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"visible": false
+			},
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": false,
+			"showHints": true,
+			"tiles": [
+				"p,x,x,x,x,x",
+				"x,o,x,x,x,x",
+				"x,x,t,x,x,x",
+				"x,x,x,a,x,x",
+				"x,x,x,x,t,x",
+				"x,x,x,x,x,o"
+			]
+		},
+		{
+			"rowCount": 5,
+			"colCount": 5,
+			"words": ["aspire"],
+			"requiredWords": [
+				{
+					"word": "aspire",
+					"count": 2
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "You are good to go!"
+			},
+			"weights": [
+				{
+					"character": "x",
+					"weight": 1
+				}
+			],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"showHints": true,
+			"tiles": [
+				"x,x,x,x,x",
+				"e,a,s,p,x",
+				"r,x,a,s,i",
+				"x,i,p,r,x",
+				"x,x,e,x,x"
+			]
+		},
+		{
+			"rowCount": 6,
+			"colCount": 6,
+			"words": ["analogy"],
+			"requiredWords": [
+				{
+					"word": "analogy",
+					"count": 2
+				}
+			],
+			"detailPanel": {
+				"visible": true
+			},
+			"weights": [
+				{
+					"character": "x",
+					"weight": 1
+				}
+			],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"showHints": true,
+			"tiles": [
+				"x,x,x,x,x,l",
+				"x,y,x,x,a,o",
+				"o,g,a,n,g,x",
+				"x,l,a,y,a,o",
+				"x,a,n,n,l,g",
+				"x,x,x,a,x,y"
+			]
 		}
 	]
 }

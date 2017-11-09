@@ -39,6 +39,7 @@ public class GameController : MonoBehaviour {
 
 	WordChecker wordChecker;
 	TileManager tileManager;
+	LinkController linkController;
 	LevelInfo[] tutorialLevels = {};
 
 	int tutorialLevelIndex = -1;
@@ -68,6 +69,7 @@ public class GameController : MonoBehaviour {
 			Debug.Log("timer == null");
 		tileManager = TileManager.GetInstance();
 		wordChecker = WordChecker.GetInstance();
+		linkController = LinkController.GetInstance();
 	}
 
 	void Start () {
@@ -151,6 +153,9 @@ public class GameController : MonoBehaviour {
 				requiredWords[rw.word.ToUpper()] = rw.count;
 			}
 		}
+
+		//link
+		linkController.shouldGenerateNewTile = levelInfo.shouldGenerateNewTile;
 	}
 
 	public bool FinishWord(string word){
