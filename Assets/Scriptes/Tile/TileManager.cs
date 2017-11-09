@@ -210,7 +210,7 @@ public class TileManager : MonoBehaviour {
 		for (int i = 0; i < characterWeights.Count; i++) {
 			randomNum -= characterWeights[i].weight;
 			if (randomNum <= 0)
-				return characterWeights[i].character;
+				return characterWeights[i].character.ToUpper();
 		}
 
 		return "error";
@@ -302,7 +302,7 @@ public class TileManager : MonoBehaviour {
 					}
 					if (shouldGenerateTile && row == -1){
 						if (i < tileSetup.Length && j < tileSetup[i].Length)
-							CreateTile(tileSetup[i][j].ToUpper(), i, j, --tilePosOffset[j]);
+							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[j]);
 						else
 							CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[j]);
 					}
@@ -331,7 +331,7 @@ public class TileManager : MonoBehaviour {
 					}
 					if (shouldGenerateTile && col == colCount){
 						if (i < tileSetup.Length && j < tileSetup[i].Length)
-							CreateTile(tileSetup[i][j].ToUpper(), i, j, --tilePosOffset[i]);
+							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[i]);
 						else
 							CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[i]);
 					}
@@ -360,7 +360,7 @@ public class TileManager : MonoBehaviour {
 					}
 					if (shouldGenerateTile && row == rowCount){
 						if (i < tileSetup.Length && j < tileSetup[i].Length)
-							CreateTile(tileSetup[i][j].ToUpper(), i, j, --tilePosOffset[j]);
+							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[j]);
 						else
 							CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[j]);
 					}
@@ -388,7 +388,7 @@ public class TileManager : MonoBehaviour {
 					}
 					if (shouldGenerateTile && col == -1){
 						if (i < tileSetup.Length && j < tileSetup[i].Length)
-							CreateTile(tileSetup[i][j].ToUpper(), i, j, --tilePosOffset[i]);
+							CreateTile(tileSetup[i][j], i, j, --tilePosOffset[i]);
 						else
 							CreateTile(GetRandomCharacter(), i, j, --tilePosOffset[i]);
 					}
