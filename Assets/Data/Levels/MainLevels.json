@@ -100,12 +100,6 @@
 				"visible": true,
 				"title": "You are good to go!"
 			},
-			"filteredWords": [
-				{
-					"originalWord": "aspire",
-					"filteredWord": "as____"
-				}
-			],
 			"weights": [
 				{
 					"character": "x",
