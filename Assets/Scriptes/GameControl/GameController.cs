@@ -192,7 +192,8 @@ public class GameController : MonoBehaviour {
 		}
 		else{
 			Debug.Log("Level: " + curLevelIndex + "/" + curLevelSeries.Length);
-			LevelProgress.SetProgress(curLevelIndex);
+			if (LevelProgress.GetProgress() < curLevelIndex)
+				LevelProgress.SetProgress(curLevelIndex);
 			StartGame(curLevelSeries[curLevelIndex]);
 		}
 	}

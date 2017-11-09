@@ -127,6 +127,8 @@ public class DetailPanelBehaviour : MonoBehaviour {
 
 		displayWord = StringOperation.ToFirstUpper(displayWord) + " (" + definition.partOfSpeech + ".)";
 
+		Debug.Log(displayWord);
+
 		GameObject newItem = Instantiate(wordListItemPrefab, wordListItemContainer.transform);
 		newItem.transform.localScale = Vector3.one;
 		newItem.transform.Find(PANEL_WORD_LIST_ITEM_DEFINITION).GetComponent<Text>().text = definition.definition;
