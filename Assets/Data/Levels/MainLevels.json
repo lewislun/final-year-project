@@ -57,7 +57,7 @@
 				"x,x,x,x,x"
 			]
 		},
-		{
+		{ 
 			"name": "link mechanics demo 3",
 			"rowCount": 6,
 			"colCount": 6,
@@ -86,7 +86,7 @@
 				"x,x,x,x,x,o"
 			]
 		},
-		{
+		{ 
 			"rowCount": 5,
 			"colCount": 5,
 			"words": ["aspire"],
@@ -118,7 +118,7 @@
 				"x,x,e,x,x"
 			]
 		},
-		{
+		{ 
 			"rowCount": 6,
 			"colCount": 6,
 			"words": ["analogy"],
@@ -148,6 +148,229 @@
 				"x,l,a,y,a,o",
 				"x,a,n,n,l,g",
 				"x,x,x,a,x,y"
+			]
+		},
+		{ 
+			"rowCount": 6,
+			"colCount": 6,
+			"words": [
+				"complement",
+				"compliment"
+			],
+			"requiredWords": [
+				{
+					"word": "complement",
+					"count": 1
+				},
+				{
+					"word": "compliment",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "Mind the difference!"
+			},
+			"weights": [
+				{
+					"character": "x",
+					"weight": 1
+				}
+			],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"showHints": true,
+			"tiles": [
+				"x,x,x,x,n,t",
+				"x,c,o,m,e,x",
+				"x,c,e,m,p,x",
+				"x,x,o,l,l,x",
+				"n,t,x,m,p,x",
+				"x,e,m,i,x,x"
+			]
+		},
+		{ 
+			"rowCount": 8,
+			"colCount": 8,
+			"words": [
+				"embargo"
+			],
+			"requiredWords": [
+				{
+					"word": "embargo",
+					"count": 5
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "It's...... Time Attack!"
+			},
+			"duration": 60,
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"showHints": true,
+			"tiles": [
+				"b,a,e,o,r,g,r,g",
+				"m,e,m,g,r,a,e,o",
+				"b,g,o,b,a,b,m,e",
+				"a,r,a,a,r,m,e,m",
+				"a,g,o,o,g,r,e,b",
+				"a,o,a,m,b,a,g,o",
+				"b,g,r,e,m,e,g,r",
+				"r,e,m,m,m,b,r,a"
+			]
+		},
+		{ 
+			"rowCount": 6,
+			"colCount": 6,
+			"words": [
+				"disappoint"
+			],
+			"requiredWords": [
+				{
+					"word": "disappoint",
+					"count": 2
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "Two P, not one."
+			},
+			"weights": [
+				{
+					"character": "x",
+					"weight": 1
+				}
+			],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"showHints": true,
+			"tiles": [
+				"x,x,x,x,x,x",
+				"x,d,s,x,x,x",
+				"x,x,i,o,p,i",
+				"p,a,i,s,p,d",
+				"t,p,n,t,a,x",
+				"n,i,o,x,x,x"
+			]
+		},
+		{ 
+			"rowCount": 7,
+			"colCount": 7,
+			"words": [
+				"analogy",
+				"compliment",
+				"embargo"
+			],
+			"requiredWords": [
+				{
+					"word": "compliment",
+					"count": 1
+				},
+				{
+					"word": "analogy",
+					"count": 1
+				},
+				{
+					"word": "embargo",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "Quiz Time!"
+			},
+			"weights": [
+				{
+					"character": "x",
+					"weight": 1
+				}
+			],
+			"filteredWords": [
+				{
+					"originalWord": "compliment",
+					"filteredWord": "compl_ment"
+				},
+				{
+					"originalWord": "analogy",
+					"filteredWord": "___logy"
+				},
+				{
+					"originalWord": "embargo",
+					"filteredWord": "e_b_r_o"
+				}
+			],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"showHints": true,
+			"tiles": [
+				"x,x,x,c,x,o,x",
+				"x,x,e,a,g,x,x",
+				"x,x,o,m,r,a,x",
+				"y,n,m,l,b,e,x",
+				"x,a,p,i,e,n,t",
+				"x,l,o,g,m,x,x",
+				"x,x,x,x,x,x,x"
+			]
+		},
+		{ 
+			"name": "merge demo",
+			"rowCount": 4,
+			"colCount": 4,
+			"topText": "Try merging the A to spell POTATO.",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"title": "Merging Tiles",
+				"imagePath": "Tutorial/merge-demo",
+				"visible": true
+			},
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"isTutorial": true,
+			"tiles": [
+				"p,o,t,x",
+				"x,x,a,x",
+				"x,x,a,x",
+				"x,o,t,x"
+			]
+		},
+		{
+			"name": "Try Merge 2",
+			"rowCount": 4,
+			"colCount": 4,
+			"topText": "Merge, merge, link.",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"title": "Linking Merged Tiles",
+				"imagePath": "Tutorial/merged-tile-edge-demo",
+				"visible": true
+			},
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"isTutorial": true,
+			"tiles": [
+				"p,z,t,o",
+				"o,z,a,z",
+				"o,z,a,z",
+				"o,t,a,z"
 			]
 		}
 	]

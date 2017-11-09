@@ -185,6 +185,8 @@ public class GameController : MonoBehaviour {
 
 	public void StartNextLevel(){
 		curLevelIndex++;
+		if (LevelProgress.GetProgress() < curLevelIndex)
+			LevelProgress.SetProgress(curLevelIndex);
 		if (curLevelIndex >= curLevelSeries.Length){
 			//curLevelIndex = -1;
 			tileManager.InitTiles();
@@ -192,8 +194,6 @@ public class GameController : MonoBehaviour {
 		}
 		else{
 			Debug.Log("Level: " + curLevelIndex + "/" + curLevelSeries.Length);
-			if (LevelProgress.GetProgress() < curLevelIndex)
-				LevelProgress.SetProgress(curLevelIndex);
 			StartGame(curLevelSeries[curLevelIndex]);
 		}
 	}

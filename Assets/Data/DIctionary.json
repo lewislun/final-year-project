@@ -24,6 +24,21 @@
 			"word": "analogy",
 			"partOfSpeech": "n",
 			"definition": "a comparison between one thing and another"
+		},
+		{
+			"word": "complement",
+			"partOfSpeech": "n",
+			"definition": "a thing that contributes extra features to something else in such a way as to improve or emphasize its quality"
+		},
+		{
+			"word": "compliment",
+			"partOfSpeech": "n",
+			"definition": "a polite expression of praise or admiration"
+		},
+		{
+			"word": "disappoint",
+			"partOfSpeech": "v",
+			"definition": "fail to fulfil the hopes or expectations of"
 		}
 	]
 }
