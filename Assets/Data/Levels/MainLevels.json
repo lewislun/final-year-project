@@ -19,6 +19,7 @@
 			"enableExchange": false,
 			"canRetry": false,
 			"showHints": true,
+			"isTutorial": true,
 			"tiles": [
 				"x,x,x,x,x,x",
 				"x,x,x,x,x,x",
@@ -47,6 +48,7 @@
 			"enableExchange": false,
 			"canRetry": false,
 			"showHints": true,
+			"isTutorial": true,
 			"tiles": [
 				"x,x,x,x,x",
 				"x,p,o,t,x",
@@ -74,6 +76,7 @@
 			"enableExchange": false,
 			"canRetry": false,
 			"showHints": true,
+			"isTutorial": true,
 			"tiles": [
 				"p,x,x,x,x,x",
 				"x,o,x,x,x,x",

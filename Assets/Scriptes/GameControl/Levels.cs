@@ -34,6 +34,7 @@ public class LevelInfo {
 	public bool shouldGenerateNewTile = true;
 	public bool canRetry = false;
 	public bool showHints = true;
+	public bool isTutorial = false;
 	public TileManager.CharacterWeight[] weights = {};
 	public RequiredWord[] requiredWords = {};
 	public LevelDetailPanel detailPanel = null;

@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour {
 
 	public UnityEvent onInitLevel = new UnityEvent();
 
-	public TextAsset tutorialLevelsJson;
+	public TextAsset levelJson;
 
 	#endregion
 
@@ -32,6 +32,16 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	LevelInfo[] _levelSeries = {};
+	public LevelInfo[] levelSeries {
+		get {
+			return _levelSeries;
+		}
+		private set {
+			_levelSeries = value;
+		}
+	}
+
 	#endregion
 
 
@@ -40,7 +50,6 @@ public class GameController : MonoBehaviour {
 	WordChecker wordChecker;
 	TileManager tileManager;
 	LinkController linkController;
-	LevelInfo[] tutorialLevels = {};
 
 	int tutorialLevelIndex = -1;
 
@@ -73,7 +82,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	void Start () {
-		tutorialLevels = ReadLevels(tutorialLevelsJson);
+		levelSeries = ReadLevels(levelJson);
 	}
 
 	#endregion
@@ -181,12 +190,13 @@ public class GameController : MonoBehaviour {
 	public void StartNextLevel(){
 		curLevelIndex++;
 		if (curLevelIndex >= curLevelSeries.Length){
-			curLevelIndex = -1;
+			//curLevelIndex = -1;
 			tileManager.InitTiles();
-			PageNavigationManager.GetInstance().ChangePage("tab");
+			PageNavigationManager.GetInstance().ChangePage("level");
 		}
 		else{
 			Debug.Log("Level: " + curLevelIndex + "/" + curLevelSeries.Length);
+			LevelProgress.SetProgress(curLevelIndex);
 			StartGame(curLevelSeries[curLevelIndex]);
 		}
 	}
@@ -197,19 +207,14 @@ public class GameController : MonoBehaviour {
 		StartNextLevel();
 	}
 
-	public void RestartLevel(){
-		StartGame(curLevelSeries[curLevelIndex]);
+	public void StartLevel(int levelIndex){
+		curLevelSeries = levelSeries;
+		curLevelIndex = levelIndex - 1;
+		StartNextLevel();
 	}
 
-	#endregion
-
-
-	#region Tutorial Levels ------------------------------------------
-
-	public void StartTutorial(){
-		//tutorialLevelIndex = -1;
-		//StartNextTutorialLevel();
-		StartLevelSeries(tutorialLevels);
+	public void RestartLevel(){
+		StartGame(curLevelSeries[curLevelIndex]);
 	}
 
 	#endregion
@@ -228,6 +233,10 @@ public class GameController : MonoBehaviour {
 
 	#endregion
 
+
+	public void ResetLevelProgress(){
+		LevelProgress.SetProgress(0);
+	}
 
 	public static GameController GetInstance() {
 		return GameObject.Find("Manager").GetComponent<GameController>();
