@@ -199,14 +199,14 @@
 			"requiredWords": [
 				{
 					"word": "embargo",
-					"count": 5
+					"count": 4
 				}
 			],
 			"detailPanel": {
 				"visible": true,
 				"title": "It's...... Time Attack!"
 			},
-			"duration": 60,
+			"duration": 50,
 			"enableChainify": false,
 			"enableExchange": false,
 			"canRetry": true,
@@ -216,10 +216,10 @@
 				"m,e,m,g,r,a,e,o",
 				"b,g,o,b,a,b,m,e",
 				"a,r,a,a,r,m,e,m",
-				"a,g,o,o,g,r,e,b",
+				"r,g,o,o,g,r,e,b",
 				"a,o,a,m,b,a,g,o",
 				"b,g,r,e,m,e,g,r",
-				"r,e,m,m,m,b,r,a"
+				"o,e,m,m,m,b,a,a"
 			]
 		},
 		{ 
@@ -281,7 +281,7 @@
 			],
 			"detailPanel": {
 				"visible": true,
-				"title": "Quiz Time!"
+				"title": "Ding Ding Ding... Quiz Time!"
 			},
 			"weights": [
 				{
@@ -296,7 +296,7 @@
 				},
 				{
 					"originalWord": "analogy",
-					"filteredWord": "___logy"
+					"filteredWord": "a____gy"
 				},
 				{
 					"originalWord": "embargo",
@@ -371,6 +371,76 @@
 				"o,z,a,z",
 				"o,z,a,z",
 				"o,t,a,z"
+			]
+		},
+		{ 
+			"rowCount": 6,
+			"colCount": 6,
+			"words": [
+				"conscious"
+			],
+			"requiredWords": [
+				{
+					"word": "conscious",
+					"count": 2
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "Remember the S in the middle.."
+			},
+			"weights": [
+				{
+					"character": "x",
+					"weight": 1
+				}
+			],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"showHints": true,
+			"tiles": [
+				"x,x,x,o,c,x",
+				"o,x,n,x,x,x",
+				"c,n,s,c,c,i",
+				"x,s,x,s,o,x",
+				"c,o,s,x,u,x",
+				"i,u,x,x,x,x"
+			]
+		},
+		{ 
+			"rowCount": 6,
+			"colCount": 6,
+			"words": [
+				"consequence"
+			],
+			"requiredWords": [
+				{
+					"word": "consequence",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "How many E do you need?"
+			},
+			"weights": [
+				{
+					"character": "x",
+					"weight": 1
+				}
+			],
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"showHints": true,
+			"tiles": [
+				"c,x,e,e,e,x",
+				"o,s,e,e,e,x",
+				"n,x,e,e,e,q",
+				"x,n,e,e,e,u",
+				"x,c,e,e,e,x",
+				"x,x,e,e,e,x"
 			]
 		}
 	]

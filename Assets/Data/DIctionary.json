@@ -39,6 +39,16 @@
 			"word": "disappoint",
 			"partOfSpeech": "v",
 			"definition": "fail to fulfil the hopes or expectations of"
+		},
+		{
+			"word": "conscious",
+			"partOfSpeech": "adj",
+			"definition": "aware of and responding to one's surroundings"
+		},
+		{
+			"word": "consequence",
+			"partOfSpeech": "n",
+			"definition": "a result or effect, typically one that is unwelcome or unpleasant"
 		}
 	]
 }
