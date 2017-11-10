@@ -15,8 +15,6 @@
 			"detailPanel": {
 				"visible": false
 			},
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": false,
 			"showHints": true,
 			"isTutorial": true,
@@ -44,8 +42,6 @@
 			"detailPanel": {
 				"visible": false
 			},
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": false,
 			"showHints": true,
 			"isTutorial": true,
@@ -72,8 +68,6 @@
 			"detailPanel": {
 				"visible": false
 			},
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": false,
 			"showHints": true,
 			"isTutorial": true,
@@ -106,8 +100,6 @@
 					"weight": 1
 				}
 			],
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"showHints": true,
 			"tiles": [
@@ -137,8 +129,6 @@
 					"weight": 1
 				}
 			],
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"showHints": true,
 			"tiles": [
@@ -177,8 +167,6 @@
 					"weight": 1
 				}
 			],
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"showHints": true,
 			"tiles": [
@@ -207,8 +195,6 @@
 				"title": "It's...... Time Attack!"
 			},
 			"duration": 50,
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"showHints": true,
 			"tiles": [
@@ -244,8 +230,6 @@
 					"weight": 1
 				}
 			],
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"showHints": true,
 			"tiles": [
@@ -303,8 +287,6 @@
 					"filteredWord": "e_b_r_o"
 				}
 			],
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"showHints": true,
 			"tiles": [
@@ -334,8 +316,6 @@
 				"imagePath": "Tutorial/merge-demo",
 				"visible": true
 			},
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"isTutorial": true,
 			"tiles": [
@@ -362,8 +342,6 @@
 				"imagePath": "Tutorial/merged-tile-edge-demo",
 				"visible": true
 			},
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"isTutorial": true,
 			"tiles": [
@@ -395,8 +373,6 @@
 					"weight": 1
 				}
 			],
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"showHints": true,
 			"tiles": [
@@ -430,8 +406,6 @@
 					"weight": 1
 				}
 			],
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"showHints": true,
 			"tiles": [
@@ -442,7 +416,8 @@
 				"c,e,e,e,e,x",
 				"n,e,e,e,e,x"
 			]
-		},{
+		},
+		{
 			"rowCount": 8,
 			"colCount": 8,
 			"words": [
@@ -464,8 +439,6 @@
 				"title": "A noun and a verb"
 			},
 			"duration": 60,
-			"enableChainify": false,
-			"enableExchange": false,
 			"canRetry": true,
 			"tiles": [
 				"a,d,a,a,d,c,e,a",
@@ -476,6 +449,155 @@
 				"i,d,i,d,i,s,e,d",
 				"e,s,a,v,v,s,a,a",
 				"i,v,d,a,d,i,v,d"
+			]
+		},
+		{
+			"rowCount": 6,
+			"colCount": 6,
+			"words": [
+				"humorous",
+				"amusing",
+				"chucklesome"
+			],
+			"requiredWords": [
+				{
+					"word": "humorous",
+					"count": 1
+				},
+				{
+					"word": "amusing",
+					"count": 1
+				},
+				{
+					"word": "chucklesome",
+					"count": 1
+				}
+			],
+			"weights": [
+				{
+					"character": "x",
+					"weight": 1
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "\"Funny\" is a boring word, use these instead"
+			},
+			
+			
+			"canRetry": true,
+			"tiles": [
+				"x,x,a,s,o,m",
+				"u,s,h,n,n,e",
+				"c,m,i,u,s,g",
+				"h,x,o,m,e,l",
+				"x,r,u,c,k,x",
+				"x,x,o,u,s,x"
+			]
+		},
+		{
+			"name": "Chainify demo",
+			"rowCount": 3,
+			"colCount": 3,
+			"topText": "Transform the Y using Chainify to spell POTATO",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"title": "Ability: Chainify",
+				"imagePath": "Tutorial/chainify-demo",
+				"visible": true
+			},
+			"abilities": [
+				{
+					"abilityName": "Chainify",
+					"enabled": true,
+					"isChargeMode": true,
+					"chargeCount": 1
+				}
+			],
+			"isTutorial": true,
+			"canRetry": true,
+			"tiles": [
+				"p,x,a",
+				"o,y,t",
+				"t,x,o"
+			]
+		},
+		{
+			"name": "Chainify demo 2",
+			"rowCount": 4,
+			"colCount": 4,
+			"topText": "Did you know? You can turn a MERGED tile into a Chain Tile.",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"abilities": [
+				{
+					"abilityName": "Chainify",
+					"enabled": true,
+					"isChargeMode": true,
+					"chargeCount": 1
+				}
+			],
+			"isTutorial": true,
+			"canRetry": true,
+			"tiles": [
+				"p,o,t,x",
+				"x,x,y,x",
+				"x,x,y,x",
+				"o,t,a,x"
+			]
+		},
+		{
+			"rowCount": 8,
+			"colCount": 8,
+			"words": [
+				"propaganda"
+			],
+			"requiredWords": [
+				{
+					"word": "propaganda",
+					"count": 3
+				}
+			],
+			"weights": [
+				{
+					"character": "x",
+					"weight": 1
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "Dividing the pizza"
+			},
+			"canRetry": true,
+			"showHints": false,
+			"abilities": [
+				{
+					"abilityName": "Chainify",
+					"enabled": true,
+					"isChargeMode": true,
+					"chargeCount": 1
+				}
+			],
+			"tiles": [
+				"p,x,p,r,o,x,x,x",
+				"r,x,x,x,p,g,x,x",
+				"o,p,a,a,a,a,d,x",
+				"x,x,a,a,a,a,n,x",
+				"x,n,a,a,a,a,n,x",
+				"x,d,a,a,a,a,d,x",
+				"x,x,g,x,g,p,x,x",
+				"x,x,x,x,x,o,r,p"
 			]
 		}
 	]

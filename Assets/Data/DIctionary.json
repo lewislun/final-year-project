@@ -59,6 +59,26 @@
 			"word": "advise",
 			"partOfSpeech": "v",
 			"definition": "to recommend something"
+		},
+		{
+			"word": "humorous",
+			"partOfSpeech": "adj",
+			"definition": "causing laughter and amusement"
+		},
+		{
+			"word": "amusing",
+			"partOfSpeech": "adj",
+			"definition": "causing laughter and providing entertainment"
+		},
+		{
+			"word": "chucklesome",
+			"partOfSpeech": "adj",
+			"definition": "causing mild amusement; humorous"
+		},
+		{
+			"word": "propaganda",
+			"partOfSpeech": "n",
+			"definition": "Information, especially of a biased or misleading nature, used to promote a political cause or point of view"
 		}
 	]
 }
