@@ -11,6 +11,7 @@ public class PageInfo {
 	public UnityEvent pageLateConstructor = new UnityEvent();
 	public UnityEvent pageLateDestructor = new UnityEvent();
 	public UnityEvent pageDestructor = new UnityEvent();
+	public UnityEvent onBack = new UnityEvent();
 }
 
 public class PageNavigationManager : MonoBehaviour {
@@ -42,6 +43,12 @@ public class PageNavigationManager : MonoBehaviour {
 
 	void Start() {
 		ChangePage(homePage);
+	}
+
+	void Update(){
+		if (Input.GetKey(KeyCode.Escape)){
+			pageInfos[curPage].onBack.Invoke();
+		}
 	}
 
 	#endregion
@@ -99,6 +106,14 @@ public class PageNavigationManager : MonoBehaviour {
 		foreach (PageInfo pageInfo in pageInfos) {
 			pageInfo.pageCanvas.SetActive(false);
 		}
+	}
+
+	public void ReturnToLastPage(){
+		print(pageStack.Count);
+		if (pageStack.Count == 0)
+			return;
+		int pageIdx = pageStack.Pop();
+		ChangePage(pageIdx);
 	}
 
 	#endregion

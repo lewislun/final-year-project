@@ -483,8 +483,6 @@
 				"visible": true,
 				"title": "\"Funny\" is a boring word, use these instead"
 			},
-			
-			
 			"canRetry": true,
 			"tiles": [
 				"x,x,a,s,o,m",
@@ -598,6 +596,138 @@
 				"x,d,a,a,a,a,d,x",
 				"x,x,g,x,g,p,x,x",
 				"x,x,x,x,x,o,r,p"
+			]
+		},
+		{
+			"rowCount": 6,
+			"colCount": 6,
+			"words": [
+				"humorous",
+				"advice",
+				"conscious"
+			],
+			"requiredWords": [
+				{
+					"word": "humorous",
+					"count": 1
+				},
+				{
+					"word": "advice",
+					"count": 1
+				},
+				{
+					"word": "conscious",
+					"count": 1
+				}
+			],
+			"weights": [
+				{
+					"character": "x",
+					"weight": 1
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "Timed Quiz, GO!"
+			},
+			"abilities": [
+				{
+					"abilityName": "Chainify",
+					"enabled": true,
+					"isChargeMode": true,
+					"chargeCount": 2
+				}
+			],
+			"duration": 40,
+			"filteredWords": [
+				{
+					"originalWord": "humorous",
+					"filteredWord": "hu______"
+				},
+				{
+					"originalWord": "advice",
+					"filteredWord": "advi_e"
+				},
+				{
+					"originalWord": "conscious",
+					"filteredWord": "co_____us"
+				}
+			],
+			"canRetry": true,
+			"tiles": [
+				"a,h,s,x,n,s",
+				"i,d,u,x,c,o",
+				"o,u,v,x,x,c",
+				"u,u,u,i,c,x",
+				"r,o,m,s,e,x",
+				"x,o,x,x,x,x"
+			]
+		},
+		{
+			"name": "Chainify demo 3",
+			"rowCount": 6,
+			"colCount": 6,
+			"topText": "Before introducing our next ability, try using Chainify twice to solve this POTATO...",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"abilities": [
+				{
+					"abilityName": "Chainify",
+					"enabled": true,
+					"isChargeMode": true,
+					"chargeCount": 2
+				}
+			],
+			"isTutorial": true,
+			"canRetry": true,
+			"tiles": [
+				"x,x,x,x,x,x",
+				"x,x,x,x,x,x",
+				"p,o,a,t,t,o",
+				"x,x,x,x,x,x",
+				"x,x,x,x,x,x",
+				"x,x,x,x,x,x"
+			]
+		},
+		{
+			"name": "Exchange demo",
+			"rowCount": 6,
+			"colCount": 6,
+			"topText": "This time, you only need to do it once.",
+			"words": ["potato"],
+			"requiredWords": [
+				{
+					"word": "potato",
+					"count": 1
+				}
+			],
+			"detailPanel": {
+				"title": "Ability: Exchange",
+				"imagePath": "Tutorial/exchange-demo",
+				"visible": true
+			},
+			"abilities": [
+				{
+					"abilityName": "Exchange",
+					"enabled": true,
+					"isChargeMode": true,
+					"chargeCount": 1
+				}
+			],
+			"canRetry": true,
+			"isTutorial": true,
+			"tiles": [
+				"x,x,x,x,x,x",
+				"x,x,x,x,x,x",
+				"p,o,a,t,t,o",
+				"x,x,x,x,x,x",
+				"x,x,x,x,x,x",
+				"x,x,x,x,x,x"
 			]
 		}
 	]

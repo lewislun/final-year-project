@@ -237,6 +237,10 @@ public class GameController : MonoBehaviour {
 		LevelProgress.SetProgress(0);
 	}
 
+	public void InfiniteLevelProgress(){
+		LevelProgress.SetProgress(int.MaxValue);
+	}
+
 	public static GameController GetInstance() {
 		return GameObject.Find("Manager").GetComponent<GameController>();
 	}
