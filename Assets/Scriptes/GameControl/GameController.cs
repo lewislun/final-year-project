@@ -107,6 +107,7 @@ public class GameController : MonoBehaviour {
 		tileManager.GenerateTiles(levelInfo.tileSetup);
 
 		//level required words
+		requiredWords.Clear();
 		if (levelInfo.requiredWords.Length == 0)
 			hasWordTarget = false;
 		else{
