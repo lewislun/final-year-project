@@ -435,12 +435,47 @@
 			"canRetry": true,
 			"showHints": true,
 			"tiles": [
-				"c,x,e,e,e,x",
-				"o,s,e,e,e,x",
-				"n,x,e,e,e,q",
-				"x,n,e,e,e,u",
-				"x,c,e,e,e,x",
-				"x,x,e,e,e,x"
+				"c,e,e,e,e,x",
+				"o,e,e,e,e,x",
+				"n,e,e,e,e,q",
+				"s,e,e,e,e,u",
+				"c,e,e,e,e,x",
+				"n,e,e,e,e,x"
+			]
+		},{
+			"rowCount": 8,
+			"colCount": 8,
+			"words": [
+				"advise",
+				"advice"
+			],
+			"requiredWords": [
+				{
+					"word": "advice",
+					"count": 3
+				},
+				{
+					"word": "advise",
+					"count": 3
+				}
+			],
+			"detailPanel": {
+				"visible": true,
+				"title": "A noun and a verb"
+			},
+			"duration": 60,
+			"enableChainify": false,
+			"enableExchange": false,
+			"canRetry": true,
+			"tiles": [
+				"a,d,a,a,d,c,e,a",
+				"i,d,v,i,v,i,d,i",
+				"s,v,d,s,i,v,d,v",
+				"e,e,i,c,e,a,c,i",
+				"v,c,a,e,a,e,e,v",
+				"i,d,i,d,i,s,e,d",
+				"e,s,a,v,v,s,a,a",
+				"i,v,d,a,d,i,v,d"
 			]
 		}
 	]

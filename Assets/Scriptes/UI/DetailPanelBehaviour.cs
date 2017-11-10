@@ -10,6 +10,8 @@ public class DetailPanelBehaviour : MonoBehaviour {
 	public static string PANEL = "Panel";
 	public static string PANEL_IMAGE = "Panel Image";
 	public static string PANEL_TITLE = "Title";
+	public static string PANEL_FINISH_WITHIN = "Finish Within";
+	public static string PANEL_FINISH_WITHIN_DURATION = "duration";
 	public static string PANEL_WORD_LIST = "Word List";
 
 	public static string PANEL_WORD_LIST_ITEM_UPPER_PART = "Upper Part";
@@ -48,6 +50,13 @@ public class DetailPanelBehaviour : MonoBehaviour {
 		}
 	}
 
+	public float duration {
+		set {
+			durationContainer.SetActive(value >= 0);
+			durationText.text = value + "s";
+		}
+	}
+
 	#endregion
 
 
@@ -56,6 +65,8 @@ public class DetailPanelBehaviour : MonoBehaviour {
 	CanvasFadeBehaviour mCanvasFadeBehaviour;
 	Text titleText;
 	Image panelImage;
+	GameObject durationContainer;
+	Text durationText;
 	GameObject wordListItemContainer;
 
 	#endregion
@@ -68,6 +79,8 @@ public class DetailPanelBehaviour : MonoBehaviour {
 		titleText = transform.Find(PANEL).Find(PANEL_TITLE).GetComponent<Text>();
 		mCanvasFadeBehaviour = GetComponent<CanvasFadeBehaviour>();
 		wordListItemContainer = transform.Find(PANEL).Find(PANEL_WORD_LIST).Find("Viewport").Find("Content").gameObject;
+		durationContainer = transform.Find(PANEL).Find(PANEL_FINISH_WITHIN).gameObject;
+		durationText = durationContainer.transform.Find(PANEL_FINISH_WITHIN_DURATION).GetComponent<Text>();
 	}
 
 	#endregion

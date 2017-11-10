@@ -49,6 +49,16 @@
 			"word": "consequence",
 			"partOfSpeech": "n",
 			"definition": "a result or effect, typically one that is unwelcome or unpleasant"
+		},
+		{
+			"word": "advice",
+			"partOfSpeech": "n",
+			"definition": "recommendations about what to do"
+		},
+		{
+			"word": "advise",
+			"partOfSpeech": "v",
+			"definition": "to recommend something"
 		}
 	]
 }
